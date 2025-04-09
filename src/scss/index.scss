@@ -1,0 +1,286 @@
+/* **************** GENERAL ***************** */
+// Utilities
+@import "./color.scss";
+
+body {
+    margin: 0;
+	height: 100vh;
+	font-family: 'montserrat' !important;
+}
+
+h1 {
+	font-family: 'HumaneExtLt', sans-serif;
+	font-size: 100px !important;
+	font-weight: 100;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	margin: 0;
+}
+
+h2 {
+	font-family: 'HumaneLight', sans-serif;
+	font-size: 4rem;
+	font-weight: 100;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	margin: 0 0 20px;
+}
+
+h3 {
+	font-size: 22px !important;
+}
+
+h4 {
+	font-size: 16px !important;
+	margin: 0;
+}
+
+
+/* **************** COMPOSITION ***************** */
+
+/* ************* MAP ************** */
+
+
+#container {
+	display: flex;
+	align-items: stretch;
+	justify-content: space-between;
+	overflow: hidden;
+	max-height: 100vh;
+	border-top: 2px solid $color-sombre;
+	border-bottom: 2px solid $color-sombre;
+}
+
+.map-image {
+	flex-grow: 4;
+	flex-shrink: 10;
+	display: flex;
+	flex-direction: column;
+}
+
+.map-image svg {
+	padding: 2%;
+    height: 100vh;
+    width: 96%;
+}
+
+.map-image path {
+	stroke: white;
+	stroke-width: 0.6px;
+	stroke-opacity: 1;
+	opacity: 1;
+	transition: all 0.3s;
+	cursor: -webkit-grab; 
+	cursor: grab;
+}
+
+.map-image .circo path {
+	stroke: white;
+	stroke-width: 30px;
+	stroke-opacity: 1;
+	stroke-linecap: square;
+	pointer-events: none;
+	opacity: 1;
+}
+
+.map-image svg a {
+	fill: $color-secondaire;
+}
+
+.map-image svg a:hover {
+	opacity: 0.7;
+}
+
+.map-image .active {
+	z-index: 2;
+}
+
+.map-image .active  {
+	z-index:2;
+	fill: $color-sombre !important;
+	animation: clignotant 1s infinite;
+}
+
+@keyframes clignotant { 
+	0%   { opacity: 0;  }
+	100% { opacity: 1; } 
+}
+
+.map-liste {
+	flex-grow: 1;
+	padding: 5px 10px;
+	margin: 5px 0;
+}
+
+.map-liste ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.map-liste li {
+	cursor: -webkit-grab; 
+	cursor: grab;
+	padding: 3px 0;
+	margin: 2px 0;
+}
+
+.map-liste a {
+	color: $color-sombre;
+	font-weight: 400;
+	text-decoration: none;
+	transition: all 0.3s;
+}
+
+.map-liste a.active {
+	color: $color-principale;
+	font-weight: 700;
+}
+
+/* ************* MENU ************** */
+
+#containerMenu {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}	
+
+.electionMenu {
+	
+	width: 200px;
+	padding: 2px;
+	text-align: center;
+	border-radius: 0;
+	background-color: $color-secondaire;
+}
+
+
+/* **************** CONTAINER RESULTAT ***************** */
+
+#container-resultat {
+	flex-grow: 1;
+	max-width: 480px;
+	height: 100vh;
+	border-left: 2px solid $color-sombre;
+	overflow: scroll;
+}
+
+#div-vote-exprimes {
+	margin-top: 20px;
+}
+
+.progress{
+	background-color: $color-secondaire !important;
+	border-radius:0;
+	overflow:visible;
+	margin: 1px 0 8px;
+}
+
+.barre-resultat {
+	width: 0;
+	background: $color-gris; 
+	-webkit-transition: width 1s ease-in-out;
+	transition: width 1.5s ease-in-out;
+}
+
+#barre-resultat-gauche { background: $color-gauche;}
+#barre-resultat-macron { background: $color-macron;}
+#barre-resultat-droite { background: $color-droite;}
+#barre-resultat-exd { background: $color-exd;}
+
+#barre-resultat-lr { background: $color-lr;}
+#barre-resultat-pcf { background: $color-pcf;}
+#barre-resultat-lfi { background: $color-lfi;}
+#barre-resultat-eelv { background: $color-eelv;}
+#barre-resultat-ps { background: $color-ps;}
+
+#tooltip {
+	position: absolute; 
+	display: none; 
+	color: white;
+	background-color: $color-sombre; 
+	border: 1px solid $color-secondaire; 
+	padding: 5px; 
+	z-index: 100;
+}
+
+
+/* ************* CONTAINER RESULTAT FRANCE ************** */
+
+#container-france {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	height: 10%;
+	min-height: 110px;
+	border-top: 2px solid $color-sombre;
+}
+
+#container-france h2 {
+	line-height: 0.8;
+	padding: 0 20px;
+	margin: 0;
+}
+
+#container-barre-france {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	justify-content: space-around;
+	width: 68%;
+	height: 100%;
+	border-left: 2px solid $color-sombre;
+	padding: 0 4% 10px;
+	overflow: hidden;
+}
+
+#container-score-france {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 2px 20px;
+	padding: 10px 20px;
+	flex-wrap: wrap;
+	line-height: 1.2;
+}
+
+#container-score-france>div {
+	align-items: center;
+}
+
+#container-score-france .Gauche strong {	color: $color-gauche;	}
+#container-score-france .Droite strong {	color: $color-droite;	}
+#container-score-france .Macron strong {	color: $color-macron;	}
+#container-score-france .Extdroite strong {	color: $color-exd;	}
+#container-score-france .Abstention strong {	color: $color-gris;	}
+
+.container-resultat-france {
+	height: 100%;
+}
+
+.container-resultat-france>div{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	line-height: 1;
+}
+
+.divFrancePourcentage {	width: 50px; margin-bottom: 5px; background-color: $color-secondaire;}
+.divFrancePourcentage.Abstention {	background-color: $color-gris;}
+.divFrancePourcentage.PCF {	background-color: $color-pcf;}
+.divFrancePourcentage.EELV {	background-color: $color-eelv;}
+.divFrancePourcentage.LFI {	background-color: $color-lfi;}
+.divFrancePourcentage.PS {	background-color: $color-ps;}
+.divFrancePourcentage.Gauche {	background-color: $color-gauche;}
+.divFrancePourcentage.Dvd {	background-color: $color-dvd;}
+.divFrancePourcentage.Droite {	background-color: $color-droite;}
+.divFrancePourcentage.LR {	background-color: $color-lr;}
+.divFrancePourcentage.Extdroite {	background-color: $color-exd;}
+.divFrancePourcentage.RN {	background-color: $color-rn;}
+.divFrancePourcentage.Rec {	background-color: $color-sombre;}
+.divFrancePourcentage.Macron {	background-color: $color-macron;}

@@ -2,13 +2,23 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom';
 
-import './index.scss'
+// CSS
+import './scss/index.scss'
+import './scss/font.scss'
+import './scss/color.scss'
+
+// PAGE JSX
 import App from './App.jsx'
 
+// Context
+import { ElectionsProvider } from "./context/ElectionsContext.jsx";
+
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
+  <ElectionsProvider>
+    <StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StrictMode> 
+  </ElectionsProvider>
 )
