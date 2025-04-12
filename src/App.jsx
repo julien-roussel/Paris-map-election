@@ -5,7 +5,9 @@ import Layout from './components/Layout';
 
 // Page JSX
 import Home from './pages/Home.jsx';
-import MapParis from './pages/MapParis.jsx';
+import AnalyseMap from './pages/AnalyseMap.jsx';
+import About from './pages/About.jsx';
+import Nothing from './pages/Nothing.jsx';
 
 function App() {
 
@@ -14,7 +16,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home/>} />
-          <Route path="/map-paris" element={<MapParis/>} />  
+          <Route path="/analyse-map" element={<AnalyseMap/>} />  
+          <Route path="/about" element={<About/>} />  
+          <Route path='*' element={<Nothing/>} />
         </Route>
       </Routes>
     </>
