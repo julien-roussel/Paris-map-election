@@ -9,6 +9,7 @@ const SelectElection = () => {
   return (
     <div id="containerMenu">
         <select id="electionMenu" onChange={(e) => loadElectionMap(e.target.value, 75)}>
+            <option value="">Sélectionnez une élection</option>
             {allNameElections.map((election, index) => (
                 <option key={index} value={election.idName}>{election.name}</option>
             ))}

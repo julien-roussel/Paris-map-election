@@ -9,9 +9,8 @@ import ContainerResultat from './ContainerResultat';
 const ResultatsLateral = () => {
     const { allNameElections, bureauSelect, bureauDataSelect } = useElection();
 
-    useEffect(() => {
-      console.log('✅ Bureau data récupéré :', bureauDataSelect);
-      
+  useEffect(() => {
+    console.log('✅ Bureau data récupéré :', bureauDataSelect);
   }, [bureauDataSelect])
 
   return (

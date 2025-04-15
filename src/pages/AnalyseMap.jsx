@@ -1,11 +1,15 @@
 import React from 'react'
 
-import Map from '../Components/Map'
+import Map from '../Components/map/Map'
 import SelectElection from '../Components/parameters/SelectElection';
 import ResultatsLateral from '../Components/parameters/ResultatsLateral';
 
+// Context
+import { useElection } from "../context/ElectionsContext"
+
 const MapParis = () => {
-   
+   const {bureauDataSelect } = useElection();
+    
   return (
     <div id="map-paris">
         <div id="container" className="map">
@@ -19,8 +23,10 @@ const MapParis = () => {
             <div id="container-resultat">
                 <div id="marge-resultat">
                     <h1>résultats élections</h1>
-                    <h3>PARIS <span id="resultat-numeroCirco"></span> - Bureau de vote <span id="resultat-numeroBureau"></span></h3>
                     <SelectElection/>
+                    <h3>PARIS {bureauDataSelect && bureauDataSelect.meta.departement}</h3>
+                    <h4>Circonscription {bureauDataSelect && bureauDataSelect.meta.circo}</h4>
+                    <h4>Bureau de vote {bureauDataSelect && bureauDataSelect.meta.bureau}</h4>
                     <div id="div-resultat">
                         <ResultatsLateral/>
                     </div>
