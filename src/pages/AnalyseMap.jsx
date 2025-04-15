@@ -25,8 +25,8 @@ const MapParis = () => {
                     <h1>résultats élections</h1>
                     <SelectElection/>
                     <h3>PARIS {bureauDataSelect && bureauDataSelect.meta.departement}</h3>
-                    <h4>Circonscription {bureauDataSelect && bureauDataSelect.meta.circo}</h4>
-                    <h4>Bureau de vote {bureauDataSelect && bureauDataSelect.meta.bureau}</h4>
+                    <h5>Circonscription {bureauDataSelect && bureauDataSelect.meta.circo}</h5>
+                    <h5>Bureau de vote {bureauDataSelect && bureauDataSelect.meta.bureau}</h5>
                     <div id="div-resultat">
                         <ResultatsLateral/>
                     </div>

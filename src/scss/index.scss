@@ -10,7 +10,7 @@ body {
 
 h1 {
 	font-family: 'HumaneExtLt', sans-serif;
-	font-size: 100px !important;
+	font-size: 90px !important;
 	font-weight: 100;
 	letter-spacing: 2px;
 	text-transform: uppercase;
@@ -28,10 +28,16 @@ h2 {
 
 h3 {
 	font-size: 22px !important;
+	margin: 8px 0 3px;
 }
 
 h4 {
 	font-size: 16px !important;
+	margin: 6px 0 3px;
+}
+
+h5 {
+	font-size: 14px !important;
 	margin: 0;
 }
 
@@ -201,6 +207,44 @@ h4 {
 	padding: 5px; 
 	z-index: 100;
 }
+
+/* **************** VOLET DÉPLIANT ***************** */
+
+.panneaux-score-resultat {
+	cursor: pointer;
+	padding: 12px 0;
+	border-bottom: 2px $color-sombre solid;
+	transition: all 0.2s ease;
+}
+
+.panneaux-score-resultat:hover {
+	background-color: $color-tertiaire;
+}
+
+header {
+	margin-top: 0;
+	padding: 20px 30px;
+}
+
+.panneaux-score-volet.close  {
+	height: 30px !important;
+}
+
+.panneaux-score-volet {
+	height: 540px;
+	overflow: hidden;
+    transition: height 0.3s ease;
+}
+
+.panneaux-score-button {
+    transition: all 0.3s ease;
+}
+
+.panneaux-score-resultat:hover .panneaux-score-button {
+	padding-left: 15px;
+	border-left: 3px solid $color-principale;
+}
+
 
 
 /* ************* CONTAINER RESULTAT FRANCE ************** */
