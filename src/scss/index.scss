@@ -79,6 +79,20 @@ h5 {
 	transition: all 0.3s;
 	cursor: -webkit-grab; 
 	cursor: grab;
+
+	&.nuance-EXD { fill: $color-exd;}
+	&.nuance-DVD { fill: $color-dvd;}
+	&.nuance-CEN { fill: $color-cen;}
+	&.nuance-DVG { fill: $color-dvg;}
+	&.nuance-ECO { fill: $color-eco;}
+	&.nuance-RDG { fill: $color-rdg;}
+	&.nuance-DXG { fill: $color-dxg;}
+	
+	&.parti-RN 	{ fill: $color-rn; }
+	&.parti-UXD { fill: $color-uxd;}
+	&.parti-LR	{ fill: $color-uxd;}
+	&.parti-DVG { fill: $color-dvg;}
+	&.parti-LFI { fill: $color-lfi;}
 }
 
 .map-image path:hover {
@@ -162,6 +176,7 @@ h5 {
 #container-resultat {
 	flex-grow: 1;
 	max-width: 480px;
+	min-width: 340px;
 	height: 100vh;
 	border-left: 2px solid $color-sombre;
 	overflow: scroll;
@@ -182,21 +197,25 @@ h5 {
 			background: $color-gris; 
 			-webkit-transition: width 1s ease-in-out;
 			transition: width 1.5s ease-in-out;
+			
+			&.nuance-EXD { background: $color-exd;}
+			&.nuance-DVD { background: $color-dvd;}
+			&.nuance-CEN { background: $color-cen;}
+			&.nuance-DVG { background: $color-dvg;}
+			&.nuance-ECO { background: $color-eco;}
+			&.nuance-RDG { background: $color-rdg;}
+			&.nuance-DXG { background: $color-dxg;}
+			
+			&.parti-RN { background: $color-rn;}
+			&.parti-UXD { background: $color-uxd;}
+			&.parti-LR { background: $color-uxd;}
+			&.parti-DVG { background: $color-dvg;}
+			&.parti-LFI { background: $color-lfi;}
 		}
 	}
 }
 
 
-#barre-resultat-gauche { background: $color-gauche;}
-#barre-resultat-macron { background: $color-macron;}
-#barre-resultat-droite { background: $color-droite;}
-#barre-resultat-exd { background: $color-exd;}
-
-#barre-resultat-lr { background: $color-lr;}
-#barre-resultat-pcf { background: $color-pcf;}
-#barre-resultat-lfi { background: $color-lfi;}
-#barre-resultat-eelv { background: $color-eelv;}
-#barre-resultat-ps { background: $color-ps;}
 
 #tooltip {
 	position: absolute; 
@@ -212,7 +231,8 @@ h5 {
 
 .panneaux-score-resultat {
 	cursor: pointer;
-	padding: 12px 0;
+	padding: 0 0 12px 0;
+    margin: 10px 0 0;
 	border-bottom: 2px $color-sombre solid;
 	transition: all 0.2s ease;
 }

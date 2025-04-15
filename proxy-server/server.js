@@ -9,6 +9,7 @@ app.use(cors());
 
 let resultatsPresi2017 = {};
 let resultatsPresi2022 = {};
+let nuancePolitique = {};
 
 // Charger les données au démarrage
 try {
@@ -16,12 +17,30 @@ try {
   resultatsPresi2017 = JSON.parse(presi2017);
   const presi2022 = fs.readFileSync('./json/resultats_presi2022.json', 'utf-8');
   resultatsPresi2022 = JSON.parse(presi2022);
-  console.log(`✅ Fichier JSON chargé presi2017 (${Object.keys(resultatsPresi2017).length} bureaux)`);
-  console.log(`✅ Fichier JSON chargé presi2022 (${Object.keys(resultatsPresi2022).length} bureaux)`);
+  const nuance_politique = fs.readFileSync('./json/nuance_politique.json', 'utf-8');
+  nuancePolitique = JSON.parse(nuance_politique);
 } catch (err) {
   console.error("❌ Erreur lors du chargement des résultats :", err.message);
 }
 
+// Route pour charger les nuances politiques des candidats
+app.get('/api/elections/candidats', (req, res) => {
+  const filepath = `./json/nuance_politique.json`;
+  
+  if (!fs.existsSync(filepath)) {
+    return res.status(404).json({ error: `Fichier nuance_politique.json introuvable.` });
+  }
+
+  try {
+    const raw = fs.readFileSync(filepath, 'utf-8');
+    let data = Object.entries(JSON.parse(raw));
+    res.json(Object.fromEntries(data));
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ err: 'Erreur lecture JSON.' });
+  }
+});
 
 // Route pour charger les résultats pour un bureau de vote 
 app.get('/api/elections/:slug/:bureauId', (req, res) => {
@@ -46,8 +65,6 @@ app.get('/api/elections/:slug/:bureauId', (req, res) => {
       return res.status(404).json({ error: `Bureau ${bureauId} introuvable.` });
     }
 
-    // ✅ Log et retourne uniquement si trouvé
-    console.log('👉 Bureau demandé :', bureauId);
     return res.json(bureau);
   } catch (err) {
     console.error(err);
@@ -81,9 +98,9 @@ app.get('/api/elections/:slug', (req, res) => {
       res.json(Object.fromEntries(data));
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: 'Erreur lecture JSON.' });
+      res.status(500).json({ err: 'Erreur lecture JSON.' });
     }
-  });
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 Serveur prêt sur http://localhost:${PORT}/api/elections/`);

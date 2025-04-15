@@ -5,7 +5,7 @@ import { useElection } from "../../context/ElectionsContext"
 
 const ContainerResultat = (props) => {
     const [electionSelectedResults, setElectionSelectedResults] = useState([]);
-    const {loadResultBv, bureauSelect, bureauDataSelect } = useElection();
+    const {loadResultBv, bureauSelect, bureauDataSelect, nuancePolitique } = useElection();
     const [resultCandidat, setResultCandidat] = useState([]);
     const [perAbstentions, setPerAbstentions] = useState('');
     const [inscrits, setInscrits] = useState();
@@ -26,7 +26,6 @@ const ContainerResultat = (props) => {
             return;
           }
       
-        console.log('Chargement dans le container : ' + electionIdName);
         setResultCandidat(bureauDataSelect[props.electionIdName].candidats)
 
         const meta = bureauDataSelect[electionIdName].meta;
@@ -50,15 +49,24 @@ const ContainerResultat = (props) => {
                 </div> 
             </div>
             <h5>Parmi les votes exprimés :</h5>
-            {resultCandidat && resultCandidat.map((candidat, index) => (
-                <div key={index} className={"container-"+candidat.nom}>
-                    <span>{candidat.nom} {candidat.prenom} : {Math.round(candidat.voix/inscrits*100)}%</span>
-                    <div className="progress">
-                        <div id="barre-abstention" className="barre-resultat" role="progressbar" style={{width: (Math.round(candidat.voix/inscrits*100))+'%'}} >   
-                        </div>
-                    </div> 
-                </div>
-            ))}
+            {resultCandidat && resultCandidat.map((candidat, index) => {
+                var nuance;
+                var parti;
+                if(nuancePolitique[candidat.nom]) {
+                    nuance = nuancePolitique[candidat.nom].nuance
+                    parti = nuancePolitique[candidat.nom].parti    
+                }
+
+                return (
+                    <div key={index} className={"container-"+candidat.nom}>
+                        <span>{candidat.nom} {candidat.prenom} : {Math.round(candidat.voix/inscrits*100)}%</span>
+                        <div className="progress">
+                            <div id="barre-abstention" className={`barre-resultat ${nuance && 'nuance-'+nuance} ${parti && ' parti-'+parti}`} role="progressbar" style={{width: (Math.round(candidat.voix/inscrits*100))+'%'}} >   
+                            </div>
+                        </div> 
+                    </div>
+                )
+            })}
         </div>
     )
 }

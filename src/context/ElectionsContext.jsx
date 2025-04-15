@@ -9,7 +9,8 @@ export const ElectionsProvider = ({ children }) => {
   const [bureauSelect, setBureauSelect] = useState(undefined);
   const [bureauDataSelect, setBureauDataSelect] = useState(undefined);
   const [electionSelected, setElectionSelected] = useState([])
-  
+  const [nuancePolitique, setNuancePolitique] = useState([])
+
   // Pour charger toutes les résultats d'une élection d'un département 
   // pour la mapper sur une carte
   const loadElectionMap = async (election_name, departementSelected) => {
@@ -29,10 +30,15 @@ export const ElectionsProvider = ({ children }) => {
     }
   };
 
+  // Fonction pour sélectionner un bureau
+  const selectBureau = (bureau_id) => {
+    setBureauSelect(bureau_id)
+  };
+
   // Pour charger les résultats de toutes les élections d'un bureau de vote
   const loadResultBv = async (election_name, bureauVote) => {
     if (!election_name || !bureauVote) return;
-    console.log('📦 Requête pour :', election_name, bureauVote);
+    //console.log('📦 Requête pour :', election_name, bureauVote);
 
     try {
         const response = await axios.get(`http://localhost:3001/api/elections/${election_name}/${bureauVote}`)
@@ -55,6 +61,7 @@ export const ElectionsProvider = ({ children }) => {
     }
   };
 
+  // Charger les noms des élections disponibles
   useEffect(() => {
     const fetchAllNameElection = async () => {
     try {
@@ -67,19 +74,31 @@ export const ElectionsProvider = ({ children }) => {
   fetchAllNameElection();
   }, []); 
 
-  const selectBureau = (bureau_id) => {
-    setBureauSelect(bureau_id)
+  // Charger les nuances des élections disponibles
+  const loadNuancePolitique = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/elections/candidats')
+      setNuancePolitique(response.data)
+    } catch (error) {
+      console.error('❌ Erreur lors de récupération des données :', error.message);
+    }
   };
-
+  
+  useEffect(() => {
+    loadNuancePolitique();
+  }, []); 
+  
   return (
     <ElectionsContext.Provider value={{ 
           loadElectionMap,
           loadResultBv,
           selectBureau, 
+          loadNuancePolitique,
           allNameElections, 
           electionSelected,
           bureauSelect,
-          bureauDataSelect
+          bureauDataSelect,
+          nuancePolitique
     }}>
       {children}
     </ElectionsContext.Provider>
