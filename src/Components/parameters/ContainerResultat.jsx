@@ -1,41 +1,56 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 // Context
 import { useElection } from "../../context/ElectionsContext"
 
 const ContainerResultat = (props) => {
-    const { returnElection, electionResults, bureauSelect } = useElection();
     const [electionSelectedResults, setElectionSelectedResults] = useState([]);
-    const [bureauData, setBureauData] = useState([]);
+    const {loadResultBv, bureauSelect, bureauDataSelect } = useElection();
+    const [perAbstentions, setPerAbstentions] = useState('');
 
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await returnElection(props.electionIdName);
-            console.log(data);
-            
-            setElectionSelectedResults(data)            
-            console.log(data.find(bureau => bureau.id === bureauSelect));
-            console.log(bureauSelect);
-            
-            setBureauData(data.find(bureau => bureau.id === bureauSelect))
-        };
-        fetchData();
-    }, []);    
-    
-    
+        if (!props.electionIdName || !bureauSelect) return;
+        loadResultBv(props.electionIdName, bureauSelect);
+    }, [bureauSelect]);
+
+    useEffect(() => {
+        const electionIdName = props.electionIdName;
+      
+        if (
+            !electionIdName ||
+            !bureauDataSelect ||
+            !bureauDataSelect[electionIdName]
+          ) {
+            return;
+          }
+      
+        console.log('Chargement dans le container : ' + electionIdName);
+      
+        const meta = bureauDataSelect[electionIdName].meta;
+      
+        const abst = parseInt(meta.Abstentions, 10);
+        const inscrits = parseInt(meta.Inscrits, 10);
+      
+        if (abst && inscrits) {
+          setPerAbstentions(Math.round((abst / inscrits * 100) * 100) / 100);
+        } else {
+          setPerAbstentions('');
+        }
+      
+      }, [bureauDataSelect, props.electionIdName]);
+
   return (
-    <div>
-        {bureauData && bureauData.map((result, index) => (
-            <div key={index} className="container-abstention">
-                <span>Abstention : {result.abstentions}</span>
-                <div className="progress">
-                    <div id="barre-abstention" className="barre-resultat" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" >   
-                    </div>
-                </div> 
-            </div>
-        ))}
-    </div>
-  )
+        <div className="container-abstention">
+            <span>Abstention : {perAbstentions}%</span>
+            <div className="progress">
+                <div id="barre-abstention" className="barre-resultat" role="progressbar" style={{width: perAbstentions+'%'}} aria-valuenow={perAbstentions/100} aria-valuemin="0" aria-valuemax="100" >   
+                </div>
+                <div>
+                    
+                </div>
+            </div> 
+        </div>
+    )
 }
 
 export default ContainerResultat

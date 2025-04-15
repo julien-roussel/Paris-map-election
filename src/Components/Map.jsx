@@ -10,7 +10,7 @@ const Map = () => {
     const API_BASE = import.meta.env.VITE_API_PARIS_DATA_BV
     const LIMIT = 100;
 
-    const { electionMap, selectBureau } = useElection();
+    const { electionSupabase, selectBureau } = useElection();
 
     useEffect(() => {
         const fetchAllData = async () => {
@@ -48,11 +48,14 @@ const Map = () => {
     <svg viewBox="0 0 800 600" version="1.1" >
         {bureauVote.map((bureau, index) => {
             const geometry = bureau.geo_shape.geometry;
-            const circo = bureau.circonscription_bv;
-            const bureauSelect = (bureau.circonscription_bv < 10) ?
-                    'bureau-' + bureau.arrondissement_bv + '-0' + bureau.circonscription_bv :
-                    'bureau-' + bureau.arrondissement_bv + '-' + bureau.circonscription_bv;
-            const bureauData = electionMap.find(bureau => bureau.id === bureauSelect);
+            const departement = 75;
+            var arrondissement = bureau.arrondissement_bv < 10 ? '0'+bureau.arrondissement_bv : bureau.arrondissement_bv;
+            var circo = bureau.circonscription_bv < 10 ? '0' + bureau.circonscription_bv : bureau.circonscription_bv;
+            var bureau =  bureau.numero_bv < 10 ? '0' + bureau.numero_bv : bureau.numero_bv;
+            var bureauSelect = departement + '-' + circo + '-' + arrondissement + bureau;
+
+                    
+            const bureauData = electionSupabase.find(bureau => bureau.id === bureauSelect);
 
             if (!geometry || !geometry.coordinates) return null;
 
@@ -73,7 +76,7 @@ const Map = () => {
                     d={pathGenerator(geoJson)}
                     fill="black"
                     stroke="white"
-                    fillOpacity={bureauData ? bureauData.Abstentions/bureauData.Inscrits*4 : '1'}
+                    fillOpacity={bureauData ? bureauData.Abstentions/bureauData.Inscrits*3 : '1'}
                     strokeWidth={0.5}
                     onClick={() => selectBureau(bureauSelect)}
                 />

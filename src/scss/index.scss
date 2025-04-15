@@ -154,7 +154,6 @@ h4 {
 	background-color: $color-secondaire;
 }
 
-
 /* **************** CONTAINER RESULTAT ***************** */
 
 #container-resultat {
@@ -163,25 +162,27 @@ h4 {
 	height: 100vh;
 	border-left: 2px solid $color-sombre;
 	overflow: scroll;
+
+	#marge-resultat {
+		padding: 20px;
+		
+		.progress{
+			background-color: $color-secondaire !important;
+			border-radius:0;
+			overflow:visible;
+			margin: 1px 0 8px;
+		}
+		
+		.barre-resultat {
+			width: 0;
+			height: 10px;
+			background: $color-gris; 
+			-webkit-transition: width 1s ease-in-out;
+			transition: width 1.5s ease-in-out;
+		}
+	}
 }
 
-#div-vote-exprimes {
-	margin-top: 20px;
-}
-
-.progress{
-	background-color: $color-secondaire !important;
-	border-radius:0;
-	overflow:visible;
-	margin: 1px 0 8px;
-}
-
-.barre-resultat {
-	width: 0;
-	background: $color-gris; 
-	-webkit-transition: width 1s ease-in-out;
-	transition: width 1.5s ease-in-out;
-}
 
 #barre-resultat-gauche { background: $color-gauche;}
 #barre-resultat-macron { background: $color-macron;}

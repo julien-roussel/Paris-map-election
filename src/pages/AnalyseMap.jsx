@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import React from 'react'
 
 import Map from '../Components/Map'
 import SelectElection from '../Components/parameters/SelectElection';
@@ -18,11 +17,13 @@ const MapParis = () => {
                 </div>
             </div>
             <div id="container-resultat">
-                <h1>résultats élections</h1>
-                <h3>PARIS <span id="resultat-numeroCirco"></span> - Bureau de vote <span id="resultat-numeroBureau"></span></h3>
-                <SelectElection/>
-                <div id="div-resultat">
-                    <ResultatsLateral/>
+                <div id="marge-resultat">
+                    <h1>résultats élections</h1>
+                    <h3>PARIS <span id="resultat-numeroCirco"></span> - Bureau de vote <span id="resultat-numeroBureau"></span></h3>
+                    <SelectElection/>
+                    <div id="div-resultat">
+                        <ResultatsLateral/>
+                    </div>
                 </div>
             </div>
         </div>
