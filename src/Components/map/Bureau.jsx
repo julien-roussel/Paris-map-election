@@ -6,9 +6,8 @@ import * as d3 from 'd3';
 import { useElection } from "../../context/ElectionsContext"
 
 const Bureau = (props) => {
-    const { electionSelected, selectBureau, bureauDataSelect } = useElection();
+    const { electionSelected, selectBureau, bureauSelect, bureauDataSelect } = useElection();
     const [perAbstention, setPerAbstention] = useState();
-    const [bureauActif, setBureauActif] = useState();
 
     useEffect(() => {
         if(!electionSelected[props.bureauSelect]) return
@@ -22,16 +21,13 @@ const Bureau = (props) => {
   return (
     <path 
         id={props.bureauSelect} 
-        className={bureauActif === props.bureauSelect ? 'active ' + props.class : props.class } 
+        className={bureauSelect == props.bureauSelect ? 'active ' + props.class : props.class } 
         d={props.coordonne}
         fill="black"
         stroke="white"
         fillOpacity={perAbstention}
         strokeWidth={0.5}
-        onClick={() => {
-            props.click
-            selectBureau(props.bureauSelect)
-        }}
+        onClick={() => selectBureau(props.bureauSelect)}
     />
   )
 }

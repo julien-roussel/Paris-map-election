@@ -47,11 +47,6 @@ const Map = () => {
 
     const pathGenerator = d3.geoPath().projection(projection);
 
-    // Function pour activer un bureau 
-    const activerBureau = (bureau_id) => {
-        setBureauActif(bureau_id)
-    };
-
   return (
     <svg viewBox="0 0 800 600" version="1.1" >
         {bureauVote.map((bureau, index) => {
@@ -80,9 +75,6 @@ const Map = () => {
                         ' circo-' + circo
                     } 
                     coordonne={pathGenerator(geoJson)}
-                    click={() => {
-                        activerBureau(bureauSelect)
-                    }}
                 />
             )
         })}

@@ -9,7 +9,7 @@ export const ElectionsProvider = ({ children }) => {
   const [bureauSelect, setBureauSelect] = useState(undefined);
   const [bureauDataSelect, setBureauDataSelect] = useState(undefined);
   const [electionSelected, setElectionSelected] = useState([])
-
+  
   // Pour charger toutes les résultats d'une élection d'un département 
   // pour la mapper sur une carte
   const loadElectionMap = async (election_name, departementSelected) => {
