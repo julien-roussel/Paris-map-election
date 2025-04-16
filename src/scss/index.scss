@@ -79,7 +79,8 @@ h5 {
 	transition: all 0.3s;
 	cursor: -webkit-grab; 
 	cursor: grab;
-
+	
+	
 	&.nuance-EXD { fill: $color-exd;}
 	&.nuance-DVD { fill: $color-dvd;}
 	&.nuance-CEN { fill: $color-cen;}
@@ -93,6 +94,8 @@ h5 {
 	&.parti-LR	{ fill: $color-uxd;}
 	&.parti-DVG { fill: $color-dvg;}
 	&.parti-LFI { fill: $color-lfi;}
+	
+	&.abstention { fill: $color-sombre;}
 }
 
 .map-image path:hover {
@@ -156,7 +159,7 @@ h5 {
 
 /* ************* MENU ************** */
 
-#containerMenu {
+.container-select {
 	display: flex;
 	flex-direction: column;
 	gap: 5px;

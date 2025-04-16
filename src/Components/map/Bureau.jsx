@@ -6,9 +6,10 @@ import * as d3 from 'd3';
 import { useElection } from "../../context/ElectionsContext"
 
 const Bureau = (props) => {
-    const { electionSelected, selectBureau, bureauSelect, nuancePolitique } = useElection();
+    const { electionSelected, selectBureau, bureauSelect, nuancePolitique, modeMap } = useElection();
     const [perAbstention, setPerAbstention] = useState();
     const [first, setFirst] = useState();
+    const [perFirst, setPerFirst] = useState();
 
     useEffect(() => {
         if(!electionSelected[props.bureauSelect]) return
@@ -18,21 +19,26 @@ const Bureau = (props) => {
         const candidats = electionSelected[props.bureauSelect]?.candidats || [];
         const candidatsTri = [...candidats].sort((a, b) => b.voix - a.voix);
         setFirst(candidatsTri)
+        setPerFirst(candidatsTri[0].voix/inscrits*2)
     }, [electionSelected]);
 
   return (
     <path 
         id={props.bureauSelect} 
         className={
-            props.class +
-            (bureauSelect == props.bureauSelect ? 'active ' : '') +
-            (first ? ' nuance-' + nuancePolitique[first[0].nom].nuance : '') +
-            (first ? ' parti-' + nuancePolitique[first[0].nom].parti : '')
+            props.class + ' ' +
+            (bureauSelect == props.bureauSelect ? 'active' : '') + ' ' +
+            (first ? ' nuance-' + nuancePolitique[first[0].nom].nuance : '') + ' ' +
+            (first ? ' parti-' + nuancePolitique[first[0].nom].parti : '') + ' ' +
+            (modeMap === 'abstention' ? 'abstention' : '')
         } 
         d={props.coordonne}
         fill="black"
         stroke="white"
-        fillOpacity={perAbstention}
+        fillOpacity={
+            modeMap === 'abstention' ? perAbstention
+                : modeMap === 'first' ? perFirst
+                : " "}
         strokeWidth={0.5}
         onClick={() => selectBureau(props.bureauSelect)}
     />

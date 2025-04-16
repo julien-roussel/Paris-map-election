@@ -10,6 +10,7 @@ export const ElectionsProvider = ({ children }) => {
   const [bureauDataSelect, setBureauDataSelect] = useState(undefined);
   const [electionSelected, setElectionSelected] = useState([])
   const [nuancePolitique, setNuancePolitique] = useState([])
+  const [modeMap, setModeMap] = useState('first')
 
   // Pour charger toutes les résultats d'une élection d'un département 
   // pour la mapper sur une carte
@@ -61,6 +62,12 @@ export const ElectionsProvider = ({ children }) => {
     }
   };
 
+  // Sélection du mode pour la map
+  const chooseModeMap = async (mode) => {
+    console.log(mode);
+    setModeMap(mode)
+  }
+
   // Charger les noms des élections disponibles
   useEffect(() => {
     const fetchAllNameElection = async () => {
@@ -83,7 +90,7 @@ export const ElectionsProvider = ({ children }) => {
       console.error('❌ Erreur lors de récupération des données :', error.message);
     }
   };
-  
+
   useEffect(() => {
     loadNuancePolitique();
   }, []); 
@@ -98,7 +105,9 @@ export const ElectionsProvider = ({ children }) => {
           electionSelected,
           bureauSelect,
           bureauDataSelect,
-          nuancePolitique
+          nuancePolitique,
+          chooseModeMap,
+          modeMap
     }}>
       {children}
     </ElectionsContext.Provider>

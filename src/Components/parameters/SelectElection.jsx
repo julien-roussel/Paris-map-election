@@ -7,7 +7,7 @@ const SelectElection = () => {
     const { allNameElections, loadElectionMap } = useElection();
 
   return (
-    <div id="containerMenu">
+    <div id="containerMenu" className="container-select">
         <select id="electionMenu" onChange={(e) => loadElectionMap(e.target.value, 75)}>
             <option value="">Sélectionnez une élection</option>
             {allNameElections.map((election, index) => (

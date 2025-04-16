@@ -2,6 +2,7 @@ import React from 'react'
 
 import Map from '../Components/map/Map'
 import SelectElection from '../Components/parameters/SelectElection';
+import SelectMode from '../Components/parameters/SelectMode';
 import ResultatsLateral from '../Components/parameters/ResultatsLateral';
 
 // Context
@@ -24,6 +25,7 @@ const MapParis = () => {
                 <div id="marge-resultat">
                     <h1>résultats élections</h1>
                     <SelectElection/>
+                    <SelectMode/>
                     <h3>PARIS {bureauDataSelect && bureauDataSelect.meta.departement}</h3>
                     <h5>Circonscription {bureauDataSelect && bureauDataSelect.meta.circo}</h5>
                     <h5>Bureau de vote {bureauDataSelect && bureauDataSelect.meta.bureau}</h5>
