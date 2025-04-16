@@ -27,7 +27,7 @@ const ContainerResultat = (props) => {
           }
       
         setResultCandidat(bureauDataSelect[props.electionIdName].candidats)
-
+        
         const meta = bureauDataSelect[electionIdName].meta;
         const abst = parseInt(meta.Abstentions, 10);
         setInscrits(parseInt(meta.Inscrits, 10))

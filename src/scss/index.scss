@@ -94,7 +94,7 @@ h5 {
 	&.parti-LR	{ fill: $color-uxd;}
 	&.parti-DVG { fill: $color-dvg;}
 	&.parti-LFI { fill: $color-lfi;}
-	
+
 	&.abstention { fill: $color-sombre;}
 }
 
@@ -255,8 +255,15 @@ header {
 
 .panneaux-score-volet {
 	height: 540px;
-	overflow: hidden;
+	overflow-x: hidden;
+  	overflow-y: scroll;
     transition: height 0.3s ease;
+	-ms-overflow-style: none; // IE 10+
+	overflow: -moz-scrollbars-none; // Firefox
+	
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 .panneaux-score-button {

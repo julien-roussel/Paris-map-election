@@ -5,7 +5,22 @@ import axios from 'axios';
 export const ElectionsContext = createContext();
 
 export const ElectionsProvider = ({ children }) => {
-  const [allNameElections, setAllNameElections] = useState([]);
+  const [allNameElections, setAllNameElections] = useState(
+  [
+    {
+      idName: 'presi2017',
+      name: 'Présidentielles 2017'
+    },
+    {
+      idName: 'presi2022',
+      name: 'Présidentielles 2022'
+    },
+    {
+      idName: 'euro2024',
+      name: 'Européennes 2024'
+    }
+  ]);
+
   const [bureauSelect, setBureauSelect] = useState(undefined);
   const [bureauDataSelect, setBureauDataSelect] = useState(undefined);
   const [electionSelected, setElectionSelected] = useState([])
@@ -47,8 +62,8 @@ export const ElectionsProvider = ({ children }) => {
         const resultMeta = {
             ['departement'] : filteredResults.meta["Code du département"],
             ['circo'] : filteredResults.meta["Code de la circonscription"],
-            ['arrondissement'] : filteredResults.meta["Bureau"].slice(0, 2),
             ['bureau'] : filteredResults.meta["Bureau"].slice(2),
+            ['arrondissement'] : filteredResults.meta["Bureau"].slice(0, 2),
         }
 
         setBureauDataSelect(prev => ({
@@ -68,8 +83,8 @@ export const ElectionsProvider = ({ children }) => {
     setModeMap(mode)
   }
 
-  // Charger les noms des élections disponibles
-  useEffect(() => {
+  // OBSOLETE Charger les noms des élections disponibles
+  /*useEffect(() => {
     const fetchAllNameElection = async () => {
     try {
       const {data, status, error} = await supabase.from("Names-elections").select("*");      
@@ -79,7 +94,7 @@ export const ElectionsProvider = ({ children }) => {
     }
   }
   fetchAllNameElection();
-  }, []); 
+  }, []); */
 
   // Charger les nuances des élections disponibles
   const loadNuancePolitique = async () => {

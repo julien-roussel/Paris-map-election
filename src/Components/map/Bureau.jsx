@@ -28,8 +28,8 @@ const Bureau = (props) => {
         className={
             props.class + ' ' +
             (bureauSelect == props.bureauSelect ? 'active' : '') + ' ' +
-            (first ? ' nuance-' + nuancePolitique[first[0].nom].nuance : '') + ' ' +
-            (first ? ' parti-' + nuancePolitique[first[0].nom].parti : '') + ' ' +
+            ((first && nuancePolitique[first[0].nom]) ? ' nuance-' + nuancePolitique[first[0].nom].nuance : '') + ' ' +
+            ((first && nuancePolitique[first[0].nom]) ? ' parti-' + nuancePolitique[first[0].nom].parti : '') + ' ' +
             (modeMap === 'abstention' ? 'abstention' : '')
         } 
         d={props.coordonne}

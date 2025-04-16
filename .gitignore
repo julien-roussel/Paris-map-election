@@ -18,7 +18,8 @@ csv
 # Server
 json
 files
-parseElectionTxt.js
+parseElectionPresi.js
+parseElectionEuro.js
 server-api.js
 
 # Editor directories and files

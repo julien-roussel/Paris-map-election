@@ -55,7 +55,7 @@ const Map = () => {
             var arrondissement = bureau.arrondissement_bv < 10 ? '0'+bureau.arrondissement_bv : bureau.arrondissement_bv;
             var circo = bureau.circonscription_bv < 10 ? '0' + bureau.circonscription_bv : bureau.circonscription_bv;
             var bureau =  bureau.numero_bv < 10 ? '0' + bureau.numero_bv : bureau.numero_bv;
-            var bureauSelect = departement + '-' + circo + '-' + arrondissement + bureau;
+            var bureauSelect = departement + '-' + arrondissement + bureau;
 
             if (!geometry || !geometry.coordinates) return null;
 

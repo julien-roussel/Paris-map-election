@@ -9,14 +9,20 @@ app.use(cors());
 
 let resultatsPresi2017 = {};
 let resultatsPresi2022 = {};
+let resultatsEuro2024 = {};
 let nuancePolitique = {};
 
 // Charger les données au démarrage
 try {
   const presi2017 = fs.readFileSync('./json/resultats_presi2017.json', 'utf-8');
   resultatsPresi2017 = JSON.parse(presi2017);
+  
   const presi2022 = fs.readFileSync('./json/resultats_presi2022.json', 'utf-8');
   resultatsPresi2022 = JSON.parse(presi2022);
+
+  const euro2024 = fs.readFileSync('./json/resultats_euro2024.json', 'utf-8');
+  resultatsEuro2024 = JSON.parse(euro2024);
+  
   const nuance_politique = fs.readFileSync('./json/nuance_politique.json', 'utf-8');
   nuancePolitique = JSON.parse(nuance_politique);
 } catch (err) {
