@@ -9,27 +9,31 @@ export const ElectionsProvider = ({ children }) => {
   [
     {
       idName: 'presi2017',
-      name: 'Présidentielles 2017'
+      name: 'Présidentielles 2017',
+      type: 'presi'
     },
     {
       idName: 'presi2022',
-      name: 'Présidentielles 2022'
+      name: 'Présidentielles 2022',
+      type: 'presi'
     },
     {
       idName: 'euro2024',
-      name: 'Européennes 2024'
+      name: 'Européennes 2024',
+      type: 'euro'
     }
   ]);
 
   const [bureauSelect, setBureauSelect] = useState(undefined);
   const [bureauDataSelect, setBureauDataSelect] = useState(undefined);
+  const [electionNameSelected, setElectionNameSelected] = useState([])
   const [electionSelected, setElectionSelected] = useState([])
   const [nuancePolitique, setNuancePolitique] = useState([])
-  const [modeMap, setModeMap] = useState('first')
 
   // Pour charger toutes les résultats d'une élection d'un département 
   // pour la mapper sur une carte
   const loadElectionMap = async (election_name, departementSelected) => {
+    setElectionNameSelected(allNameElections.filter(election => election.idName === election_name))
     if(!election_name) return
     try {
         const response = await axios.get(`http://localhost:3001/api/elections/${election_name}`, {
@@ -37,7 +41,7 @@ export const ElectionsProvider = ({ children }) => {
             departement: departementSelected
           }
         })   
-
+      setElectionSelected(undefined)
       const filteredResults = response.data;
       setElectionSelected(filteredResults);
       console.log('electionSelected : ', filteredResults);
@@ -76,26 +80,7 @@ export const ElectionsProvider = ({ children }) => {
         console.error('❌ Erreur lors de récupération des données :', error.message);
     }
   };
-
-  // Sélection du mode pour la map
-  const chooseModeMap = async (mode) => {
-    console.log(mode);
-    setModeMap(mode)
-  }
-
-  // OBSOLETE Charger les noms des élections disponibles
-  /*useEffect(() => {
-    const fetchAllNameElection = async () => {
-    try {
-      const {data, status, error} = await supabase.from("Names-elections").select("*");      
-      if(status === 200) setAllNameElections(data)
-    } catch(error) {
-      console.log("Error fetching: ", error);
-    }
-  }
-  fetchAllNameElection();
-  }, []); */
-
+  
   // Charger les nuances des élections disponibles
   const loadNuancePolitique = async () => {
     try {
@@ -105,6 +90,31 @@ export const ElectionsProvider = ({ children }) => {
       console.error('❌ Erreur lors de récupération des données :', error.message);
     }
   };
+
+
+  // OPTIONS D'AFFICHAGE -------------------------------
+  // ---------------------------------------------------
+
+  const [modeMap, setModeMap] = useState('first')
+  const [allCandidats, setAllCandidats] = useState(true)
+
+  // Sélection du mode pour la map
+  const chooseModeMap = async (mode) => {
+    console.log(mode);
+    setModeMap(mode)
+  }
+  
+  const afficherAllCandidats = async (value) => {
+    if (value == "allCandidats") {
+      if(allCandidats==true) {
+        setAllCandidats(false)
+      } else {
+        setAllCandidats(true)
+      }
+      console.log(allCandidats);
+    }
+  }
+
 
   useEffect(() => {
     loadNuancePolitique();
@@ -116,7 +126,10 @@ export const ElectionsProvider = ({ children }) => {
           loadResultBv,
           selectBureau, 
           loadNuancePolitique,
+          afficherAllCandidats,
+          allCandidats,
           allNameElections, 
+          electionNameSelected,
           electionSelected,
           bureauSelect,
           bureauDataSelect,

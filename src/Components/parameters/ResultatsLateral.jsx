@@ -32,7 +32,7 @@ const ResultatsLateral = () => {
                   onClick={() => toggleVolet(election.idName)}
                   className={`panneaux-score-volet ${isOpen && bureauSelect  ? '' : 'close'}`}
             >
-              <h3 className="panneaux-score-button">{election.name}</h3>
+              <h3 className={(bureauSelect ? '' : 'no-select ') + "panneaux-score-button"}>{election.name}</h3>
               {bureauSelect && <ContainerResultat bureauSelected={bureauSelect} electionIdName={election.idName} />}
             </div>
           </div>
