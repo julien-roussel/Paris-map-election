@@ -16,6 +16,7 @@ package-lock.json
 csv
 
 # Server
+parse
 json
 files
 parseElectionPresi.js

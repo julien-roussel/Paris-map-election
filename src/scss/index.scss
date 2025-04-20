@@ -2,6 +2,10 @@
 // Utilities
 @import "./color.scss";
 
+html {
+	font-size: 14px;
+}
+
 body {
     margin: 0;
 	height: 100vh;
@@ -10,7 +14,7 @@ body {
 
 h1 {
 	font-family: 'HumaneExtLt', sans-serif;
-	font-size: 90px !important;
+	font-size: 6.5rem !important;
 	font-weight: 100;
 	letter-spacing: 2px;
 	text-transform: uppercase;
@@ -27,17 +31,17 @@ h2 {
 }
 
 h3 {
-	font-size: 22px !important;
+	font-size: 1.6rem !important;
 	margin: 8px 0 3px;
 }
 
 h4 {
-	font-size: 16px !important;
+	font-size: 1.1rem !important;
 	margin: 6px 0 3px;
 }
 
 h5 {
-	font-size: 14px !important;
+	font-size: 1rem !important;
 	margin: 0;
 }
 
@@ -94,6 +98,8 @@ h5 {
 	&.parti-UXD { fill: $color-uxd;}
 	&.parti-LR { fill: $color-lr;}
 	&.parti-ENS { fill: $color-cen;}
+	&.parti-EM { fill: $color-cen;}
+	&.parti-REN { fill: $color-cen;}
 	&.parti-DVG { fill: $color-dvg;}
 	&.parti-LFI { fill: $color-lfi;}
 	&.parti-PS { fill: $color-ps;}
@@ -184,8 +190,9 @@ h5 {
 
 #container-resultat {
 	flex-grow: 1;
-	max-width: 480px;
-	min-width: 340px;
+	max-width: 400px;
+    min-width: 340px;
+    width: 100%;
 	height: 100vh;
 	border-left: 2px solid $color-sombre;
 	overflow: scroll;
@@ -193,39 +200,81 @@ h5 {
 	#marge-resultat {
 		padding: 20px;
 		
+		select {
+			padding: 4px 8px;
+			background-color: $color-gris;
+			color: white;
+			font-weight: 600;
+			
+			&.noSelected {
+				background-color: $color-cen;
+			}
+		}
+		
+		.container-resultat-candidat {
+			.progress {
+				.bandeau-hover {
+					display: flex;
+					flex-direction: column;
+					gap: 3px;
+					opacity: 0;
+					width: max-content;
+					padding: 3px 10px;
+					background-color: $color-sombre;
+					color: white;
+					transform: translate(-20px, 2px);
+					transition: transform 0.25s ease-in-out, opacity 0.05s ease-in-out;
+				}
+			}
+
+			&:hover .bandeau-hover {
+				opacity: 1;
+				transform: translate(10px, 2px);
+			}
+		}
+
 		.progress{
 			background-color: $color-secondaire !important;
 			border-radius:0;
 			overflow:visible;
 			margin: 1px 0 8px;
-		}
-		
-		.barre-resultat {
-			width: 0;
-			height: 10px;
-			background: $color-gris; 
-			-webkit-transition: width 1s ease-in-out;
-			transition: width 1.5s ease-in-out;
 			
-			&.nuance-EXD { background: $color-exd;}
-			&.nuance-DVD { background: $color-dvd;}
-			&.nuance-CEN { background: $color-cen;}
-			&.nuance-DVG { background: $color-dvg;}
-			&.nuance-ECO { background: $color-eco;}
-			&.nuance-RDG { background: $color-rdg;}
-			&.nuance-DXG { background: $color-dxg;}
-			
-			&.parti-REC { background: $color-rec;}
-			&.parti-RN { background: $color-rn;}
-			&.parti-UXD { background: $color-uxd;}
-			&.parti-LR { background: $color-lr;}
-			&.parti-ENS { background: $color-cen;}
-			&.parti-DVG { background: $color-dvg;}
-			&.parti-LFI { background: $color-lfi;}
-			&.parti-PS { background: $color-ps;}
-			&.parti-EELV { background: $color-eelv;}
-			&.parti-DIV { background: $color-eco;}
+			.barre-resultat {
+				width: 0;
+				height: 10px;
+				background: $color-gris; 
+				-webkit-transition: width 1s ease-in-out;
+				transition: width 1.5s ease-in-out;
+
+				
+				&.nuance-EXD { background: $color-exd;}
+				&.nuance-DVD { background: $color-dvd;}
+				&.nuance-CEN { background: $color-cen;}
+				&.nuance-DVG { background: $color-dvg;}
+				&.nuance-ECO { background: $color-eco;}
+				&.nuance-RDG { background: $color-rdg;}
+				&.nuance-DXG { background: $color-dxg;}
+				
+				&.parti-REC { background: $color-rec;}
+				&.parti-RN { background: $color-rn;}
+				&.parti-UXD { background: $color-uxd;}
+				&.parti-LR { background: $color-lr;}
+				&.parti-ENS { background: $color-cen;}
+				&.parti-EM { background: $color-cen;}
+				&.parti-DVG { background: $color-dvg;}
+				&.parti-LFI { background: $color-lfi;}
+				&.parti-PS { background: $color-ps;}
+				&.parti-EELV { background: $color-eelv;}
+				&.parti-DIV { background: $color-eco;}
+			}
 		}
+	}
+}
+
+/*   0. BEFORE-OPEN STATE   */
+@starting-style {
+	[popover]:popover-open {
+	translate: 0 -22rem;
 	}
 }
 
@@ -269,7 +318,7 @@ header {
 }
 
 .panneaux-score-volet {
-	height: 330px;
+	height: 360px;
 	overflow-x: hidden;
   	overflow-y: scroll;
     transition: height 0.3s ease;

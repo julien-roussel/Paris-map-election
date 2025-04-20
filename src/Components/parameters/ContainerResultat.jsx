@@ -12,7 +12,7 @@ const ContainerResultat = (props) => {
 
     useEffect(() => {
         if (!props.electionIdName || !bureauSelect) return;
-        loadResultBv(props.electionIdName, bureauSelect);
+        loadResultBv(props.electionIdName, bureauSelect, 75);
     }, [bureauSelect]);
 
     useEffect(() => {
@@ -47,7 +47,7 @@ const ContainerResultat = (props) => {
             <div className="container-abstention">
                 <span>Abstention : {perAbstentions}%</span>
                 <div className="progress">
-                    <div id="barre-abstention" className="barre-resultat" role="progressbar" style={{width: perAbstentions+'%'}} >   
+                    <div className="barre-abstention barre-resultat" role="progressbar" style={{width: perAbstentions+'%'}} >   
                     </div>
                 </div> 
             </div>
@@ -55,20 +55,27 @@ const ContainerResultat = (props) => {
             {resultCandidat && resultCandidat.map((candidat, index) => {
                 var nuance;
                 var parti;
-                if(candidat.parti) parti = candidat.parti;
-                if(nuancePolitique[candidat.nom]) {
-                    nuance = nuancePolitique[candidat.nom].nuance
-                    parti = nuancePolitique[candidat.nom].parti    
+                var parti_code;
+                if(candidat.parti) {
+                    nuance = candidat.nuance
+                    parti = candidat.parti    
+                    parti_code = candidat.parti_code    
                 }
 
                 return (
-                    <div key={index} className={"container-"+candidat.nom}>
-                        <span>{candidat.nom && candidat.nom.slice(0, 20)} {candidat.prenom && candidat.prenom} : {Math.round(candidat.voix/inscrits*100)}%</span>
+                    <div    key={index} className="container-resultat-candidat"
+                            id={candidat.parti_code && "container-"+candidat.parti_code}>
+                        <span>{candidat.tete_de_liste} : {Math.round(candidat.voix/inscrits*100)}%</span>
                         <div className="progress">
-                            <div 
+                            <div
                                 id="barre-abstention" role="progressbar" 
-                                className={`barre-resultat ${nuance && 'nuance-'+nuance} ${parti && ' parti-'+parti}`} 
+                                className={`barre-resultat ${nuance && 'nuance-'+nuance} ${parti_code && ' parti-'+parti_code}`} 
                                 style={{width: (Math.round(candidat.voix/inscrits*100))+'%'}} >   
+                                <div className='bandeau-hover'>
+                                    <span>Candidat·e : {candidat.tete_de_liste && candidat.tete_de_liste}</span>
+                                    <span>Parti : {parti && parti + (parti_code && ' (' + parti_code + ')')}</span>
+                                    <span>Nombre de voix : {candidat.voix && candidat.voix}</span>
+                                </div>
                             </div>
                         </div> 
                     </div>

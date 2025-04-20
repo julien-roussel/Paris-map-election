@@ -13,6 +13,11 @@ export const ElectionsProvider = ({ children }) => {
       type: 'presi'
     },
     {
+      idName: 'euro2019',
+      name: 'Européennes 2019',
+      type: 'euro'
+    },
+    {
       idName: 'presi2022',
       name: 'Présidentielles 2022',
       type: 'presi'
@@ -56,12 +61,16 @@ export const ElectionsProvider = ({ children }) => {
   };
 
   // Pour charger les résultats de toutes les élections d'un bureau de vote
-  const loadResultBv = async (election_name, bureauVote) => {
+  const loadResultBv = async (election_name, bureauVote, departementSelected) => {
     if (!election_name || !bureauVote) return;
     //console.log('📦 Requête pour :', election_name, bureauVote);
 
     try {
-        const response = await axios.get(`http://localhost:3001/api/elections/${election_name}/${bureauVote}`)
+        const response = await axios.get(`http://localhost:3001/api/elections/${election_name}/${bureauVote}`, {
+            params: {
+              departement: departementSelected
+            }
+        })
         const filteredResults = response.data;
         const resultMeta = {
             ['departement'] : filteredResults.meta["Code du département"],
@@ -70,12 +79,19 @@ export const ElectionsProvider = ({ children }) => {
             ['arrondissement'] : filteredResults.meta["Bureau"].slice(0, 2),
         }
 
-        setBureauDataSelect(prev => ({
-          ...prev,
-          ['meta']: resultMeta,
-          [election_name]: filteredResults // ✅ fusionne avec les précédentes
-        }));
-        //console.log('✅ Données reçues :', filteredResults);
+        setBureauDataSelect(prev => {
+          const newData = {
+            ...prev,
+            [election_name]: filteredResults, // toujours mis à jour
+          };
+        
+          // On ne met à jour 'meta' que si on a une circonscription valide
+          if (resultMeta.circo) {
+            newData.meta = resultMeta;
+          }
+        
+          return newData;
+        });
     } catch (error) {
         console.error('❌ Erreur lors de récupération des données :', error.message);
     }
@@ -100,7 +116,6 @@ export const ElectionsProvider = ({ children }) => {
 
   // Sélection du mode pour la map
   const chooseModeMap = async (mode) => {
-    console.log(mode);
     setModeMap(mode)
   }
   
@@ -111,7 +126,6 @@ export const ElectionsProvider = ({ children }) => {
       } else {
         setAllCandidats(true)
       }
-      console.log(allCandidats);
     }
   }
 

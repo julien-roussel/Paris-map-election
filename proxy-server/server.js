@@ -51,10 +51,16 @@ app.get('/api/elections/candidats', (req, res) => {
 // Route pour charger les résultats pour un bureau de vote 
 app.get('/api/elections/:slug/:bureauId', (req, res) => {
   const { slug, bureauId } = req.params;
+  const { circo, departement } = req.query;
 
-  const filepath = `./json/resultats_${slug}.json`;
+  if (!departement) {
+    return res.status(400).json({ error: 'Département requis' });
+  }
+
+  const filepath = `./parse/json/${slug}/resultats_${departement}.json`;
+
   if (!fs.existsSync(filepath)) {
-    return res.status(404).json({ error: `Fichier ${slug} introuvable.` });
+    return res.status(404).json({ error: `Fichier ${slug} ${departement} introuvable.` });
   }
 
   try {
@@ -82,11 +88,15 @@ app.get('/api/elections/:slug/:bureauId', (req, res) => {
 app.get('/api/elections/:slug', (req, res) => {
     const { slug } = req.params;
     const { circo, departement } = req.query;
-  
-    const filepath = `./json/resultats_${slug}.json`;
+
+    if (!departement) {
+      return res.status(400).json({ error: 'Département requis' });
+    }
+
+    const filepath = `./parse/json/${slug}/resultats_${departement}.json`;
   
     if (!fs.existsSync(filepath)) {
-      return res.status(404).json({ error: `Fichier ${slug} introuvable.` });
+      return res.status(404).json({ error: `Fichier ${slug} ${departement} introuvable.` });
     }
   
     try {
