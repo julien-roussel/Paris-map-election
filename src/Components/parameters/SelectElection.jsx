@@ -5,7 +5,6 @@ import { useElection } from "../../context/ElectionsContext"
 
 const SelectElection = () => {
     const { allNameElections, loadElectionMap, electionSelected } = useElection();
-    console.log(electionSelected);
     
   return (
     <div id="containerMenu" className="container-select">

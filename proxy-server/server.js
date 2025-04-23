@@ -12,23 +12,6 @@ let resultatsPresi2022 = {};
 let resultatsEuro2024 = {};
 let nuancePolitique = {};
 
-// Charger les données au démarrage
-try {
-  const presi2017 = fs.readFileSync('./json/resultats_presi2017.json', 'utf-8');
-  resultatsPresi2017 = JSON.parse(presi2017);
-  
-  const presi2022 = fs.readFileSync('./json/resultats_presi2022.json', 'utf-8');
-  resultatsPresi2022 = JSON.parse(presi2022);
-
-  const euro2024 = fs.readFileSync('./json/resultats_euro2024.json', 'utf-8');
-  resultatsEuro2024 = JSON.parse(euro2024);
-  
-  const nuance_politique = fs.readFileSync('./json/nuance_politique.json', 'utf-8');
-  nuancePolitique = JSON.parse(nuance_politique);
-} catch (err) {
-  console.error("❌ Erreur lors du chargement des résultats :", err.message);
-}
-
 // Route pour charger les nuances politiques des candidats
 app.get('/api/elections/candidats', (req, res) => {
   const filepath = `./json/nuance_politique.json`;
@@ -88,7 +71,8 @@ app.get('/api/elections/:slug/:bureauId', (req, res) => {
 app.get('/api/elections/:slug', (req, res) => {
     const { slug } = req.params;
     const { circo, departement } = req.query;
-
+    console.log('api : ' + slug + ' ' + departement);
+    
     if (!departement) {
       return res.status(400).json({ error: 'Département requis' });
     }
@@ -98,7 +82,7 @@ app.get('/api/elections/:slug', (req, res) => {
     if (!fs.existsSync(filepath)) {
       return res.status(404).json({ error: `Fichier ${slug} ${departement} introuvable.` });
     }
-  
+    
     try {
       const raw = fs.readFileSync(filepath, 'utf-8');
       let data = Object.entries(JSON.parse(raw));

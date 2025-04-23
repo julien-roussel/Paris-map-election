@@ -10,22 +10,44 @@ export const ElectionsProvider = ({ children }) => {
     {
       idName: 'presi2017',
       name: 'Présidentielles 2017',
-      type: 'presi'
+      type: 'presi',
+      annee: 2017
     },
     {
       idName: 'euro2019',
       name: 'Européennes 2019',
-      type: 'euro'
+      type: 'euro',
+      annee: 2019
+    },
+    {
+      idName: 'muni2020',
+      name: 'Municipales 2020',
+      type: 'muni',
+      annee: 2020
     },
     {
       idName: 'presi2022',
       name: 'Présidentielles 2022',
-      type: 'presi'
+      type: 'presi',
+      annee: 2022
+    },
+    {
+      idName: 'legi2022',
+      name: 'Législatives 2022',
+      type: 'legi',
+      annee: 2022
     },
     {
       idName: 'euro2024',
       name: 'Européennes 2024',
-      type: 'euro'
+      type: 'euro',
+      annee: 2024
+    },
+    {
+      idName: 'legi2024',
+      name: 'Législatives 2024',
+      type: 'legi',
+      annee: 2024
     }
   ]);
 
@@ -49,6 +71,7 @@ export const ElectionsProvider = ({ children }) => {
       setElectionSelected(undefined)
       const filteredResults = response.data;
       setElectionSelected(filteredResults);
+      console.log(election_name + ' ' + departementSelected);
       console.log('electionSelected : ', filteredResults);
     } catch (error) {
         console.error('Erreur de récupération des données :', error);

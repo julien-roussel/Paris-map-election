@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router'
 
 import Map from '../Components/map/Map'
 import SelectElection from '../Components/parameters/SelectElection';
@@ -10,13 +11,22 @@ import ResultatsLateral from '../Components/parameters/ResultatsLateral';
 import { useElection } from "../context/ElectionsContext"
 
 const MapParis = () => {
-   const { bureauDataSelect } = useElection();
+    const params = useParams()
+    const { departement } = params; 
     
+   const { bureauDataSelect } = useElection();
+
+   var dep; var circo; var bureau;
+   if (bureauDataSelect && bureauDataSelect.meta) {
+    dep = bureauDataSelect.meta.departement;
+    circo = bureauDataSelect.meta.circo;
+    bureau = bureauDataSelect.meta.bureau;
+   }
   return (
     <div id="map-paris">
         <div id="container" className="map">
             <div id="map-container" className="map-image"> 
-                <Map/>
+                <Map departement={departement} />
                 <div id="container-france">
                     <h2>Résultat pour la France</h2>
                     <div id="container-barre-france" className="container-resultat-france"></div>
@@ -28,9 +38,9 @@ const MapParis = () => {
                     <SelectElection/>
                     <SelectMode/>
                     <OptionResultat/>
-                    <h3>PARIS {bureauDataSelect ? bureauDataSelect.meta.departement : '__'}</h3>
-                    <h5>Circonscription {bureauDataSelect ? bureauDataSelect.meta.circo : '__'}</h5>
-                    <h5>Bureau de vote {bureauDataSelect ? bureauDataSelect.meta.bureau : '__'}</h5>
+                    <h3>PARIS {departement ? departement : '__'}</h3>
+                    <h5>Circonscription {bureauDataSelect ? circo : '__'}</h5>
+                    <h5>Bureau de vote {bureauDataSelect ? bureau : '__'}</h5>
                     <div id="div-resultat">
                         <ResultatsLateral/>
                     </div>

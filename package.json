@@ -13,8 +13,10 @@
     "@supabase/supabase-js": "^2.49.4",
     "axios": "^1.8.4",
     "d3": "^7.9.0",
+    "leaflet": "^1.9.4",
     "react": "^19.0.0",
     "react-dom": "^19.1.0",
+    "react-leaflet": "^5.0.0",
     "react-router": "^7.5.0",
     "react-router-hash-link": "^2.4.3",
     "supabase": "^2.20.12"

@@ -8,12 +8,15 @@ import { useElection } from "../../context/ElectionsContext"
 // Component
 import Bureau from './Bureau'
 
-const Map = () => {
+const Map = (props) => {
     const [bureauVote, setBureauVote]  = useState([]);
-    const API_BASE = import.meta.env.VITE_API_PARIS_DATA_BV
+    var API_BASE;
+    if(props.departement == 75) {
+        API_BASE = import.meta.env.VITE_API_PARIS_DATA_BV
+    }
     const LIMIT = 100;
     
-    const { electionSelected } = useElection();
+    const { electionSelected, electionNameSelected } = useElection();
     
     useEffect(() => {
         const fetchAllData = async () => {
@@ -51,10 +54,21 @@ const Map = () => {
     <svg viewBox="0 0 800 600" version="1.1" >
         {bureauVote.map((bureau, index) => {
             const geometry = bureau.geo_shape.geometry;
-            const departement = 75;
+            const departement = props.departement;
             var arrondissement = bureau.arrondissement_bv < 10 ? '0'+bureau.arrondissement_bv : bureau.arrondissement_bv;
-            var circo = bureau.circonscription_bv < 10 ? '0' + bureau.circonscription_bv : bureau.circonscription_bv;
             var bureau =  bureau.numero_bv < 10 ? '0' + bureau.numero_bv : bureau.numero_bv;
+            
+            if(electionNameSelected[0]
+               && parseInt(arrondissement) < 5 
+               && bureau != 10
+               && bureau != 30) {
+                if(electionNameSelected[0].annee < 2024) {
+                    bureau = bureau.slice(1)
+                    bureau = '0' + bureau
+                }
+            }
+            var circo = bureau.circonscription_bv < 10 ? '0' + bureau.circonscription_bv : bureau.circonscription_bv;
+            
             var bureauSelect = departement + '-' + arrondissement + bureau;
 
             if (!geometry || !geometry.coordinates) return null;
@@ -71,8 +85,8 @@ const Map = () => {
                     bureau={bureau}
                     bureauSelect={bureauSelect} 
                     class={
-                        'arr-' + arrondissement +
-                        ' circo-' + circo
+                        (arrondissement && 'arr-' + arrondissement) + ' ' +
+                        (circo && ' circo-' + circo)
                     } 
                     coordonne={pathGenerator(geoJson)}
                 />

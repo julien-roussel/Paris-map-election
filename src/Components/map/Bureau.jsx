@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
-import * as d3 from 'd3';
 
 // Context
 import { useElection } from "../../context/ElectionsContext"
@@ -20,7 +18,7 @@ const Bureau = (props) => {
         const taux = score / inscrits;
         
         // On mappe de 0%–80% d'abstention ➜ 0.5–1 d’opacité
-        const minOpacity = 0.3;
+        const minOpacity = 0.2;
         const maxOpacity = 1;
         const maxTaux = 0.5;
         
@@ -48,11 +46,8 @@ const Bureau = (props) => {
         setFirst(candidatsTri)
         setPerFirst(getOpacityFromScore(inscrits, candidatsTri[0].voix))
      
-        if (electionNameSelected[0].type == 'presi' || 
-            electionNameSelected[0].type == 'euro') {
-            setNuance(candidatsTri[0]?.nuance)
-            setParti(candidatsTri[0]?.parti_code)
-        }
+        setParti(candidatsTri[0]?.parti_code)
+        if (electionNameSelected[0].type == 'euro') setNuance(candidatsTri[0]?.nuance)
             
     }, [electionSelected]);
 
@@ -65,7 +60,7 @@ return (
             props.class + ' ' +
             (bureauSelect == props.bureauSelect ? 'active' : '') + ' ' +
             ((first && (electionNameSelected[0].type == 'presi')) ? 'nuance-' + nuance : '') + ' ' +
-            ((first && (electionNameSelected[0].type == 'presi' || electionNameSelected[0].type == 'euro')) ? 'parti-' + parti : '') + ' ' +
+            (first ? 'parti-' + parti : '') + ' ' +
             (modeMap === 'abstention' ? 'abstention' : '')
         } 
         d={props.coordonne}
