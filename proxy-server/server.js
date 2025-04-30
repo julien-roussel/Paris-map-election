@@ -56,7 +56,7 @@ app.get('/api/elections/:slug/:bureauId', (req, res) => {
     if (!bureau) {
       const allKeys = Object.keys(data);
       const close = allKeys.find(k => k.includes(bureauId));
-      console.warn(`❌ Bureau ${bureauId} introuvable. Clé proche trouvée : ${close}`);
+      //console.warn(`❌ Bureau ${bureauId} introuvable. Clé proche trouvée : ${close}`);
       return res.status(404).json({ error: `Bureau ${bureauId} introuvable.` });
     }
 
@@ -100,6 +100,25 @@ app.get('/api/elections/:slug', (req, res) => {
       console.error(err);
       res.status(500).json({ err: 'Erreur lecture JSON.' });
     }
+});
+
+// Route pour charger la map geojson correspondante à un département
+app.get('/api/map/', (req, res) => {
+  const { departement } = req.query;
+  if (!departement)  return res.status(400).json({ error: 'Département requis' });
+  
+  const filepath = `./parse/geojson/departement_${departement}.geojson`;
+  if (!fs.existsSync(filepath))  return res.status(404).json({ error: `Fichier ${departement} introuvable.` });
+
+  try {
+    const raw = fs.readFileSync(filepath, 'utf-8');
+    const geojson = JSON.parse(raw);
+    res.json(geojson);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ err: 'Erreur lecture GEOJSON.' });
+  }
 });
 
 app.listen(PORT, () => {

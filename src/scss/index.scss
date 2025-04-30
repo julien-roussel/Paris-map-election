@@ -68,11 +68,11 @@ h5 {
 	flex-direction: column;
 }
 
-.map-image svg {
+/*.map-image svg {
 	padding: 2%;
     height: 100vh;
     width: 96%;
-}
+}*/
 
 .map-image path {
 	stroke: white;
@@ -265,6 +265,7 @@ h5 {
 				&.parti-ENS { background: $color-cen;}
 				&.parti-EM { background: $color-cen;}
 				&.parti-DVG { background: $color-dvg;}
+				&.parti-NFP { background: $color-dvg;}
 				&.parti-LFI { background: $color-lfi;}
 				&.parti-PS { background: $color-ps;}
 				&.parti-EELV { background: $color-eelv;}
