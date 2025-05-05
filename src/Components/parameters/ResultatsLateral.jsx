@@ -7,7 +7,7 @@ import { useElection } from "../../context/ElectionsContext"
 import ContainerResultat from './ContainerResultat';
 
 const ResultatsLateral = () => {
-    const { allNameElections, bureauSelect, bureauDataSelect } = useElection();
+    const { allNameElections, bureauSelected, bureauDataSelect } = useElection();
     const [openVolets, setOpenVolets] = useState({});
 
   useEffect(() => {
@@ -30,10 +30,10 @@ const ResultatsLateral = () => {
           <div key={index} id={election.idName} className="panneaux-score-resultat resultat-legislatives">
             <div  id={'volet-'+election.idName} 
                   onClick={() => toggleVolet(election.idName)}
-                  className={`panneaux-score-volet ${isOpen && bureauSelect  ? '' : 'close'}`}
+                  className={`panneaux-score-volet ${isOpen && bureauSelected  ? '' : 'close'}`}
             >
-              <h3 className={(bureauSelect ? '' : 'no-select ') + "panneaux-score-button"}>{election.name}</h3>
-              {bureauSelect && <ContainerResultat bureauSelected={bureauSelect} electionIdName={election.idName} />}
+              <h3 className={(bureauSelected ? '' : 'no-select ') + "panneaux-score-button"}>{election.name}</h3>
+              {bureauSelected && <ContainerResultat bureauSelected={bureauSelected} electionIdName={election.idName} />}
             </div>
           </div>
         )

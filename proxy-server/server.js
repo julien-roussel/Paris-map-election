@@ -109,7 +109,7 @@ app.get('/api/map/', (req, res) => {
   
   const filepath = `./parse/geojson/departement_${departement}.geojson`;
   if (!fs.existsSync(filepath))  return res.status(404).json({ error: `Fichier ${departement} introuvable.` });
-
+  
   try {
     const raw = fs.readFileSync(filepath, 'utf-8');
     const geojson = JSON.parse(raw);

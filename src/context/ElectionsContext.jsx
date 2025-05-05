@@ -51,7 +51,7 @@ export const ElectionsProvider = ({ children }) => {
     }
   ]);
 
-  const [bureauSelect, setBureauSelect] = useState(undefined);
+  const [bureauSelected, setBureauSelected] = useState(undefined);
   const [bureauDataSelect, setBureauDataSelect] = useState(undefined);
   const [electionNameSelected, setElectionNameSelected] = useState([])
   const [electionSelected, setElectionSelected] = useState([])
@@ -80,7 +80,7 @@ export const ElectionsProvider = ({ children }) => {
 
   // Fonction pour sélectionner un bureau
   const selectBureau = (bureau_id) => {
-    setBureauSelect(bureau_id)
+    setBureauSelected(bureau_id)
   };
 
   // Pour charger les résultats de toutes les élections d'un bureau de vote
@@ -168,7 +168,7 @@ export const ElectionsProvider = ({ children }) => {
           allNameElections, 
           electionNameSelected,
           electionSelected,
-          bureauSelect,
+          bureauSelected,
           bureauDataSelect,
           nuancePolitique,
           chooseModeMap,

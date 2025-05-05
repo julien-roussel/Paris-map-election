@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import axios from 'axios';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -7,10 +7,9 @@ import 'leaflet/dist/leaflet.css';
 import { useElection } from "../../context/ElectionsContext"
 
 const Map = (props) => {
-    const { electionSelected, electionNameSelected, selectBureau, bureauSelect, modeMap } = useElection();
+    const { electionSelected, electionNameSelected, selectBureau, bureauSelected, modeMap } = useElection();
     const [bureauVote, setBureauVote]  = useState(null);
-    const [onEachFeature, setOnEachFeature] = useState(() => () => {});
-
+    const [computedCenter, setComputedCenter] = useState([48.85, 2.35]);
     
     function getOpacityFromScore(inscrits, score) {
         if (!inscrits || !score || inscrits === 0) return 0.3;
@@ -86,12 +85,16 @@ const Map = (props) => {
     const dynamicStyle = useMemo(() => {
         return (feature) => {
             const features = feature.properties;
-            const bureauId = features.codeDepartement+'-'+features.numeroBureauVote;
+            var commune = features.codeCommune;
+            const bureauId = commune+'-'+features.numeroBureauVote;
             const result = electionSelected[bureauId]; 
             const abstention = result?.meta?.Abstentions;
             const inscrits = result?.meta?.Inscrits;
             const candidats = electionSelected[bureauId]?.candidats || [];
             
+            var isSelected = false;
+            if(bureauId === bureauSelected) isSelected = true;
+
             var fillColor;
             var fillOpacity;
 
@@ -106,7 +109,9 @@ const Map = (props) => {
                 fillOpacity = getOpacityFromScore(inscrits, getVoixGauche(candidats));
                 fillColor = '#ff5d5d';
             }
-                        
+           
+            if(isSelected) fillColor = 'black';
+            
             return {
                 fillColor,
                 color: 'white',
@@ -114,37 +119,45 @@ const Map = (props) => {
                 fillOpacity,
             }
         };
-    }, [electionSelected, modeMap]);
+    }, [electionSelected, modeMap, bureauSelected]);
 
-    useEffect(() => {
-        const dynamicOnEachFeature = (feature, layer) => {
-            const features = feature.properties;
-            var arrondissement = features.codeCirconscription
-            arrondissement = arrondissement.slice(2)
-            var bureau = features.numeroBureauVote;
-            bureau = bureau.slice(2)
+    const dynamicOnEachFeature = useCallback((feature, layer) => {
+        const features = feature.properties;
+        var commune = features.codeCommune;
+        var arrondissement = features.codeCirconscription
+        arrondissement = arrondissement.slice(2)
+        var bureau = features.numeroBureauVote;
+        bureau = bureau.slice(2)
+        
+        const bureauId = commune+'-'+features.numeroBureauVote;
+        
+        if (bureauId === bureauSelected) {
+            console.log('ok');
             
-            const bureauId = features.codeDepartement+'-'+features.numeroBureauVote;
-            
-            layer.on({
-                click: () => {
-                selectBureau && selectBureau(bureauId);
-                console.log(features);
-                
-                },
-            });
-
-            layer.bindTooltip(`Bureau ${bureauId}`, {
-                permanent: false,
-                direction: "top"
-            });
+            layer.getElement()?.classList.add("bureau-selected");
+        } else {
+            layer.getElement()?.classList.remove("bureau-selected");
         }
 
-        setOnEachFeature(() => dynamicOnEachFeature);
-    }, [electionNameSelected, electionSelected]);
+        layer.on({
+            click: () => {
+                selectBureau(bureauId);            
+            },
+        });
+
+        layer.bindTooltip(`Bureau ${bureauId}`, {
+            permanent: false,
+            direction: "top"
+        });
+    }, [electionNameSelected, electionSelected, bureauSelected]);
 
   return (
-    <MapContainer center={[48.85, 2.35]} minZoom={11} zoom={13} maxZoom={15} scrollWheelZoom={true} style={{ height: "90vh", width: "100%" }}>
+    <MapContainer 
+        center={[48.85, 2.35]}
+        minZoom={11} zoom={13} maxZoom={15} 
+        scrollWheelZoom={true} 
+        style={{ height: "90vh", width: "100%" }}>
+
         <TileLayer
             url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
             attribution='© OpenStreetMap, © CartoDB'
@@ -154,7 +167,7 @@ const Map = (props) => {
           key={props.departement}
           data={bureauVote}
           style={dynamicStyle}
-          onEachFeature={onEachFeature}
+          onEachFeature={dynamicOnEachFeature}
           scrollWheelZoom={false}
           doubleClickZoom={false}  
         />

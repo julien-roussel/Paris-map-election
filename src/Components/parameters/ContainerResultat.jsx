@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useParams } from 'react-router'
 
 // Context
 import { useElection } from "../../context/ElectionsContext"
 
 const ContainerResultat = (props) => {
+    const params = useParams()
+    const { departement } = params; 
+
     const [electionSelectedResults, setElectionSelectedResults] = useState([]);
-    const {loadResultBv, bureauSelect, bureauDataSelect, nuancePolitique, allCandidats } = useElection();
+    const {loadResultBv, bureauSelected, bureauDataSelect, nuancePolitique, allCandidats } = useElection();
     const [resultCandidat, setResultCandidat] = useState([]);
     const [perAbstentions, setPerAbstentions] = useState('');
     const [inscrits, setInscrits] = useState();
 
     useEffect(() => {
-        if (!props.electionIdName || !bureauSelect) return;
-        loadResultBv(props.electionIdName, bureauSelect, 75);
-    }, [bureauSelect]);
+        if (!props.electionIdName || !bureauSelected) return;
+        loadResultBv(props.electionIdName, bureauSelected, departement);
+    }, [bureauSelected]);
 
     useEffect(() => {
         const electionIdName = props.electionIdName;
