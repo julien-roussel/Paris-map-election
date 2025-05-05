@@ -98,8 +98,8 @@ export const ElectionsProvider = ({ children }) => {
         const resultMeta = {
             ['departement'] : filteredResults.meta["Code du département"],
             ['circo'] : filteredResults.meta["Code de la circonscription"],
-            ['bureau'] : filteredResults.meta["Bureau"].slice(2),
-            ['arrondissement'] : filteredResults.meta["Bureau"].slice(0, 2),
+            ['bureau'] : filteredResults.meta["Bureau"].toString().slice(2),
+            ['arrondissement'] : filteredResults.meta["Bureau"].toString().slice(0, 2),
         }
 
         setBureauDataSelect(prev => {

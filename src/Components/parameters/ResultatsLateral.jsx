@@ -11,7 +11,7 @@ const ResultatsLateral = () => {
     const [openVolets, setOpenVolets] = useState({});
 
   useEffect(() => {
-    console.log('✅ Bureau data récupéré :', bureauDataSelect);
+    //console.log('✅ Bureau data récupéré :', bureauDataSelect);
   }, [bureauDataSelect])
 
   const toggleVolet = (id) => {

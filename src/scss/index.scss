@@ -78,7 +78,6 @@ h5 {
 	stroke: white;
 	stroke-width: 0.6px;
 	stroke-opacity: 1;
-	fill: $color-sombre;
 	opacity: 1;
 	transition: all 0.3s;
 	cursor: -webkit-grab; 
@@ -265,7 +264,8 @@ h5 {
 				&.parti-ENS { background: $color-cen;}
 				&.parti-EM { background: $color-cen;}
 				&.parti-DVG { background: $color-dvg;}
-				&.parti-NFP { background: $color-dvg;}
+				&.parti-NUPES { background: $color-rdg;}
+				&.parti-NFP { background: $color-rdg;}
 				&.parti-LFI { background: $color-lfi;}
 				&.parti-PS { background: $color-ps;}
 				&.parti-EELV { background: $color-eelv;}
