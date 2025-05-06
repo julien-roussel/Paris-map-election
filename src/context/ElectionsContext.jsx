@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import supabase from "../supabase";
 import axios from 'axios';
 
 export const ElectionsContext = createContext();
@@ -51,14 +50,13 @@ export const ElectionsProvider = ({ children }) => {
     }
   ]);
 
-  const [bureauSelected, setBureauSelected] = useState(undefined);
   const [bureauDataSelect, setBureauDataSelect] = useState(undefined);
   const [electionNameSelected, setElectionNameSelected] = useState([])
   const [electionSelected, setElectionSelected] = useState([])
   const [nuancePolitique, setNuancePolitique] = useState([])
 
   // Pour charger toutes les résultats d'une élection d'un département 
-  // pour la mapper sur une carte
+  // afin de la mapper sur une carte
   const loadElectionMap = async (election_name, departementSelected) => {
     setElectionNameSelected(allNameElections.filter(election => election.idName === election_name))
     if(!election_name) return
@@ -78,11 +76,6 @@ export const ElectionsProvider = ({ children }) => {
     }
   };
 
-  // Fonction pour sélectionner un bureau
-  const selectBureau = (bureau_id) => {
-    setBureauSelected(bureau_id)
-  };
-
   // Pour charger les résultats de toutes les élections d'un bureau de vote
   const loadResultBv = async (election_name, bureauVote, departementSelected) => {
     if (!election_name || !bureauVote) return;
@@ -98,7 +91,6 @@ export const ElectionsProvider = ({ children }) => {
         const resultMeta = {
             ['departement'] : filteredResults.meta["Code du département"],
             ['circo'] : filteredResults.meta["Code de la circonscription"],
-            ['bureau'] : filteredResults.meta["Bureau"].toString().slice(2),
             ['arrondissement'] : filteredResults.meta["Bureau"].toString().slice(0, 2),
         }
 
@@ -110,7 +102,10 @@ export const ElectionsProvider = ({ children }) => {
         
           // On ne met à jour 'meta' que si on a une circonscription valide
           if (resultMeta.circo) {
-            newData.meta = resultMeta;
+            newData.meta = {
+              ...(prev.meta || {}), // garde les anciennes données
+              ...resultMeta,         // ajoute ou écrase avec les nouvelles
+            };
           }
         
           return newData;
@@ -130,29 +125,6 @@ export const ElectionsProvider = ({ children }) => {
     }
   };
 
-
-  // OPTIONS D'AFFICHAGE -------------------------------
-  // ---------------------------------------------------
-
-  const [modeMap, setModeMap] = useState('first')
-  const [allCandidats, setAllCandidats] = useState(true)
-
-  // Sélection du mode pour la map
-  const chooseModeMap = async (mode) => {
-    setModeMap(mode)
-  }
-  
-  const afficherAllCandidats = async (value) => {
-    if (value == "allCandidats") {
-      if(allCandidats==true) {
-        setAllCandidats(false)
-      } else {
-        setAllCandidats(true)
-      }
-    }
-  }
-
-
   useEffect(() => {
     loadNuancePolitique();
   }, []); 
@@ -161,18 +133,13 @@ export const ElectionsProvider = ({ children }) => {
     <ElectionsContext.Provider value={{ 
           loadElectionMap,
           loadResultBv,
-          selectBureau, 
           loadNuancePolitique,
-          afficherAllCandidats,
-          allCandidats,
           allNameElections, 
           electionNameSelected,
           electionSelected,
-          bureauSelected,
           bureauDataSelect,
-          nuancePolitique,
-          chooseModeMap,
-          modeMap
+          setBureauDataSelect,
+          nuancePolitique
     }}>
       {children}
     </ElectionsContext.Provider>

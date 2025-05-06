@@ -5,12 +5,23 @@ import 'leaflet/dist/leaflet.css';
 
 // Context
 import { useElection } from "../../context/ElectionsContext"
+import { useMap } from "../../context/MapContext"
 
 const Map = (props) => {
-    const { electionSelected, electionNameSelected, selectBureau, bureauSelected, modeMap } = useElection();
-    const [bureauVote, setBureauVote]  = useState(null);
+    const { electionSelected, electionNameSelected, bureauDataSelect, setBureauDataSelect } = useElection();
+    const { modeMap, loadMapBureau, bureauVote, selectBureau, bureauSelected } = useMap();
+
     const [computedCenter, setComputedCenter] = useState([48.85, 2.35]);
     
+    // Charger les bureaux sur la map
+    useEffect(() => {
+        loadMapBureau(props.departement)
+    }, []);
+    
+    useEffect(() => {
+        console.log(bureauDataSelect);
+    }, [bureauDataSelect]);
+
     function getOpacityFromScore(inscrits, score) {
         if (!inscrits || !score || inscrits === 0) return 0.3;
         
@@ -51,8 +62,11 @@ const Map = (props) => {
             case 'EM': return '#ffb847';
             case 'CEN': return '#ffb847';
             case 'REN': return '#ffb847';
+            case 'HOR': return '#005dc7';
             case 'LR': return '#0622ac';
             case 'UXD': return '#32066f';
+            case 'DLF': return '#32066f';
+            case 'FN': return '#74574b';
             case 'RN': return '#74574b';
             case 'REC': return '#4d403b';
             default:
@@ -67,20 +81,6 @@ const Map = (props) => {
           .filter(c => nuancesGauche.includes(c.nuance?.toUpperCase()))
           .reduce((total, c) => total + (c.voix || 0), 0);
       };
-
-    useEffect(() => {
-        const fetchGeoJSON = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3001/api/map?departement=${props.departement}`);
-                console.log(response.data);
-                
-                setBureauVote(response.data); 
-            } catch (err) {
-                console.error("Erreur de chargement GeoJSON :", err.message);
-            }
-        };
-        fetchGeoJSON();
-    }, []);
 
     const dynamicStyle = useMemo(() => {
         return (feature) => {
@@ -131,21 +131,34 @@ const Map = (props) => {
         
         const bureauId = commune+'-'+features.numeroBureauVote;
         
-        if (bureauId === bureauSelected) {
-            console.log('ok');
-            
+        if (bureauId === bureauSelected) {            
             layer.getElement()?.classList.add("bureau-selected");
         } else {
             layer.getElement()?.classList.remove("bureau-selected");
         }
 
         layer.on({
-            click: () => {
-                selectBureau(bureauId);            
-            },
-        });
+            click: () => {  
+                selectBureau(bureauId);
 
-        layer.bindTooltip(`Bureau ${bureauId}`, {
+                setBureauDataSelect(prev => ({
+                    ...(prev?.meta || {}),
+                    meta: {
+                        ...(prev?.meta || {}),
+                        bureau: bureau,
+                        nomDepartement: features.nomDepartement,
+                        nomCommune: features.nomCommune,
+                    }
+                }));
+            }
+        })
+
+        layer.bindTooltip(`
+            <h4>${features.nomCommune}</h4>
+            <span>${features.nomDepartement}</span></br>
+            <span>Bureau n°${bureau}</span>
+            `, 
+        {
             permanent: false,
             direction: "top"
         });
@@ -154,7 +167,7 @@ const Map = (props) => {
   return (
     <MapContainer 
         center={[48.85, 2.35]}
-        minZoom={11} zoom={13} maxZoom={15} 
+        minZoom={7} zoom={7} maxZoom={15} 
         scrollWheelZoom={true} 
         style={{ height: "90vh", width: "100%" }}>
 
@@ -164,7 +177,7 @@ const Map = (props) => {
         />
         {bureauVote && (
         <GeoJSON
-          key={props.departement}
+          key={props.departement} 
           data={bureauVote}
           style={dynamicStyle}
           onEachFeature={dynamicOnEachFeature}

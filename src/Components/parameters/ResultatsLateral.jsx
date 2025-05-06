@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 
 // Context
 import { useElection } from "../../context/ElectionsContext"
+import { useMap } from "../../context/MapContext"
 
 // Component
 import ContainerResultat from './ContainerResultat';
 
 const ResultatsLateral = () => {
-    const { allNameElections, bureauSelected, bureauDataSelect } = useElection();
+    const { allNameElections, bureauDataSelect } = useElection();
+    const { bureauSelected } = useMap();
     const [openVolets, setOpenVolets] = useState({});
 
   useEffect(() => {

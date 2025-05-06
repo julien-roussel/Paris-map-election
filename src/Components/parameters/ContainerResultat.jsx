@@ -3,13 +3,16 @@ import { useParams } from 'react-router'
 
 // Context
 import { useElection } from "../../context/ElectionsContext"
+import { useMap } from "../../context/MapContext"
 
 const ContainerResultat = (props) => {
     const params = useParams()
     const { departement } = params; 
 
+    const { loadResultBv, bureauDataSelect } = useElection();
+    const { allCandidats, bureauSelected } = useMap();
+
     const [electionSelectedResults, setElectionSelectedResults] = useState([]);
-    const {loadResultBv, bureauSelected, bureauDataSelect, nuancePolitique, allCandidats } = useElection();
     const [resultCandidat, setResultCandidat] = useState([]);
     const [perAbstentions, setPerAbstentions] = useState('');
     const [inscrits, setInscrits] = useState();

@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 
 // Context
 import { useElection } from "../../context/ElectionsContext"
+import { useMap } from "../../context/MapContext"
 
 const Bureau = (props) => {
-    const { electionSelected, selectBureau, bureauSelect, nuancePolitique, modeMap, electionNameSelected } = useElection();
+    const { electionSelected, electionNameSelected } = useElection();
+    const { chooseModeMap, modeMap, selectBureau, bureauSelected, } = useMap();
+    
     const [perAbstention, setPerAbstention] = useState();
     const [first, setFirst] = useState();
     const [perFirst, setPerFirst] = useState();

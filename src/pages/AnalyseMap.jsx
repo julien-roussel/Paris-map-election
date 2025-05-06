@@ -9,19 +9,24 @@ import ResultatsLateral from '../Components/parameters/ResultatsLateral';
 
 // Context
 import { useElection } from "../context/ElectionsContext"
+import { useMap } from "../context/MapContext"
 
 const MapParis = () => {
     const params = useParams()
     const { departement } = params; 
     
-   const { bureauDataSelect } = useElection();
-
-   var dep; var circo; var bureau;
+    const { bureauDataSelect } = useElection();
+    const { selectBureau } = useMap();
+    
+   var dep; var circo; var bureau; var nomDep; var nomCommune;
    if (bureauDataSelect && bureauDataSelect.meta) {
-    dep = bureauDataSelect.meta.departement;
-    circo = bureauDataSelect.meta.circo;
-    bureau = bureauDataSelect.meta.bureau;
+        dep = bureauDataSelect.meta.departement;
+        circo = bureauDataSelect.meta.circo;
+        bureau = bureauDataSelect.meta.bureau;
+        nomDep = bureauDataSelect.meta.nomDepartement;
+        nomCommune = bureauDataSelect.meta.nomCommune;
    }
+
   return (
     <div id="map-paris">
         <div id="container" className="map">
@@ -38,7 +43,8 @@ const MapParis = () => {
                     <SelectElection/>
                     <SelectMode/>
                     <OptionResultat/>
-                    <h3>PARIS {departement ? departement : '__'}</h3>
+                    <h3>{nomDep ? nomDep : 'Nom département'} {departement ? departement : '__'}</h3>
+                    <h4>{nomCommune ? nomCommune : 'Nom de la commune'}</h4>
                     <h5>Circonscription {bureauDataSelect ? circo : '__'}</h5>
                     <h5>Bureau de vote {bureauDataSelect ? bureau : '__'}</h5>
                     <div id="div-resultat">

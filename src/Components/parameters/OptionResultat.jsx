@@ -1,10 +1,10 @@
 import React from 'react'
 
 // Context
-import { useElection } from "../../context/ElectionsContext"
+import { useMap } from "../../context/MapContext"
 
 const OptionResultat = () => {
-    const { afficherAllCandidats, allCandidats } = useElection();
+    const { afficherAllCandidats, allCandidats } = useMap();
 
   return (
     <div id="container-options">

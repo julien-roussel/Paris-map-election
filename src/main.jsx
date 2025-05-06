@@ -12,13 +12,16 @@ import App from './App.jsx'
 
 // Context
 import { ElectionsProvider } from "./context/ElectionsContext.jsx";
+import { MapProvider } from "./context/MapContext.jsx";
 
 createRoot(document.getElementById('root')).render(
-  <ElectionsProvider>
-    <StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </StrictMode> 
-  </ElectionsProvider>
+  <MapProvider>
+    <ElectionsProvider>
+      <StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </StrictMode> 
+    </ElectionsProvider>
+  </MapProvider>
 )

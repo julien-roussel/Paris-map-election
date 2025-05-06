@@ -1,10 +1,10 @@
 import React from 'react'
 
 // Context
-import { useElection } from "../../context/ElectionsContext"
+import { useMap } from "../../context/MapContext"
 
 const SelectMode = () => {
-    const { chooseModeMap } = useElection();
+    const { chooseModeMap } = useMap();
 
   return (
     <div id="containerMode" className="container-select">
