@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -7,16 +7,18 @@ import 'leaflet/dist/leaflet.css';
 import { useElection } from "../../context/ElectionsContext"
 import { useMap } from "../../context/MapContext"
 
-const Map = (props) => {
-    const { electionSelected, electionNameSelected, bureauDataSelect, setBureauDataSelect } = useElection();
-    const { modeMap, loadMapBureau, bureauVote, selectBureau, bureauSelected } = useMap();
+// Component
+import MapAutoCenter from './MapAutoCenter' 
 
-    const [computedCenter, setComputedCenter] = useState([48.85, 2.35]);
+const Map = (props) => {
+    const { departement } = useParams();
+    const { electionSelected, electionNameSelected, bureauDataSelect, setBureauDataSelect } = useElection();
+    const { modeMap, loadMapBureau, bureauVote, selectBureau, bureauSelected, allNameMap } = useMap();
     
     // Charger les bureaux sur la map
     useEffect(() => {
-        loadMapBureau(props.departement)
-    }, []);
+        loadMapBureau(departement)
+    }, [departement]);
     
     useEffect(() => {
         console.log(bureauDataSelect);
@@ -164,29 +166,43 @@ const Map = (props) => {
         });
     }, [electionNameSelected, electionSelected, bureauSelected]);
 
-  return (
-    <MapContainer 
-        center={[48.85, 2.35]}
-        minZoom={7} zoom={7} maxZoom={15} 
-        scrollWheelZoom={true} 
-        style={{ height: "90vh", width: "100%" }}>
+    const computedCenter = useMemo(() => {
+        if (departement && allNameMap?.[departement]?.pos) {
+            return allNameMap[departement].pos;
+        }
+        return null;
+    }, [departement]);
 
-        <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            attribution='© OpenStreetMap, © CartoDB'
-        />
-        {bureauVote && (
-        <GeoJSON
-          key={props.departement} 
-          data={bureauVote}
-          style={dynamicStyle}
-          onEachFeature={dynamicOnEachFeature}
-          scrollWheelZoom={false}
-          doubleClickZoom={false}  
-        />
-      )}
-    </MapContainer>        
-  )
+    if (!departement || !allNameMap?.[departement]?.pos) {
+        return <div>Chargement de la carte...</div>;
+    }
+
+    return (
+        <MapContainer 
+            center={allNameMap[departement].pos}
+            minZoom={7} zoom={10} maxZoom={15} 
+            scrollWheelZoom={true} 
+            style={{ height: "90vh", width: "100%" }}>
+
+            <TileLayer
+                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                attribution='© OpenStreetMap, © CartoDB'
+            />
+
+            <MapAutoCenter center={computedCenter} />
+
+            {bureauVote?.features?.length > 0 && (
+            <GeoJSON
+            key={departement + '-' + bureauVote.features.length}
+                data={bureauVote}
+                style={dynamicStyle}
+                onEachFeature={dynamicOnEachFeature}
+                scrollWheelZoom={false}
+                doubleClickZoom={false}  
+            />
+        )}
+        </MapContainer>        
+    )
 }
 
 export default Map

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router'
 
+// Component
 import Map from '../Components/map/Map'
 import SelectElection from '../Components/parameters/SelectElection';
 import SelectMode from '../Components/parameters/SelectMode';

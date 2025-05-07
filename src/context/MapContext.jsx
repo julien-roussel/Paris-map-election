@@ -6,14 +6,17 @@ export const MapContext = createContext();
 export const MapProvider = ({ children }) => {
     const [bureauVote, setBureauVote]  = useState(null);
     const [bureauSelected, setBureauSelected] = useState(undefined);
+    const [allNameMap, setAllNameMap] = useState();
 
     // Pour charger les bureaux de la carte selon le département 
     const loadMapBureau = async (departementSelected) => {
         try {
             const response = await axios.get(`http://localhost:3001/api/map?departement=${departementSelected}`);
-            console.log(response.data);
-            
-            setBureauVote(response.data); 
+            const data = response.data;
+            console.log('bureauVote : ', data);
+            setTimeout(() => {
+                setBureauVote(data);
+              }, 50);
         } catch (err) {
             console.error("Erreur de chargement GeoJSON :", err.message);
         }
@@ -23,6 +26,18 @@ export const MapProvider = ({ children }) => {
     const selectBureau = (bureau_id) => {
         setBureauSelected(bureau_id)
     };
+
+    // Pour charger tous les noms de département
+    const loadAllNameMap = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3001/api/allmap`);
+            console.log(response.data);
+            
+            setAllNameMap(response.data)
+        } catch (error) {
+            console.error("Erreur de chargement GeoJSON :", err.message);
+        }
+    }
 
     // OPTIONS D'AFFICHAGE -------------------------------
     // ---------------------------------------------------
@@ -54,7 +69,9 @@ export const MapProvider = ({ children }) => {
             chooseModeMap,
             modeMap,
             selectBureau,
-            bureauSelected
+            bureauSelected,
+            loadAllNameMap,
+            allNameMap
         }}>
             {children}
         </MapContext.Provider>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router'
 
 // Component
@@ -9,7 +10,15 @@ import AnalyseMap from './pages/AnalyseMap.jsx';
 import About from './pages/About.jsx';
 import Nothing from './pages/Nothing.jsx';
 
+// Contexte
+import { useMap } from "./context/MapContext"
+
 function App() {
+  const { loadAllNameMap } = useMap();
+  
+    useEffect(() => {
+      loadAllNameMap();
+    }, []);
 
   return (
     <>

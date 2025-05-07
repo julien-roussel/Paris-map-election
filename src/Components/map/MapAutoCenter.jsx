@@ -6,9 +6,9 @@ const MapAutoCenter = ({ center }) => {
 
   useEffect(() => {
     if (center) {
-      map.setView(center, map.getZoom());
+      map.setView(center);
     }
-  }, [center]);
+  }, [center, map]);
 
   return null;
 };

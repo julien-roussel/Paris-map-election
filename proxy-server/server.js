@@ -7,11 +7,6 @@ const PORT = 3001;
 
 app.use(cors());
 
-let resultatsPresi2017 = {};
-let resultatsPresi2022 = {};
-let resultatsEuro2024 = {};
-let nuancePolitique = {};
-
 // Route pour charger les nuances politiques des candidats
 app.get('/api/elections/candidats', (req, res) => {
   const filepath = `./json/nuance_politique.json`;
@@ -109,13 +104,27 @@ app.get('/api/map/', (req, res) => {
   
   const filepath = `./parse/geojson/departement_${departement}.geojson`;
   if (!fs.existsSync(filepath))  return res.status(404).json({ error: `Fichier ${departement} introuvable.` });
-  
+
   try {
     const raw = fs.readFileSync(filepath, 'utf-8');
     const geojson = JSON.parse(raw);
     res.json(geojson);
 
   } catch (err) {
+    console.error(err);
+    res.status(500).json({ err: 'Erreur lecture GEOJSON.' });
+  }
+});
+
+app.get('/api/allmap/', (req, res) => {
+  const filepath = `./parse/json/all_departement.json`;
+  if (!fs.existsSync(filepath))  return res.status(404).json({ error: `Fichier de tous les départements introuvable.` });
+  
+  try {
+    const raw = fs.readFileSync(filepath, 'utf-8');
+    let data = Object.entries(JSON.parse(raw));
+    res.json(Object.fromEntries(data));
+  } catch (error) {
     console.error(err);
     res.status(500).json({ err: 'Erreur lecture GEOJSON.' });
   }
