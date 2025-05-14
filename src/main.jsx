@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './scss/index.scss'
 import './scss/font.scss'
 import './scss/color.scss'
+import './Components/select/select.scss'
 
 // PAGE JSX
 import App from './App.jsx'

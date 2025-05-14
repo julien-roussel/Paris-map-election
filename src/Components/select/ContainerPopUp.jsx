@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { useElection } from "../../context/ElectionsContext"
 import { useMap } from "../../context/MapContext"
 
+// Component
+import Button from '../../Components/button/Button' 
+
 // CSS
 import '../button/button.scss'
 
@@ -24,20 +27,16 @@ const ContainerPopUp = () => {
   }, [allNameMap]);
 
   // 1 - Sélection des élections
-  const popElectChange = (event) => {
+  const popElectChange = async (event) => {
     const { value } = event.target
-    console.log(value);
-    
     setPopElectSelected(value);
   }
   
-  const popElectSubmit = (event) => { 
+  const popElectSubmit = async (event) => { 
     event.preventDefault(); 
     if (!popElectSelected) return;
-    
     setEtape(true)
   }
-  
   
   // 2 - Sélection du département
   const popDeptChange = (event) => {
@@ -54,6 +53,9 @@ const ContainerPopUp = () => {
     navigate('/analyse-map/'+popDepartementSelected)
   }
   
+  function navigateToHome() {
+    navigate('/')
+  }
 
   return (
     <div className="container-pop-up">
@@ -71,12 +73,24 @@ const ContainerPopUp = () => {
                           <option key={index} value={election.idName}>{election.name}</option>
                       ))}
                   </select>
-                  <button 
-                      id="button-popup-dept" 
-                      name="popup-dept" 
-                      type="submit">    
-                        Suivant
-                  </button>
+                  <hr></hr>
+                  <div className='container-buttons'>
+                    <button 
+                        id="button-home" 
+                        className="button"
+                        name="popup-home" 
+                        type="button"
+                        onClick={navigateToHome}>    
+                          Accueil
+                    </button>
+                    <button 
+                        id="button-popup-elect" 
+                        className="button dark-button"
+                        name="popup-dept" 
+                        type="submit">    
+                          Suivant <span>▶︎</span>
+                    </button>
+                  </div>
               </form>
           </div>
         )}
@@ -95,12 +109,24 @@ const ContainerPopUp = () => {
                           <option key={index} value={dept.numero}>{dept.numero} - {dept.nom}</option>
                       ))}
                   </select>
-                  <button 
-                      id="button-popup-dept" 
-                      name="popup-dept" 
-                      type="submit">    
-                        Suivant
-                  </button>
+                  <hr></hr>
+                  <div className='container-buttons'>
+                    <button 
+                        id="button-home" 
+                        className="button"
+                        name="popup-home" 
+                        type="button"
+                        onClick={() => setEtape(false)}>    
+                          <span>◀︎</span> Précédent 
+                    </button>
+                    <button 
+                        id="button-popup-dept" 
+                        className="button dark-button"
+                        name="popup-dept" 
+                        type="submit">    
+                          Afficher 
+                    </button>
+                  </div>
               </form>
           </div>
         )}

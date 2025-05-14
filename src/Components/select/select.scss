@@ -1,0 +1,101 @@
+// Utilities
+@import "../../scss/color.scss";
+
+#container-select {
+	position: absolute;
+    bottom: 4.5vh;
+    left: 1vw;
+    z-index: 500;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	margin: 0 0 10px 0;
+    
+    select {
+        padding: 4px 8px;
+        background-color: $color-gris;
+        color: white;
+        font-weight: 600;
+        
+        &.noSelected {
+            background-color: $color-cen;
+        }
+    }
+}	
+
+
+.container-pop-up {
+    width: 460px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid $color-sombre;
+    border-radius: 20px;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.15); 
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.15);
+    
+    .pop-up {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;  
+        text-align: center;  
+        padding: 40px;
+        gap: 5px;
+
+        h5 {
+            margin-bottom: 15px;
+        }
+
+        .container-select {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            hr {        width: 100%;    }
+
+            select {
+                width: 100%;
+                margin: 0;
+                padding: 10px 20px;
+                background-color: white;
+                color: $color-sombre;
+                font-weight: 600;
+            }
+
+            .container-buttons {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                margin: 0;
+
+                .button {
+                    font-size: 1rem;
+                    padding: 8px 25px 10px;
+                    border: 1px solid $color-gris;
+                    
+                    &.dark-button {
+                        background-color: $color-sombre;
+                        color: white;
+                    }
+
+                    &:hover     {    opacity: 0.8;    }
+                    &:active    {    opacity: 0.5;    }
+
+                    span {
+                        position: relative;
+                        top: 1px;
+                    }
+                }
+            }
+        }
+    }
+}
