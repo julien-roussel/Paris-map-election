@@ -1,0 +1,22 @@
+// Utilities
+@import "../../scss/color.scss";
+
+.container-button {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $color-sombre;
+    border-radius: 30px;
+
+    span {
+        color: $color-sombre;
+        text-decoration: none;
+    }
+    .button {
+        width: fit-content;
+        margin: 8px 20px;
+
+    }
+}

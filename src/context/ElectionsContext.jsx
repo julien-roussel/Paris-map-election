@@ -58,8 +58,10 @@ export const ElectionsProvider = ({ children }) => {
   // Pour charger toutes les résultats d'une élection d'un département 
   // afin de la mapper sur une carte
   const loadElectionMap = async (election_name, departementSelected) => {
+    if(election_name === undefined) return
     setElectionNameSelected(allNameElections.filter(election => election.idName === election_name))
-    if(!election_name) return
+    if(departementSelected === undefined) return
+
     try {
         const response = await axios.get(`http://localhost:3001/api/elections/${election_name}`, {
           params: {
@@ -69,7 +71,6 @@ export const ElectionsProvider = ({ children }) => {
       setElectionSelected(undefined)
       const filteredResults = response.data;
       setElectionSelected(filteredResults);
-      console.log(election_name + ' ' + departementSelected);
       console.log('electionSelected : ', filteredResults);
     } catch (error) {
         console.error('Erreur de récupération des données :', error);
@@ -79,7 +80,6 @@ export const ElectionsProvider = ({ children }) => {
   // Pour charger les résultats de toutes les élections d'un bureau de vote
   const loadResultBv = async (election_name, bureauVote, departementSelected) => {
     if (!election_name || !bureauVote) return;
-    //console.log('📦 Requête pour :', election_name, bureauVote);
 
     try {
         const response = await axios.get(`http://localhost:3001/api/elections/${election_name}/${bureauVote}`, {

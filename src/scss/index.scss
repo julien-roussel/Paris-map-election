@@ -6,7 +6,7 @@ html {
 	font-size: 14px;
 }
 
-body {
+body, main {
     margin: 0;
 	height: 100vh;
 	font-family: 'montserrat' !important;
@@ -48,145 +48,23 @@ h5 {
 
 /* **************** COMPOSITION ***************** */
 
-/* ************* MAP ************** */
+/* ************* HOME PAGE ************** */
 
-
-#container {
-	display: flex;
-	align-items: stretch;
-	justify-content: space-between;
-	overflow: hidden;
-	max-height: 96vh;
-	border-top: 2px solid $color-sombre;
-	border-bottom: 2px solid $color-sombre;
-}
-
-.map-image {
-	flex-grow: 4;
-	flex-shrink: 10;
-	display: flex;
-	flex-direction: column;
-}
-
-/*.map-image svg {
-	padding: 2%;
-    height: 100vh;
-    width: 96%;
-}*/
-
-.map-image path {
-	stroke: white;
-	stroke-width: 0.6px;
-	stroke-opacity: 1;
-	opacity: 1;
-	transition: all 0.3s;
-	cursor: -webkit-grab; 
-	cursor: grab;
+.container-home {
+	width: 50%;
 	
-	
-	&.nuance-EXD { fill: $color-exd;}
-	&.nuance-DVD { fill: $color-dvd;}
-	&.nuance-CEN { fill: $color-cen;}
-	&.nuance-DVG { fill: $color-dvg;}
-	&.nuance-ECO { fill: $color-eco;}
-	&.nuance-RDG { fill: $color-rdg;}
-	&.nuance-DXG { fill: $color-dxg;}
-	
-	&.parti-REC { fill: $color-rec;}
-	&.parti-RN { fill: $color-rn;}
-	&.parti-UXD { fill: $color-uxd;}
-	&.parti-LR { fill: $color-lr;}
-	&.parti-ENS { fill: $color-cen;}
-	&.parti-EM { fill: $color-cen;}
-	&.parti-REN { fill: $color-cen;}
-	&.parti-DVC { fill: $color-cen;}
-	&.parti-DVG { fill: $color-dvg;}
-	&.parti-NUPES { fill: $color-rdg;}
-	&.parti-NFP { fill: $color-rdg;}
-	&.parti-LFI { fill: $color-lfi;}
-	&.parti-PS { fill: $color-ps;}
-	&.parti-EELV { fill: $color-eelv;}
-	&.parti-DIV { fill: $color-eco;}
+	h1 {	font-size: 12rem !important; 	}
+	h2 {	margin: 30px 0 2px;	}
 
-	&.abstention { fill: $color-sombre;}
-}
+	video {	width: 100%; max-width: 540px;	}
 
-.map-image path:hover {
-	opacity: 0.2;
-}
-
-.map-image .circo path {
-	stroke: white;
-	stroke-width: 30px;
-	stroke-opacity: 1;
-	stroke-linecap: square;
-	pointer-events: none;
-	opacity: 1;
-}
-
-.map-image .active {
-	z-index: 2;
-}
-
-.map-image .active  {
-	z-index:2;
-	fill: black !important;
-	animation: clignotant 1s infinite;
-}
-
-.map-container .leaflet-pane .bureau-selected {
-	z-index:2;
-	fill: black !important;
-	animation: clignotant 1s infinite;
-}
-
-@keyframes clignotant { 
-	0%   { opacity: 0;  }
-	100% { opacity: 1; } 
-}
-
-.map-liste {
-	flex-grow: 1;
-	padding: 5px 10px;
-	margin: 5px 0;
-}
-
-.map-liste ul {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-}
-
-.map-liste li {
-	cursor: -webkit-grab; 
-	cursor: grab;
-	padding: 3px 0;
-	margin: 2px 0;
-}
-
-.map-liste a {
-	color: $color-sombre;
-	font-weight: 400;
-	text-decoration: none;
-	transition: all 0.3s;
-}
-
-.map-liste a.active {
-	color: $color-principale;
-	font-weight: 700;
+	&:nth-child(1) {	border-right: 2px solid $color-sombre;	}
+	&:nth-child(2) {	padding: 6% 120px;	}
 }
 
 /* ************* MENU ************** */
 
-.container-select {
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
-	margin: 0 0 10px 0;
-}	
-
 .electionMenu {
-	
 	width: 200px;
 	padding: 2px;
 	text-align: center;
@@ -200,23 +78,27 @@ h5 {
 	flex-grow: 1;
 	max-width: 400px;
     min-width: 340px;
-    width: 100%;
+    width: 30vw;
 	height: 100vh;
 	border-left: 2px solid $color-sombre;
 	overflow: scroll;
 
+	.bv-no-select {
+		h2, h3, h4, h5 {
+			opacity: 0.3;
+		}
+	}
 	#marge-resultat {
 		padding: 20px;
-		
-		select {
-			padding: 4px 8px;
-			background-color: $color-gris;
-			color: white;
-			font-weight: 600;
-			
-			&.noSelected {
-				background-color: $color-cen;
-			}
+
+		#meta-bureau {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
+		#container-options {
+			margin: 10px 0;
 		}
 		
 		.container-resultat-candidat {
@@ -310,11 +192,6 @@ h5 {
 
 .panneaux-score-resultat:hover {
 	background-color: $color-tertiaire;
-}
-
-header {
-	margin-top: 0;
-	padding: 10px 30px;
 }
 
 .panneaux-score-volet.close  {

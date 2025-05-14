@@ -14,6 +14,7 @@ dist-ssr
 package-lock.json
 .env
 csv
+_AUTRES
 
 # Server
 parse

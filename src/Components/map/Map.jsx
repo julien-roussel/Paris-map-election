@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import { useParams } from 'react-router-dom';
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import { MapContainer, LayersControl, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+
+// CSS
+import './map.scss'
 
 // Context
 import { useElection } from "../../context/ElectionsContext"
@@ -9,20 +12,20 @@ import { useMap } from "../../context/MapContext"
 
 // Component
 import MapAutoCenter from './MapAutoCenter' 
+import ContainerPopUp from './ContainerPopUp' 
 
 const Map = (props) => {
     const { departement } = useParams();
-    const { electionSelected, electionNameSelected, bureauDataSelect, setBureauDataSelect } = useElection();
+    const { electionSelected, electionNameSelected, loadElectionMap, bureauDataSelect, setBureauDataSelect } = useElection();
     const { modeMap, loadMapBureau, bureauVote, selectBureau, bureauSelected, allNameMap } = useMap();
     
+    const { BaseLayer, Overlay } = LayersControl;
+
     // Charger les bureaux sur la map
     useEffect(() => {
         loadMapBureau(departement)
+        loadElectionMap(electionNameSelected[0]?.idName ,departement)
     }, [departement]);
-    
-    useEffect(() => {
-        console.log(bureauDataSelect);
-    }, [bureauDataSelect]);
 
     function getOpacityFromScore(inscrits, score) {
         if (!inscrits || !score || inscrits === 0) return 0.3;
@@ -50,26 +53,31 @@ const Map = (props) => {
         if (!parti) return 'gray';
           switch (parti) {
             case 'LO': return '#892b16';
-            case 'PCF': return '#892b16';
+            case 'PCF': return '#7d180d';
             case 'NFP': return '#ff5d5d';
             case 'NUPES': return '#ff5d5d';
+            case 'FI': return '#cd3256';
             case 'LFI': return '#cd3256';
             case 'DVG': return '#a82162';
             case 'PS': return '#ea4693';
             case 'EELV': return '#2dc380';
             case 'DVC': return '#f58c58';
+            case 'DIV': return '#f58c58';
             case 'LDIV': return '#f58c58';
             case 'LREM': return '#ffb847';
             case 'ENS': return '#ffb847';
             case 'EM': return '#ffb847';
+            case 'UDI': return '#ffb847';
             case 'CEN': return '#ffb847';
             case 'REN': return '#ffb847';
             case 'HOR': return '#005dc7';
             case 'LR': return '#0622ac';
             case 'UXD': return '#32066f';
+            case 'DSV': return '#32066f';
             case 'DLF': return '#32066f';
             case 'FN': return '#74574b';
             case 'RN': return '#74574b';
+            case 'EXD': return '#74574b';
             case 'REC': return '#4d403b';
             default:
                 console.warn("❓ Parti inconnu:", parti);
@@ -126,8 +134,8 @@ const Map = (props) => {
     const dynamicOnEachFeature = useCallback((feature, layer) => {
         const features = feature.properties;
         var commune = features.codeCommune;
-        var arrondissement = features.codeCirconscription
-        arrondissement = arrondissement.slice(2)
+        var circonscription = features.codeCirconscription
+        circonscription = circonscription.slice(2)
         var bureau = features.numeroBureauVote;
         bureau = bureau.slice(2)
         
@@ -158,6 +166,7 @@ const Map = (props) => {
         layer.bindTooltip(`
             <h4>${features.nomCommune}</h4>
             <span>${features.nomDepartement}</span></br>
+            <span>Circonscription n°${circonscription} /</span>
             <span>Bureau n°${bureau}</span>
             `, 
         {
@@ -174,33 +183,54 @@ const Map = (props) => {
     }, [departement]);
 
     if (!departement || !allNameMap?.[departement]?.pos) {
-        return <div>Chargement de la carte...</div>;
-    }
+        return  (
+            <>
+                <div id="container-nomap">
+                    <ContainerPopUp/>
+                </div>
+                <MapContainer 
+                    center={[48.8566, 2.3522]}
+                    minZoom={7} zoom={10} maxZoom={15} 
+                    scrollWheelZoom={true} 
+                    style={{ height: "90vh", width: "100%" }}>
 
+                    <TileLayer
+                        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                        attribution='© OpenStreetMap, © CartoDB' />  
+                </MapContainer>
+            </>
+        )
+    }
+    
     return (
         <MapContainer 
             center={allNameMap[departement].pos}
             minZoom={7} zoom={10} maxZoom={15} 
             scrollWheelZoom={true} 
             style={{ height: "90vh", width: "100%" }}>
-
-            <TileLayer
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-                attribution='© OpenStreetMap, © CartoDB'
-            />
-
             <MapAutoCenter center={computedCenter} />
 
-            {bureauVote?.features?.length > 0 && (
-            <GeoJSON
-            key={departement + '-' + bureauVote.features.length}
-                data={bureauVote}
-                style={dynamicStyle}
-                onEachFeature={dynamicOnEachFeature}
-                scrollWheelZoom={false}
-                doubleClickZoom={false}  
-            />
-        )}
+            <LayersControl position="topright">
+                <Overlay checked name="Street map">
+                    <TileLayer
+                        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                        attribution='© OpenStreetMap, © CartoDB'
+                    />  
+                </Overlay>    
+
+                {bureauVote?.features?.length > 0 && (
+                    <Overlay checked name="Bureaux de vote">
+                        <GeoJSON
+                            key={departement + '-' + bureauVote.features.length}
+                            data={bureauVote}
+                            style={dynamicStyle}
+                            onEachFeature={dynamicOnEachFeature}
+                            scrollWheelZoom={false}
+                            doubleClickZoom={false}  
+                        />
+                    </Overlay>
+                )}
+            </LayersControl>
         </MapContainer>        
     )
 }

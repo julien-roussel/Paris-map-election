@@ -3,8 +3,8 @@ import { useParams } from 'react-router'
 
 // Component
 import Map from '../Components/map/Map'
-import SelectElection from '../Components/parameters/SelectElection';
-import SelectMode from '../Components/parameters/SelectMode';
+import SelectElection from '../Components/select/SelectElection';
+import SelectMode from '../Components/select/SelectMode';
 import OptionResultat from '../Components/parameters/OptionResultat';
 import ResultatsLateral from '../Components/parameters/ResultatsLateral';
 
@@ -29,28 +29,25 @@ const MapParis = () => {
    }
 
   return (
-    <div id="map-paris">
-        <div id="container" className="map">
-            <div id="map-container" className="map-image"> 
-                <Map departement={departement} />
-                <div id="container-france">
-                    <h2>Résultat pour la France</h2>
-                    <div id="container-barre-france" className="container-resultat-france"></div>
-                </div>
-            </div>
-            <div id="container-resultat">
-                <div id="marge-resultat">
-                    <h1>résultats élections</h1>
-                    <SelectElection/>
-                    <SelectMode/>
-                    <OptionResultat/>
-                    <h3>{nomDep ? nomDep : 'Nom département'} {departement ? departement : '__'}</h3>
-                    <h4>{nomCommune ? nomCommune : 'Nom de la commune'}</h4>
+    <div id="container" className="map">
+        <div id="map-container" className="map-image"> 
+            <SelectMode/>
+            <Map departement={departement} />
+        </div>
+        <div id="container-resultat">
+            <div id="marge-resultat" className={(!bureauDataSelect && !bureauDataSelect?.meta) ? 'bv-no-select' : undefined}>
+                <h1>résultats élections</h1>
+                <span>{(!bureauDataSelect && !bureauDataSelect?.meta) ? 'Sélectionnez un bureau :' : "Bureau sélectionné :"}</span>
+                <h3>{nomDep ? nomDep : 'Département sélectionné'} {departement ? departement : ''}</h3>
+                <h4>{nomCommune ? nomCommune : 'Nom de la commune'}</h4>
+                <div id="meta-bureau">
                     <h5>Circonscription {bureauDataSelect ? circo : '__'}</h5>
+                    /
                     <h5>Bureau de vote {bureauDataSelect ? bureau : '__'}</h5>
-                    <div id="div-resultat">
-                        <ResultatsLateral/>
-                    </div>
+                </div>
+                <OptionResultat/>
+                <div id="div-resultat">
+                    <ResultatsLateral/>
                 </div>
             </div>
         </div>

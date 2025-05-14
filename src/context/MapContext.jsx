@@ -10,6 +10,8 @@ export const MapProvider = ({ children }) => {
 
     // Pour charger les bureaux de la carte selon le département 
     const loadMapBureau = async (departementSelected) => {
+        if(!departementSelected) return;
+
         try {
             const response = await axios.get(`http://localhost:3001/api/map?departement=${departementSelected}`);
             const data = response.data;
@@ -30,9 +32,7 @@ export const MapProvider = ({ children }) => {
     // Pour charger tous les noms de département
     const loadAllNameMap = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/api/allmap`);
-            console.log(response.data);
-            
+            const response = await axios.get(`http://localhost:3001/api/allmap`);            
             setAllNameMap(response.data)
         } catch (error) {
             console.error("Erreur de chargement GeoJSON :", err.message);
