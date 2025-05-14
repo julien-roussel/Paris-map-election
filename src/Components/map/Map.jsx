@@ -12,7 +12,7 @@ import { useMap } from "../../context/MapContext"
 
 // Component
 import MapAutoCenter from './MapAutoCenter' 
-import ContainerPopUp from './ContainerPopUp' 
+import ContainerPopUp from '../select/ContainerPopUp' 
 
 const Map = (props) => {
     const { departement } = useParams();
