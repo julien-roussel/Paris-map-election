@@ -14,7 +14,7 @@ import '../button/button.scss'
 
 const ContainerPopUp = () => {
   const navigate = useNavigate();
-  const { allNameElections, loadElectionMap } = useElection();
+  const { allNameElections, loadElectionMap, electionNameSelected } = useElection();
   
   const { allNameMap } = useMap();
   const [popDepartementSelected, setPopDepartementSelected] = useState();
@@ -62,13 +62,13 @@ const ContainerPopUp = () => {
         { !etape && (
         //electionNameSelected == '' && (
           <div id="pop-election" className="pop-up">
-              <h3>Élections non chargées</h3>
+              <h3>Élections non chargées 1/2</h3>
               <p>La carte ne s'affiche pas, car aucune élection est sélectionnée.</p>
               <h5>Veuillez sélectionner une élection</h5>
               <form id="" className="container-select" 
                     onSubmit={popElectSubmit} onChange={popElectChange}>
                   <select id="electionMenu">
-                      <option value={false}>Sélectionnez une élection</option>
+                      <option value={false}>{electionNameSelected[0] ? electionNameSelected[0]?.name : "Sélectionnez une élection"}</option>
                       {allNameElections.map((election, index) => (
                           <option key={index} value={election.idName}>{election.name}</option>
                       ))}
@@ -85,7 +85,7 @@ const ContainerPopUp = () => {
                     </button>
                     <button 
                         id="button-popup-elect" 
-                        className="button dark-button"
+                        className={!popElectSelected ? "button dark-button button-desactive" : "button dark-button"}
                         name="popup-dept" 
                         type="submit">    
                           Suivant <span>▶︎</span>
@@ -98,7 +98,7 @@ const ContainerPopUp = () => {
         { etape && (
           //!departement && electionNameSelected != '' && (
           <div id="pop-departement" className="pop-up" >
-              <h3>Carte non chargée</h3>
+              <h3>Carte non chargée 2/2</h3>
               <p>La carte ne s'affiche pas, car aucun département est sélectionné.</p>
               <h5>Veuillez sélectionner un département</h5>
               <form id="" className="container-select" 
@@ -121,7 +121,7 @@ const ContainerPopUp = () => {
                     </button>
                     <button 
                         id="button-popup-dept" 
-                        className="button dark-button"
+                        className={!popDepartementSelected ? "button dark-button button-desactive" : "button dark-button"}
                         name="popup-dept" 
                         type="submit">    
                           Afficher 

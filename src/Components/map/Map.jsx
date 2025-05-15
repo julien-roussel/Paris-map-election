@@ -35,7 +35,7 @@ const Map = (props) => {
         // On mappe de 0%–80% d'abstention ➜ 0.5–1 d’opacité
         const minOpacity = 0.2;
         const maxOpacity = 1;
-        const maxTaux = 0.5;
+        const maxTaux = 0.9;
         
         const normalized = Math.min(taux / maxTaux, 1); // max à 1
         const opacity = minOpacity + normalized * (maxOpacity - minOpacity);

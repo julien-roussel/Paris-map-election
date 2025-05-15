@@ -29,7 +29,7 @@ const SelectElection = () => {
     <div id="" className="container-select">
         <select id="electionMenu"
                 onChange={(e) => navigateToMap(e.target.value)}>
-            <option value="">Sélectionnez un département</option>
+            <option value="">{departement ? departement + ' - ' + allNameMap?.[departement].nom : "Sélectionnez un département"}</option>
             {allNameArray && allNameArray.map((dept, index) => (
                 <option key={index} value={dept.numero}>{dept.numero} - {dept.nom}</option>
             ))}

@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 import { useElection } from "../../context/ElectionsContext"
 
 const SelectElection = () => {
-    const { allNameElections, loadElectionMap, electionSelected } = useElection();
+    const { allNameElections, electionNameSelected, loadElectionMap, electionSelected } = useElection();
     const params = useParams()
     const { departement } = params; 
 
@@ -13,7 +13,7 @@ const SelectElection = () => {
     <div id="" className="container-select">
         <select id="electionMenu" className={electionSelected == '' ? 'noSelected' : ''}
                 onChange={(e) => loadElectionMap(e.target.value, departement)}>
-            <option value="">Sélectionnez une élection</option>
+            <option value="">{electionNameSelected[0] ? electionNameSelected[0]?.name : "Sélectionnez une élection"}</option>
             {allNameElections.map((election, index) => (
                 <option key={index} value={election.idName}>{election.name}</option>
             ))}
