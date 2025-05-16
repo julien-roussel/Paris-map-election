@@ -22,6 +22,22 @@ const getAllCandidats = async (req, res, next) => {
     }
 }
 
+const getAllNameElections = async (req, res, next) => {
+    const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
+    if (!fs.existsSync(filepath)) {
+    return res.status(404).json({ 
+            error: `Fichier all_elections.json est introuvable.` 
+        });
+    }
+    try {
+        const raw = fs.readFileSync(filepath, 'utf-8');
+        const data = JSON.parse(raw);
+        res.json(data);
+    } catch (error) {
+        next(createError(500, error.message))
+    }
+}
+
 // Route pour charger les résultats pour un bureau de vote 
 const getElectionByBv = async (req, res, next) => {
     const { slug, bureauId } = req.params;
@@ -93,6 +109,7 @@ const getResultElection = async (req, res, next) => {
 
 module.exports = {
     getAllCandidats,
+    getAllNameElections,
     getElectionByBv,
     getResultElection,
 }

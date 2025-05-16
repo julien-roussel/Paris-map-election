@@ -4,57 +4,7 @@ import axios from 'axios';
 export const ElectionsContext = createContext();
 
 export const ElectionsProvider = ({ children }) => {
-  const [allNameElections, setAllNameElections] = useState(
-  [
-    {
-      idName: 'presi2012',
-      name: 'Présidentielles 2012',
-      type: 'presi',
-      annee: 2012
-    },
-    {
-      idName: 'presi2017',
-      name: 'Présidentielles 2017',
-      type: 'presi',
-      annee: 2017
-    },
-    {
-      idName: 'euro2019',
-      name: 'Européennes 2019',
-      type: 'euro',
-      annee: 2019
-    },
-    {
-      idName: 'muni2020',
-      name: 'Municipales 2020',
-      type: 'muni',
-      annee: 2020
-    },
-    {
-      idName: 'presi2022',
-      name: 'Présidentielles 2022',
-      type: 'presi',
-      annee: 2022
-    },
-    {
-      idName: 'legi2022',
-      name: 'Législatives 2022',
-      type: 'legi',
-      annee: 2022
-    },
-    {
-      idName: 'euro2024',
-      name: 'Européennes 2024',
-      type: 'euro',
-      annee: 2024
-    },
-    {
-      idName: 'legi2024',
-      name: 'Législatives 2024',
-      type: 'legi',
-      annee: 2024
-    }
-  ]);
+  const [allNameElections, setAllNameElections] = useState([]);
 
   const [bureauDataSelect, setBureauDataSelect] = useState(undefined);
   const [electionNameSelected, setElectionNameSelected] = useState([])
@@ -120,6 +70,9 @@ export const ElectionsProvider = ({ children }) => {
         console.error('❌ Erreur lors de récupération des données :', error.message);
     }
   };
+
+  // -------------- AU DEMARRAGE -------------- //
+  // ------------------------------------------ //
   
   // Charger les nuances des élections disponibles
   const loadNuancePolitique = async () => {
@@ -131,8 +84,19 @@ export const ElectionsProvider = ({ children }) => {
     }
   };
 
+  // Charger les nuances des élections disponibles
+  const loadAllNameElections = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/elections/allname')
+      setAllNameElections(response.data)
+    } catch (error) {
+      console.error('❌ Erreur lors de récupération des données :', error.message);
+    }
+  };
+
   useEffect(() => {
     loadNuancePolitique();
+    loadAllNameElections();
   }, []); 
   
   return (

@@ -11,6 +11,8 @@ const app = express();
 // IMPORT ROUTER
 const elecRouter = require('./router/election.router')
 const mapRouter = require('./router/map.router')
+const userRouter = require('./router/user.router')
+
 
 // CONNEXION MONGO
 connectMongoDB(ENV.MONGO_URI, ENV.DB_NAME)
@@ -27,6 +29,7 @@ app.use(cookieParser());
 // URLS API PREFIX
 app.use("/api/elections", elecRouter)
 app.use("/api/map", mapRouter)
+app.use("/api/users", userRouter)
 
 // MIDDLEWARES DE GESTION D'ERROR
 app.use((error, req, res, next) => {

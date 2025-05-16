@@ -8,6 +8,18 @@ const userSchema = mongoose.Schema(
             maxLenght: 30,
             required: true
         },
+        firstname:{
+            type: String,
+            minLenght: 3,
+            maxLenght: 30,
+            required: true
+        },
+        lastname:{
+            type: String,
+            minLenght: 3,
+            maxLenght: 30,
+            required: true
+        },
         email:{
             type: String,
             unique: true,
@@ -19,7 +31,7 @@ const userSchema = mongoose.Schema(
         },
         role:{
             type: String,
-            enum: ['user', 'admin', 'superAdmin'],
+            enum: ['user', 'subscriber', 'admin', 'superAdmin'],
             default: 'user',
         },
         isActive:{
