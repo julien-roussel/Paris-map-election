@@ -11,6 +11,8 @@ const UserControllerAdmin = require('../controller/userAdmin.controller')
 router.get('/all', UserController.getAllUser)
 router.post('/add', UserController.signUp)
 router.post('/login', UserController.login)
+router.get('/verify/', UserController.verifyUser)
+router.get('/getbyid/:id', verifyToken, UserController.getById)
 router.put('/update/:id', verifyToken, UserController.updateUser)
 router.put('/desactivate/:id', verifyToken, UserController.desactivateUser)
 
