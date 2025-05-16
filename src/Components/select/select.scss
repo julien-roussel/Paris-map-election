@@ -72,44 +72,44 @@
                 color: $color-sombre;
                 font-weight: 600;
             }
+        }
+    }
+}
 
-            .container-buttons {
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                margin: 0;
+.container-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
 
-                .button {
-                    font-family: 'montserrat', sans-serif;
-                    font-size: 1rem;
-                    font-weight: 500;
-                    padding: 8px 25px 10px;
-                    border: 1px solid $color-gris;
-                    &:hover     {    opacity: 0.8;    }
-                    &:active    {    opacity: 0.5;    }
+    button {
+        font-family: 'montserrat', sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 8px 25px 10px;
+        border: 1px solid $color-gris;
+        &:hover     {    opacity: 0.8;    }
+        &:active    {    opacity: 0.5;    }
 
-                    &.dark-button {
-                        background-color: $color-sombre;
-                        color: white;
-                    }
-                    &.button-desactive {
-                        background-color: $color-gris;
-                        opacity: 0.3;
-                        &:hover {
-                            opacity: 0.2;
-                        }
-                    }
-
-                    
-
-                    span {
-                        position: relative;
-                        top: 1px;
-                    }
-                }
+        &.dark-button {
+            background-color: $color-sombre;
+            color: white;
+        }
+        &.button-desactive {
+            background-color: $color-gris;
+            opacity: 0.3;
+            &:hover {
+                opacity: 0.2;
             }
+        }
+
+        
+
+        span {
+            position: relative;
+            top: 1px;
         }
     }
 }

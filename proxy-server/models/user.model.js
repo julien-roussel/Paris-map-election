@@ -6,7 +6,8 @@ const userSchema = mongoose.Schema(
             type: String,
             minLenght: 3,
             maxLenght: 30,
-            required: true
+            required: true,
+            match: [/^[a-zA-Z0-9_]+$/, "Le nom d'utilisateur ne doit contenir que des lettres, chiffres et underscores (pas d'espaces ni caractères spéciaux)."]
         },
         firstname:{
             type: String,

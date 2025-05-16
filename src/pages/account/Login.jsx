@@ -31,12 +31,10 @@ const Login = (dataForm) => {
   return (
     <section className="container container-center">
         {session ? (
-            <div className=''>
-                <header>
-                    <h1 className='title-H'>Bienvenue, {auth?.username ? auth.username + ' !' : "Chargement..."} </h1>
-                </header>
+            <div className='card'>
                 <hr></hr>
                 <form>
+                    <h1 className='title-H'>Bienvenue, {auth?.username ? auth.username + ' !' : "Chargement..."} </h1>
                     <div className='form-input'>
                         <label htmlFor='username'>Username : </label>
                         <input
@@ -80,7 +78,10 @@ const Login = (dataForm) => {
                     </div>
                 </form>
                 <hr></hr>
-                <button onClick={logout}>Se déconnecter</button>
+                <div className='container-buttons'>
+                    <button onClick={logout}>Se déconnecter</button>
+                    <button onClick=''>Sauvegarder</button>
+                </div>
             </div>
         ) : (
             <div className={stylesAccount.card}>

@@ -62,6 +62,31 @@ h5 {
 	justify-content: center;
 }
 
+.card {
+	width: 100%;
+	max-width: 480px;
+	display: flex;
+	flex-direction: column;
+	align-items: self-start;
+	justify-content: center;
+	gap: 20px;
+	padding: 30px;
+	border: 2px solid $color-sombre;
+
+	form {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: self-start;
+		justify-content: center;
+		gap: 6px;
+	}
+
+	hr {
+		width: 100%;
+	}
+}
+
 /* ************* HOME PAGE ************** */
 
 .container-home {
@@ -309,17 +334,3 @@ h5 {
 	line-height: 1;
 }
 
-.divFrancePourcentage {	width: 50px; margin-bottom: 5px; background-color: $color-secondaire;}
-.divFrancePourcentage.Abstention {	background-color: $color-gris;}
-.divFrancePourcentage.PCF {	background-color: $color-pcf;}
-.divFrancePourcentage.EELV {	background-color: $color-eelv;}
-.divFrancePourcentage.LFI {	background-color: $color-lfi;}
-.divFrancePourcentage.PS {	background-color: $color-ps;}
-.divFrancePourcentage.Gauche {	background-color: $color-gauche;}
-.divFrancePourcentage.Dvd {	background-color: $color-dvd;}
-.divFrancePourcentage.Droite {	background-color: $color-droite;}
-.divFrancePourcentage.LR {	background-color: $color-lr;}
-.divFrancePourcentage.Extdroite {	background-color: $color-exd;}
-.divFrancePourcentage.RN {	background-color: $color-rn;}
-.divFrancePourcentage.Rec {	background-color: $color-sombre;}
-.divFrancePourcentage.Macron {	background-color: $color-macron;}
