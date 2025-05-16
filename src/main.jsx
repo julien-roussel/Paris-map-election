@@ -14,15 +14,18 @@ import App from './App.jsx'
 // Context
 import { ElectionsProvider } from "./context/ElectionsContext.jsx";
 import { MapProvider } from "./context/MapContext.jsx";
+import { AuthProvider } from './context/AuthContext.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <MapProvider>
-    <ElectionsProvider>
-      <StrictMode>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </StrictMode> 
-    </ElectionsProvider>
-  </MapProvider>
+    <MapProvider>
+      <ElectionsProvider>
+        <StrictMode>
+          <BrowserRouter>
+            <AuthProvider>
+              <App />
+            </AuthProvider>
+          </BrowserRouter>
+        </StrictMode> 
+      </ElectionsProvider>
+    </MapProvider>
 )

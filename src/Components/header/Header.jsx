@@ -17,6 +17,7 @@ const Header = () => {
         <Link to='/'><div>Home</div></Link>
         <Link to='/analyse-map'><div>Carte</div></Link>
         <Link to='/about'><div>About</div></Link>
+        <Link to='/login'><div>Login</div></Link>
       </nav>
       <SelectMap />
       <SelectElection />

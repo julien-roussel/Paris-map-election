@@ -9,6 +9,7 @@ import Home from './pages/Home.jsx';
 import AnalyseMap from './pages/AnalyseMap.jsx';
 import About from './pages/About.jsx';
 import Nothing from './pages/Nothing.jsx';
+import Login from './pages/account/Login.jsx';
 
 // Contexte
 import { useMap } from "./context/MapContext"
@@ -28,6 +29,7 @@ function App() {
           <Route path="/analyse-map" element={<AnalyseMap/>} />  
           <Route path="/analyse-map/:departement" element={<AnalyseMap/>} />  
           <Route path="/about" element={<About/>} />  
+          <Route path="/login" element={<Login/>} />
           <Route path='*' element={<Nothing/>} />
         </Route>
       </Routes>

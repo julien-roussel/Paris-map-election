@@ -3,6 +3,8 @@ import axios from 'axios';
 
 export const MapContext = createContext();
 
+const LOCALHOST = import.meta.env.VITE_LOCALHOST;
+
 export const MapProvider = ({ children }) => {
     const [bureauVote, setBureauVote]  = useState(null);
     const [bureauSelected, setBureauSelected] = useState(undefined);
@@ -13,7 +15,7 @@ export const MapProvider = ({ children }) => {
         if(!departementSelected) return;
 
         try {
-            const response = await axios.get(`http://localhost:3001/api/map/getbydepartement?departement=${departementSelected}`);
+            const response = await axios.get(`${LOCALHOST}/api/map/getbydepartement?departement=${departementSelected}`);
             const data = response.data;
             console.log('bureauVote : ', data);
             setTimeout(() => {
@@ -32,7 +34,7 @@ export const MapProvider = ({ children }) => {
     // Pour charger tous les noms de département
     const loadAllNameMap = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/api/map/alldepartement`);            
+            const response = await axios.get(`${LOCALHOST}/api/map/alldepartement`);            
             setAllNameMap(response.data)
         } catch (error) {
             console.error("Erreur de chargement GeoJSON :", error.message);

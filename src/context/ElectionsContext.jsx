@@ -10,6 +10,8 @@ export const ElectionsProvider = ({ children }) => {
   const [electionNameSelected, setElectionNameSelected] = useState([])
   const [electionSelected, setElectionSelected] = useState([])
   const [nuancePolitique, setNuancePolitique] = useState([])
+  
+  const LOCALHOST = import.meta.env.VITE_LOCALHOST;
 
   // Pour charger toutes les résultats d'une élection d'un département 
   // afin de la mapper sur une carte
@@ -19,7 +21,7 @@ export const ElectionsProvider = ({ children }) => {
     if(departementSelected === undefined) return
 
     try {
-        const response = await axios.get(`http://localhost:3001/api/elections/${election_name}`, {
+        const response = await axios.get(`${LOCALHOST}/api/elections/${election_name}`, {
           params: {
             departement: departementSelected
           }
@@ -38,7 +40,7 @@ export const ElectionsProvider = ({ children }) => {
     if (!election_name || !bureauVote) return;
 
     try {
-        const response = await axios.get(`http://localhost:3001/api/elections/${election_name}/${bureauVote}`, {
+        const response = await axios.get(`${LOCALHOST}/api/elections/${election_name}/${bureauVote}`, {
             params: {
               departement: departementSelected
             }
@@ -77,7 +79,7 @@ export const ElectionsProvider = ({ children }) => {
   // Charger les nuances des élections disponibles
   const loadNuancePolitique = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/elections/candidats')
+      const response = await axios.get(`${LOCALHOST}/api/elections/candidats`)
       setNuancePolitique(response.data)
     } catch (error) {
       console.error('❌ Erreur lors de récupération des données :', error.message);
@@ -87,7 +89,7 @@ export const ElectionsProvider = ({ children }) => {
   // Charger les nuances des élections disponibles
   const loadAllNameElections = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/elections/allname')
+      const response = await axios.get(`${LOCALHOST}/api/elections/allname`)
       setAllNameElections(response.data)
     } catch (error) {
       console.error('❌ Erreur lors de récupération des données :', error.message);
