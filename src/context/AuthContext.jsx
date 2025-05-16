@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
 
     // Etat pour stocker les infos de l'user connecté
     const [auth, setAuth] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     // Navigate
     const navigate = useNavigate()
@@ -23,8 +24,25 @@ export const AuthProvider = ({ children }) => {
           const { data, status } = await axios.get(`${LOCALHOST}/api/users/verify`, {
             withCredentials: true
           });
-          setSession(true);          
-        } catch (err) {
+          setUserId(data.userId);
+          setSession(true);  
+          getUserById(data.userId);        
+        } catch (error) {
+          console.log(error.message);
+          setSession(false);
+          setAuth(null);
+        }
+      };
+
+      const getUserById = async (userId) => {
+        try {
+          const { data, status } = await axios.get(`${LOCALHOST}/api/users/getById/${userId}`, {
+            withCredentials: true
+          });
+          setAuth(data);
+          
+        } catch (error) {
+          console.log(error.message);
           setSession(false);
           setAuth(null);
         }
