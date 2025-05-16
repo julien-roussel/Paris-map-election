@@ -20,13 +20,11 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
       const checkAuth = async () => {
         try {
-          const res = await axios.get(`${LOCALHOST}/api/users/verify`, {
+          const { data, status } = await axios.get(`${LOCALHOST}/api/users/verify`, {
             withCredentials: true
           });
-          setSession(true);
-          setAuth({ id: res.data.userId });
+          setSession(true);          
         } catch (err) {
-          console.log("Pas connecté");
           setSession(false);
           setAuth(null);
         }
@@ -43,12 +41,9 @@ export const AuthProvider = ({ children }) => {
             });
 
             if(status === 200) {
-              console.log(data);
                 setAuth(data.others);
                 setIsLoading(false);
-                setSession(true);   
-                localStorage.setItem('token', data.token);
-                localStorage.setItem("userId", data.others._id);  
+                setSession(true);     
                 navigate('/');
             }
 
@@ -58,8 +53,25 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const logout = async () => {
+      try {
+        await axios.post(`${LOCALHOST}/api/users/logout`, {}, {
+          withCredentials: true,
+        });
+    
+        // Nettoyer l'état local
+        setAuth(null);
+        setSession(false);
+    
+        // Rediriger
+        navigate('/');
+      } catch (error) {
+        console.error("Erreur lors de la déconnexion :", error);
+      }
+    };
+
   return (
-    <AuthContext.Provider value={{ login, session, auth, isLoading }}>
+    <AuthContext.Provider value={{ login, logout, session, auth, isLoading }}>
       {children}
     </AuthContext.Provider>
   )

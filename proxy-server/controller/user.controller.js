@@ -104,6 +104,14 @@ const login = async (req, res, next) => {
     }
 }
 
+const logout = (req, res) => {
+    res.clearCookie("acces_token", {
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: false,
+    }).status(200).json({ message: "Déconnexion réussie" });
+}
+
 const updateUser = async (req, res, next) => {
     try {
         // Vérifier si l'utilisateur est connecté 
@@ -162,6 +170,7 @@ module.exports = {
     getById,
     verifyUser,
     login,
+    logout,
     updateUser,
     desactivateUser,
 }

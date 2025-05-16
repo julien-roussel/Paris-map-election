@@ -9,7 +9,7 @@ import stylesAccount from './account.module.scss';
 
 const Login = (dataForm) => {
     const [user, setUser] = useState({});
-    const { login, auth, session } = useContext(AuthContext)
+    const { login, logout, auth, session } = useContext(AuthContext)
 
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
@@ -34,12 +34,12 @@ const Login = (dataForm) => {
             {session ? (
                 <div className="container">
                     <header>
-                        <h1 className='title-H'>Bienvenue, {auth.username ? auth.username + ' !' : "Chargement..."} </h1>
+                        <h1 className='title-H'>Bienvenue, {auth?.username ? auth.username + ' !' : "Chargement..."} </h1>
                     </header>
 
                     <hr></hr>
 
-                    
+                    <button onClick={logout}>Se déconnecter</button>
                 </div>
             ) : (
                 <div className={stylesAccount.card}>
