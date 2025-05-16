@@ -33,10 +33,16 @@
     align-items: center;
     background-color: white;
     border: 1px solid $color-sombre;
-    border-radius: 20px;
+    border-radius: 0px;
     -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.15); 
     box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.15);
     
+
+    hr {        
+        border-top-width: 2px;
+        width: 100%;    
+    }
+
     .pop-up {
         display: flex;
         flex-direction: column;
@@ -57,8 +63,6 @@
             align-items: center;
             justify-content: space-between;
             gap: 10px;
-
-            hr {        width: 100%;    }
 
             select {
                 width: 100%;

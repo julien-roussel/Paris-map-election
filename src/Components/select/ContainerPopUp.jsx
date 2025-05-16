@@ -60,8 +60,8 @@ const ContainerPopUp = () => {
   return (
     <div className="container-pop-up">
         { !etape && (
-        //electionNameSelected == '' && (
-          <div id="pop-election" className="pop-up">
+          //electionNameSelected == '' && (
+            <div id="pop-election" className="pop-up">
               <h3>Élections non chargées 1/2</h3>
               <p>La carte ne s'affiche pas, car aucune élection est sélectionnée.</p>
               <h5>Veuillez sélectionner une élection</h5>

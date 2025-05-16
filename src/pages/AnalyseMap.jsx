@@ -38,7 +38,7 @@ const MapParis = () => {
             <div id="marge-resultat" className={(!bureauDataSelect && !bureauDataSelect?.meta) ? 'bv-no-select' : undefined}>
                 <h1>résultats élections</h1>
                 <span>{(!bureauDataSelect && !bureauDataSelect?.meta) ? 'Sélectionnez un bureau :' : "Bureau sélectionné :"}</span>
-                <h3>{nomDep ? nomDep : 'Département sélectionné'} {departement ? departement : ''}</h3>
+                <h3>{departement ? departement : ''} - {nomDep ? nomDep : 'Département sélectionné'} </h3>
                 <h4>{nomCommune ? nomCommune : 'Nom de la commune'}</h4>
                 <div id="meta-bureau">
                     <h5>Circonscription {bureauDataSelect ? circo : '__'}</h5>

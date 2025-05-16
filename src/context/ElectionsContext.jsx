@@ -7,6 +7,12 @@ export const ElectionsProvider = ({ children }) => {
   const [allNameElections, setAllNameElections] = useState(
   [
     {
+      idName: 'presi2012',
+      name: 'Présidentielles 2012',
+      type: 'presi',
+      annee: 2012
+    },
+    {
       idName: 'presi2017',
       name: 'Présidentielles 2017',
       type: 'presi',
