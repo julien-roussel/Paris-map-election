@@ -17,15 +17,15 @@ import { MapProvider } from "./context/MapContext.jsx";
 import { AuthProvider } from './context/AuthContext.jsx';
 
 createRoot(document.getElementById('root')).render(
-    <MapProvider>
-      <ElectionsProvider>
-        <StrictMode>
-          <BrowserRouter>
-            <AuthProvider>
-              <App />
-            </AuthProvider>
-          </BrowserRouter>
-        </StrictMode> 
-      </ElectionsProvider>
-    </MapProvider>
+  <StrictMode>
+    <BrowserRouter>
+      <AuthProvider>
+        <MapProvider>
+          <ElectionsProvider>
+            <App />
+          </ElectionsProvider>
+        </MapProvider>
+      </AuthProvider>
+    </BrowserRouter>
+  </StrictMode>    
 )

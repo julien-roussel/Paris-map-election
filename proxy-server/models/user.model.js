@@ -43,6 +43,10 @@ const userSchema = mongoose.Schema(
             type: Boolean,
             default: true,
         },
+        isSuscriber:{
+            type: Boolean,
+            default: false,
+        },
         } ,  { timestamps: { createdAt: true    }
     }
 )

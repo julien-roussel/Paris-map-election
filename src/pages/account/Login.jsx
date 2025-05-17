@@ -64,7 +64,7 @@ const Login = (dataForm) => {
                             value={auth?.firstname}  
                             placeholder={auth?.firstname}  
                             required
-                        />
+                            />
                     </div>
                     <div className='form-input'>
                         <label htmlFor='lastname'>Nom : </label>
@@ -74,17 +74,21 @@ const Login = (dataForm) => {
                             value={auth?.lastname}  
                             placeholder={auth?.lastname}  
                             required
-                        />
+                            />
+                    </div>
+                    <hr></hr>
+                    <div>
+                        <h5>{auth?.lastname ? "Vous êtes membre" : "Vous n'êtes pas membre"}  </h5>
                     </div>
                 </form>
                 <hr></hr>
                 <div className='container-buttons'>
-                    <button onClick={logout}>Se déconnecter</button>
-                    <button onClick=''>Sauvegarder</button>
+                    <button class="button dark-button" onClick={logout}>Se déconnecter</button>
+                    <button class="button dark-button" onClick=''>Sauvegarder</button>
                 </div>
             </div>
         ) : (
-            <div className={stylesAccount.card}>
+            <div className='card'>
                 <p className={errMsg ? "errmsg" : "offscren"}>{errMsg}</p>
                 <h1>Connexion</h1>
                 <form onSubmit={handleSubmit}>

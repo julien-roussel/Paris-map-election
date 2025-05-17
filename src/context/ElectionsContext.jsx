@@ -3,9 +3,13 @@ import axios from 'axios';
 
 export const ElectionsContext = createContext();
 
-export const ElectionsProvider = ({ children }) => {
-  const [allNameElections, setAllNameElections] = useState([]);
+// Contexte
+import AuthContext from '../context/AuthContext.jsx';
 
+export const ElectionsProvider = ({ children }) => {
+  const { auth, session } = useContext(AuthContext)
+
+  const [allNameElections, setAllNameElections] = useState([]);
   const [bureauDataSelect, setBureauDataSelect] = useState(undefined);
   const [electionNameSelected, setElectionNameSelected] = useState([])
   const [electionSelected, setElectionSelected] = useState([])
@@ -19,6 +23,7 @@ export const ElectionsProvider = ({ children }) => {
     if(election_name === undefined) return
     setElectionNameSelected(allNameElections.filter(election => election.idName === election_name))
     if(departementSelected === undefined) return
+    if(election_name === 'muni2020' && departementSelected != 75) return
 
     try {
         const response = await axios.get(`${LOCALHOST}/api/elections/${election_name}`, {
@@ -90,7 +95,15 @@ export const ElectionsProvider = ({ children }) => {
   const loadAllNameElections = async () => {
     try {
       const response = await axios.get(`${LOCALHOST}/api/elections/allname`)
-      setAllNameElections(response.data)
+      var elections = response.data;
+      if (auth?.isSuscriber) {
+        elections  = response.data;
+      } else if (auth?.isSuscriber === false) {
+        elections = elections.filter(election => election.type === 'presi')
+      } else if (!session) {
+        elections = elections.filter(election => election.idName === 'presi2022')
+      } 
+      setAllNameElections(elections)
     } catch (error) {
       console.error('❌ Erreur lors de récupération des données :', error.message);
     }
@@ -98,8 +111,8 @@ export const ElectionsProvider = ({ children }) => {
 
   useEffect(() => {
     loadNuancePolitique();
-    loadAllNameElections();
-  }, []); 
+    loadAllNameElections();    
+  }, [session]); 
   
   return (
     <ElectionsContext.Provider value={{ 
