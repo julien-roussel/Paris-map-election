@@ -25,6 +25,7 @@ const Map = () => {
             loadElectionMapMember, 
             loadElectionsMapConnected, 
             loadElectionMapNoConnected,
+            nuancePolitique,
             setBureauDataSelect } = useElection();
     const { modeMap, loadMapBureau, bureauVote, selectBureau, bureauSelected, allNameMap } = useMap();
     const { auth, session } = useAuth();
@@ -62,39 +63,10 @@ const Map = () => {
       };
 
     const getNuanceColor = (parti) => {
-        if (!parti) return 'gray';
-          switch (parti) {
-            case 'LO': return '#892b16';
-            case 'PCF': return '#7d180d';
-            case 'NFP': return '#ff5d5d';
-            case 'NUPES': return '#ff5d5d';
-            case 'FI': return '#cd3256';
-            case 'LFI': return '#cd3256';
-            case 'DVG': return '#a82162';
-            case 'PS': return '#ea4693';
-            case 'EELV': return '#2dc380';
-            case 'DVC': return '#f58c58';
-            case 'DIV': return '#f58c58';
-            case 'LDIV': return '#f58c58';
-            case 'LREM': return '#ffb847';
-            case 'ENS': return '#ffb847';
-            case 'EM': return '#ffb847';
-            case 'UDI': return '#ffb847';
-            case 'CEN': return '#ffb847';
-            case 'REN': return '#ffb847';
-            case 'HOR': return '#005dc7';
-            case 'LR': return '#0622ac';
-            case 'UXD': return '#32066f';
-            case 'DSV': return '#32066f';
-            case 'DLF': return '#32066f';
-            case 'FN': return '#74574b';
-            case 'RN': return '#74574b';
-            case 'EXD': return '#74574b';
-            case 'REC': return '#4d403b';
-            default:
-                console.warn("❓ Parti inconnu:", parti);
-                return 'gray';
-          }
+        if (nuancePolitique[parti]) {            
+            return nuancePolitique[parti].color;
+        }
+        return 'gray';
     };
 
     const getVoixGauche = (candidats) => {
