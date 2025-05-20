@@ -30,6 +30,15 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true
         },
+        dateOfBirth: {
+            type: Date,
+            required: true,
+            trim: true,
+        },
+        city:{
+            type: String,
+            required: true
+        },
         role:{
             type: String,
             enum: ['user', 'subscriber', 'admin', 'superAdmin'],

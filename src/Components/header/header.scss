@@ -20,6 +20,10 @@ header {
         margin: 0;
         border-right: solid 1px $color-sombre;
         padding: 6px 20px 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
     }
 
     nav {

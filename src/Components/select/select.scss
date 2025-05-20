@@ -23,59 +23,6 @@
     }
 }	
 
-
-.container-pop-up {
-    width: 460px;
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border: 1px solid $color-sombre;
-    border-radius: 0px;
-    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.15); 
-    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.15);
-    
-
-    hr {        
-        border-top-width: 2px;
-        width: 100%;    
-    }
-
-    .pop-up {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;  
-        text-align: center;  
-        padding: 40px;
-        gap: 5px;
-
-        h5 {
-            margin-bottom: 15px;
-        }
-
-        .container-select {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-
-            select {
-                width: 100%;
-                margin: 0;
-                padding: 10px 20px;
-                background-color: white;
-                color: $color-sombre;
-                font-weight: 600;
-            }
-        }
-    }
-}
-
 .container-buttons {
     width: 100%;
     display: flex;
@@ -83,33 +30,71 @@
     align-items: center;
     justify-content: space-between;
     margin: 0;
+}
 
-    button {
-        font-family: 'montserrat', sans-serif;
-        font-size: 1rem;
-        font-weight: 500;
-        padding: 8px 25px 10px;
-        border: 1px solid $color-gris;
-        &:hover     {    opacity: 0.8;    }
-        &:active    {    opacity: 0.5;    }
+.button {
+    font-family: 'montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 8px 25px 10px;
+    background-color: white;
+    border: 1px solid $color-gris;
 
-        &.dark-button {
-            background-color: $color-sombre;
-            color: white;
+    &:hover     {    
+        opacity: 0.8;
+        animation: buttonActive 0.5s ease-in-out;   
+    }
+
+    &:active    {    
+        opacity: 0.5;    
+        animation: buttonPress 0.5s ease-in-out; 
+    }
+
+    &.dark-button {
+        background-color: $color-sombre;
+        color: white;
+    }
+    &.button-desactive {
+        background-color: $color-gris;
+        opacity: 0.3;
+        &:hover {
+            opacity: 0.2;
+            animation: buttonDesactive 0.5s ease-in-out;
         }
-        &.button-desactive {
-            background-color: $color-gris;
-            opacity: 0.3;
-            &:hover {
-                opacity: 0.2;
-            }
-        }
+    }
 
-        
+    span {
+        position: relative;
+        top: 1px;
+    }
+}
 
-        span {
-            position: relative;
-            top: 1px;
-        }
+@keyframes buttonActive {
+    0% { 
+        transform: scale(1); 
+    } 15% { 
+        transform: scale(1.05);
+    } 100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes buttonDesactive {
+    0% { 
+        transform: scale(1); 
+    } 85% { 
+        transform: scale(0.97);
+    } 100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes buttonPress {
+    0% { 
+        transform: scale(1); 
+    } 15% { 
+        transform: scale(0.9);
+    } 100% {
+        transform: scale(1);
     }
 }

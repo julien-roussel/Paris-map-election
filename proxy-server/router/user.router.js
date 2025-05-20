@@ -14,7 +14,7 @@ router.post('/login', UserController.login)
 router.post('/logout', UserController.logout)
 router.get('/verify/', UserController.verifyUser)
 router.get('/getbyid/:id', verifyToken, UserController.getById)
-router.put('/update/:id', verifyToken, UserController.updateUser)
+router.patch('/update/:id', verifyToken, UserController.updateUser)
 router.put('/desactivate/:id', verifyToken, UserController.desactivateUser)
 
 // Admin controller

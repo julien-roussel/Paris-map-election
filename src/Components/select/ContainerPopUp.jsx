@@ -6,11 +6,8 @@ import { useElection } from "../../context/ElectionsContext"
 import { useMap } from "../../context/MapContext"
 import { useAuth } from "../../context/AuthContext"
 
-// Component
-import Button from '../../Components/button/Button' 
-
 // CSS
-import '../button/button.scss'
+import stylesPopUp from './popup.module.scss';
 
 const ContainerPopUp = () => {
   const navigate = useNavigate();
@@ -68,14 +65,13 @@ const ContainerPopUp = () => {
   }
 
   return (
-    <div className="container-pop-up">
+    <div className={stylesPopUp.containerpopup}>
         { !etape && (
-          //electionNameSelected == '' && (
-            <div id="pop-election" className="pop-up">
-              <h3>Élections non chargées 1/2</h3>
+            <div id="pop-election" className={stylesPopUp.popup}>
+              <h3>Élections non chargées <span className={stylesPopUp.popupetape}>1/2</span></h3>
               <p>La carte ne s'affiche pas, car aucune élection est sélectionnée.</p>
               <h5>Veuillez sélectionner une élection</h5>
-              <form id="" className="container-select" 
+              <form id="" className={stylesPopUp.containerselect}
                     onSubmit={popElectSubmit} onChange={popElectChange}>
                   <select id="electionMenu">
                       <option value={false}>{electionNameSelected[0] ? electionNameSelected[0]?.name : "Sélectionnez une élection"}</option>
@@ -108,12 +104,11 @@ const ContainerPopUp = () => {
         )}
 
         { etape && (
-          //!departement && electionNameSelected != '' && (
-          <div id="pop-departement" className="pop-up" >
-              <h3>Carte non chargée 2/2</h3>
+          <div id="pop-departement" className={stylesPopUp.popup} >
+              <h3>Carte non chargée <span className={stylesPopUp.popupetape}>2/2</span></h3>
               <p>La carte ne s'affiche pas, car aucun département est sélectionné.</p>
               <h5>Veuillez sélectionner un département</h5>
-              <form id="" className="container-select" 
+              <form id="" className={stylesPopUp.containerselect} 
                     onSubmit={popDeptSubmit} onChange={popDeptChange}>
                   <select id="electionMenu">
                       <option value={false}>Sélectionnez un département</option>

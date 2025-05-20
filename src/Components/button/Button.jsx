@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './button.scss'
+
 const Button = (props) => {
   return (
     <a  id={props.name && 'button-'+props.name} className="container-button"

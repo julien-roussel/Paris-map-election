@@ -7,8 +7,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid $color-sombre;
-    border-radius: 30px;
+    text-decoration: none;
 
     span {
         color: $color-sombre;
@@ -16,7 +15,5 @@
     }
     .button {
         width: fit-content;
-        margin: 8px 20px;
-
     }
 }
