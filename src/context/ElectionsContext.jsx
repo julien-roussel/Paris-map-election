@@ -4,10 +4,10 @@ import axios from 'axios';
 export const ElectionsContext = createContext();
 
 // Contexte
-import AuthContext from '../context/AuthContext.jsx';
+import { useAuth } from "./AuthContext"
 
 export const ElectionsProvider = ({ children }) => {
-  const { auth, session } = useContext(AuthContext)
+  const { auth, session } = useAuth();
 
   const [allNameElections, setAllNameElections] = useState([]);
   const [bureauDataSelect, setBureauDataSelect] = useState(undefined);
@@ -16,20 +16,64 @@ export const ElectionsProvider = ({ children }) => {
   const [nuancePolitique, setNuancePolitique] = useState([])
   
   const LOCALHOST = import.meta.env.VITE_LOCALHOST;
+  
+  // Pour charger les résultats d'une élection d'un département
+  // Si l'utilisateur n'est pas connecté
+  const loadElectionMapNoConnected = async (departementSelected) => {
+    if(departementSelected === undefined) return
+
+    try {
+      const response = await axios.get(`${LOCALHOST}/api/elections/offline`, {
+        params: {
+          departement: departementSelected
+        }
+      })   
+      setElectionSelected(undefined)
+      const filteredResults = response.data;
+      setElectionSelected(filteredResults);
+      console.log('electionSelected : ', filteredResults);
+    } catch (error) {
+        console.error('Erreur de récupération des données :', error);
+    }
+  }
+
+  // Pour charger les résultats d'une élection d'un département
+  // Si l'utilisateur est connecté
+  const loadElectionsMapConnected = async (userId, departementSelected) => {
+      if(departementSelected === undefined) return
+      if(userId === undefined) return
+
+      try {
+        const response = await axios.get(`${LOCALHOST}/api/elections/online/${userId}`, {
+          params: {
+            departement: departementSelected
+          },
+          withCredentials: true
+        })   
+      setElectionSelected(undefined)
+      const filteredResults = response.data;
+      setElectionSelected(filteredResults);
+      console.log('electionSelected : ', filteredResults);
+    } catch (error) {
+        console.error('Erreur de récupération des données :', error);
+    }
+  }
 
   // Pour charger toutes les résultats d'une élection d'un département 
   // afin de la mapper sur une carte
-  const loadElectionMap = async (election_name, departementSelected) => {
+  const loadElectionMapMember = async (election_name, userId, departementSelected) => {
+    if(departementSelected === undefined) return
+    if(userId === undefined) return
     if(election_name === undefined) return
     setElectionNameSelected(allNameElections.filter(election => election.idName === election_name))
-    if(departementSelected === undefined) return
     if(election_name === 'muni2020' && departementSelected != 75) return
 
     try {
-        const response = await axios.get(`${LOCALHOST}/api/elections/${election_name}`, {
+        const response = await axios.get(`${LOCALHOST}/api/elections/member/${election_name}/${userId}`, {
           params: {
             departement: departementSelected
-          }
+          },
+          withCredentials: true
         })   
       setElectionSelected(undefined)
       const filteredResults = response.data;
@@ -40,12 +84,14 @@ export const ElectionsProvider = ({ children }) => {
     }
   };
 
+
   // Pour charger les résultats de toutes les élections d'un bureau de vote
   const loadResultBv = async (election_name, bureauVote, departementSelected) => {
     if (!election_name || !bureauVote) return;
-
+    if(election_name === 'muni2020' && departementSelected != 75) return
+    
     try {
-        const response = await axios.get(`${LOCALHOST}/api/elections/${election_name}/${bureauVote}`, {
+        const response = await axios.get(`${LOCALHOST}/api/elections/bureau/${election_name}/${bureauVote}`, {
             params: {
               departement: departementSelected
             }
@@ -116,7 +162,9 @@ export const ElectionsProvider = ({ children }) => {
   
   return (
     <ElectionsContext.Provider value={{ 
-          loadElectionMap,
+          loadElectionMapNoConnected,
+          loadElectionsMapConnected,
+          loadElectionMapMember,
           loadResultBv,
           loadNuancePolitique,
           allNameElections, 

@@ -7,13 +7,13 @@ import SelectElection from '../../Components/select/SelectElection';
 import SelectMap from '../../Components/select/SelectMap'
 
 // Contexte
-import AuthContext from '../../context/AuthContext.jsx';
+import { useAuth } from "../../context/AuthContext"
 
 // SCSS
 import './header.scss';
 
 const Header = () => {
-  const { session } = useContext(AuthContext)
+  const { session } = useAuth();
 
   return (
     <header>

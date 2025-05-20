@@ -5,20 +5,31 @@ import { useNavigate } from "react-router-dom";
 // Context
 import { useMap } from "../../context/MapContext"
 import { useElection } from "../../context/ElectionsContext"
+import { useAuth } from "../../context/AuthContext"
 
 const SelectElection = () => {
     const { departement } = useParams();
     const { allNameMap } = useMap();
-    const { loadElectionMap, electionNameSelected } = useElection();
-    const [allNameArray, setAllNameArray] = useState('');
     const navigate = useNavigate();
+
+    // Context
+    const { loadElectionMapMember, 
+            loadElectionsMapConnected,
+            loadElectionMapNoConnected, 
+            electionNameSelected } = useElection();
+    const { auth, session } = useAuth();  
+
+    // State
+    const [allNameArray, setAllNameArray] = useState('');
 
     useEffect(() => {
       if(allNameMap) setAllNameArray(Object.values(allNameMap))
     }, [allNameMap]); 
 
     useEffect(() => {
-        loadElectionMap(electionNameSelected[0]?.idName ,departement)
+      if(auth?.isSuscriber) loadElectionMapMember(electionNameSelected[0]?.idName, auth._id ,departement)
+      if(session && !auth?.isSuscriber) loadElectionsMapConnected(auth?._id, departement)
+      if(!session) loadElectionMapNoConnected(departement)  
     }, [departement]);
     
     function navigateToMap(value) {

@@ -9,22 +9,34 @@ import './map.scss'
 // Context
 import { useElection } from "../../context/ElectionsContext"
 import { useMap } from "../../context/MapContext"
+import { useAuth } from "../../context/AuthContext"
 
 // Component
 import MapAutoCenter from './MapAutoCenter' 
 import ContainerPopUp from '../select/ContainerPopUp' 
 
-const Map = (props) => {
+const Map = () => {
+    // Params
     const { departement } = useParams();
-    const { electionSelected, electionNameSelected, loadElectionMap, bureauDataSelect, setBureauDataSelect } = useElection();
+
+    // Context
+    const { electionSelected, 
+            electionNameSelected, 
+            loadElectionMapMember, 
+            loadElectionsMapConnected, 
+            loadElectionMapNoConnected,
+            setBureauDataSelect } = useElection();
     const { modeMap, loadMapBureau, bureauVote, selectBureau, bureauSelected, allNameMap } = useMap();
-    
+    const { auth, session } = useAuth();
+
     const { BaseLayer, Overlay } = LayersControl;
 
     // Charger les bureaux sur la map
     useEffect(() => {
         loadMapBureau(departement)
-        loadElectionMap(electionNameSelected[0]?.idName ,departement)
+        if(auth?.isSuscriber) loadElectionMapMember(electionNameSelected[0]?.idName, auth._id ,departement)
+        if(session && !auth?.isSuscriber) loadElectionsMapConnected(auth?._id, departement)
+        if(!session) loadElectionMapNoConnected(departement)
     }, [departement]);
 
     function getOpacityFromScore(inscrits, score) {

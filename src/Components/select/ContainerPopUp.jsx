@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
 import { useNavigate } from "react-router-dom";
 
 // Context
 import { useElection } from "../../context/ElectionsContext"
 import { useMap } from "../../context/MapContext"
+import { useAuth } from "../../context/AuthContext"
 
 // Component
 import Button from '../../Components/button/Button' 
@@ -14,9 +14,17 @@ import '../button/button.scss'
 
 const ContainerPopUp = () => {
   const navigate = useNavigate();
-  const { allNameElections, loadElectionMap, electionNameSelected } = useElection();
-  
+
+  // Context
+  const { allNameElections, 
+          loadElectionMapMember, 
+          loadElectionsMapConnected, 
+          loadElectionMapNoConnected,
+          electionNameSelected } = useElection();
+  const { auth, session } = useAuth();
   const { allNameMap } = useMap();
+
+  // State
   const [popDepartementSelected, setPopDepartementSelected] = useState();
   const [popElectSelected, setPopElectSelected] = useState();
   const [allNameArray, setAllNameArray] = useState('');
@@ -48,8 +56,10 @@ const ContainerPopUp = () => {
   const popDeptSubmit = (event) => { 
     event.preventDefault();     
     if (!popDepartementSelected || !popElectSelected || !etape) return;
-    
-    loadElectionMap(popElectSelected, popDepartementSelected)
+
+    if(auth?.isSuscriber) loadElectionMapMember(popElectSelected, auth._id ,popDepartementSelected)
+    if(session && !auth?.isSuscriber) loadElectionsMapConnected(auth?._id, popDepartementSelected)
+    if(!session) loadElectionMapNoConnected(popDepartementSelected)
     navigate('/analyse-map/'+popDepartementSelected)
   }
   
@@ -69,9 +79,11 @@ const ContainerPopUp = () => {
                     onSubmit={popElectSubmit} onChange={popElectChange}>
                   <select id="electionMenu">
                       <option value={false}>{electionNameSelected[0] ? electionNameSelected[0]?.name : "Sélectionnez une élection"}</option>
-                      {allNameElections.map((election, index) => (
+                      {allNameElections.map((election, index) => {
+                        if(election.type == 'muni' &&  popDepartementSelected != 75) return;
+                        return (
                           <option key={index} value={election.idName}>{election.name}</option>
-                      ))}
+                      )})}
                   </select>
                   <hr></hr>
                   <div className='container-buttons'>

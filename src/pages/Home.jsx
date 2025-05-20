@@ -9,7 +9,7 @@ const Home = () => {
     <div id="homepage">
         <div id="container" className="">
           <div id="container-home-video" className="container-home">
-            <video className="image-fade hidden visible animated fadeInUp" loop="" playsInline="" autoPlay={true} muted="" src="../../../public/video/map-video_01.mp4">
+            <video className="image-fade hidden visible animated fadeInUp" loop="" playsInline="" autoPlay loop muted="" src="../../../public/video/map-video_01.mp4">
             </video>
           </div>
           <div id="container-home-intro" className="container-home">

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import axios from "axios";
@@ -95,4 +95,4 @@ export const AuthProvider = ({ children }) => {
   )
 }
 
-export default AuthContext
+export const useAuth = () => useContext(AuthContext);

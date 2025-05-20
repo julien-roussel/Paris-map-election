@@ -75,7 +75,7 @@ const ContainerResultat = (props) => {
                 }
 
                 return (
-                    <div    key={index} className="container-resultat-candidat"
+                    <div key={index} className="container-resultat-candidat"
                             id={candidat.parti_code && "container-"+candidat.parti_code}>
                         <span>{candidat.tete_de_liste && capitalizeFirstLetter(candidat.tete_de_liste)} : {Math.round(candidat.voix/inscrits*100)}%</span>
                         <div className="progress">

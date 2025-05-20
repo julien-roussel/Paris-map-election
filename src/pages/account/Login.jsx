@@ -2,15 +2,17 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router';
 
 // Contexte
-import AuthContext from '../../context/AuthContext.jsx';
+import { useAuth } from "../../context/AuthContext"
 
 // CSS
 import stylesAccount from './account.module.scss';
 
 const Login = (dataForm) => {
+    // Context
+    const { login, logout, auth, session } = useAuth();
+    
+    // State
     const [user, setUser] = useState({});
-    const { login, logout, auth, session } = useContext(AuthContext)
-
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
@@ -78,13 +80,13 @@ const Login = (dataForm) => {
                     </div>
                     <hr></hr>
                     <div>
-                        <h5>{auth?.lastname ? "Vous êtes membre" : "Vous n'êtes pas membre"}  </h5>
+                        <h5>{auth?.isSuscriber ? "Vous êtes membre" : "Vous n'êtes pas membre"}  </h5>
                     </div>
                 </form>
                 <hr></hr>
                 <div className='container-buttons'>
-                    <button class="button dark-button" onClick={logout}>Se déconnecter</button>
-                    <button class="button dark-button" onClick=''>Sauvegarder</button>
+                    <button className="button dark-button" onClick={logout}>Se déconnecter</button>
+                    <button className="button dark-button" onClick=''>Sauvegarder</button>
                 </div>
             </div>
         ) : (

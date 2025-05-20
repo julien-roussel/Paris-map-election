@@ -95,7 +95,9 @@ h5 {
 	h1 {	font-size: 12rem !important; 	}
 	h2 {	margin: 30px 0 2px;	}
 
-	video {	width: 100%; max-width: 540px;	}
+	#container-home-video {		max-width: 600px;	}
+
+	video {	width: 100%; border-bottom: 2px solid $color-sombre;	}
 
 	&:nth-child(1) {	border-right: 2px solid $color-sombre;	}
 	&:nth-child(2) {	padding: 6% 120px;	}
