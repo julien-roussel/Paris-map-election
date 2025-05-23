@@ -6,7 +6,7 @@ import './footer.scss'
 const Footer = () => {
   return (
     <footer>
-        <span>SCRUTANALYSE © 2025</span>
+        <span>SUFFRAMAP © 2025</span>
     </footer>
   )
 }

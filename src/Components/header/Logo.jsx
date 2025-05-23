@@ -2,7 +2,7 @@ import React from 'react'
 
 const logo = () => {
   return (
-    <div id="header-logo">SCRUTANALYSE</div>
+    <a id="header-logo" href="/">SUFFRAMAP</a>
   )
 }
 

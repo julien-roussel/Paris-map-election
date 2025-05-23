@@ -13,10 +13,10 @@ const Home = () => {
             </video>
           </div>
           <div id="container-home-intro" className="container-home">
-            <h1>SCRUTANALYSE</h1>
+            <h1>SUFFRAMAP</h1>
             <h2>Présentation</h2>
             <p>
-              <span className='texte-bold'>Scrutanalyse</span> est un outil d’exploration et de visualisation des résultats électoraux français, basé sur le <span className='texte-bold'>niveau le plus granulaire disponible : les bureaux de vote.</span>
+              <span className='texte-bold'>SuffraMap</span> est un outil d’exploration et de visualisation des résultats électoraux français, basé sur le <span className='texte-bold'>niveau le plus granulaire disponible : les bureaux de vote.</span>
             </p>
             <p>
               En combinant <span className='texte-bold'>données en <span className='texte-italique'>Opendata</span> et cartographie interactive</span>, Scrutanalyse permet de comparer les dynamiques électorales à une échelle ultra-locale, de visualiser les contrastes politiques quartier par quartier, et d’analyser l’évolution des comportements électoraux à travers le temps.
