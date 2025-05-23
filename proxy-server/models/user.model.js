@@ -50,7 +50,7 @@ const userSchema = mongoose.Schema(
         },
         isVerified:{
             type: Boolean,
-            default: true,
+            default: false,
         },
         isSuscriber:{
             type: Boolean,

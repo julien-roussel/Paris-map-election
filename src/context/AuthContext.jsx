@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
     // Etat pour suivre l'authentification
     const [isLoading, setIsLoading] = useState(false);
     const [session, setSession] = useState(false);
+    const [errMsg, setErrMsg] = useState('');
 
     // Etat pour stocker les infos de l'user connecté
     const [auth, setAuth] = useState(null);
@@ -63,11 +64,12 @@ export const AuthProvider = ({ children }) => {
                 setIsLoading(false);
                 setSession(true);     
                 navigate('/');
-            }
-
-        } catch(error) {
-          console.log(error.message);
-          setIsLoading(false)
+              }
+              
+          } catch(error) {
+            console.log(error.message);
+            setErrMsg('Votre email ou mot de passe est mauvais.');
+            setIsLoading(false)
         }
     }
 
@@ -88,8 +90,35 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
+  const signUp = async (dataForm) => {
+    setIsLoading(true)
+    try {
+      const { data, status } = await axios.post(`${LOCALHOST}/api/users/signup`, dataForm, {
+        withCredentials: true
+      });
+
+      if(status === 200) {
+        setAuth(data.others);
+        setIsLoading(false);
+        setSession(true);     
+      }
+    } catch(error) {
+      console.log(error.message);
+      setErrMsg('Votre email ou mot de passe est mauvais.');
+      setIsLoading(false)
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ login, logout, session, auth, isLoading }}>
+    <AuthContext.Provider value={{ 
+        login, 
+        logout, 
+        signUp,
+        session, 
+        auth, 
+        errMsg, 
+        setErrMsg, 
+        isLoading }}>
       {children}
     </AuthContext.Provider>
   )

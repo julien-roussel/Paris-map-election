@@ -6,18 +6,18 @@ const LOCALHOST = import.meta.env.VITE_LOCALHOST;
 // Contexte
 import { useAuth } from "../../context/AuthContext"
 
-// CSS
-import stylesAccount from './account.module.scss';
+// Component
+import Card from '../../Components/Composition/Card';
 
 const Login = (dataForm) => {
     // Context
-    const { login, logout, auth, session } = useAuth();
+    const { login, logout, auth, session, errMsg, setErrMsg } = useAuth();
     
     // State
     const [user, setUser] = useState({});
     const [password, setPassword] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-    const [maj, setMaj] = useState(false);
+    
+    const [maj, setMaj] = useState('');
     const [formData, setFormData] = useState({});
     const [birthdate, setBirthdate] = useState('');
 
@@ -40,7 +40,7 @@ const Login = (dataForm) => {
             city: auth?.city || "",
         });
     }, [auth])
-
+    
     useEffect(() => {
         setErrMsg('');
     }, [user, password])
@@ -55,7 +55,7 @@ const Login = (dataForm) => {
                 updatedFields,
                 {withCredentials: true}
             )   
-            setMaj(true)
+            setMaj('Profil mis à jour !')
         } catch (error) {
             console.error("Erreur lors d'update du profil", error);
         }
@@ -88,124 +88,95 @@ const Login = (dataForm) => {
   return (
     <section className="container container-center">
         {session ? (
-            <div className='card'>
-                <hr></hr>
-                <h1 className='title-H'>Bienvenue, {auth?.username ? auth.username + ' !' : "Chargement..."} </h1>
-                <form className={stylesAccount.form}>
-                    <div className={stylesAccount.formDouble}>
-                        <div className={stylesAccount.formInput}>
-                            <label htmlFor='username'>Username : </label>
-                            <input
-                                id="username"
-                                name="username"
-                                value={formData?.username}  
-                                placeholder={formData?.username}  
-                                onChange={profilHandleChange}
-                                required
-                            />
-                        </div>
-                        <div className={stylesAccount.formInput}>
-                            <label htmlFor='email'>Email : </label>
-                            <input
-                                id="email"
-                                name="email"
-                                value={formData?.email}  
-                                placeholder={formData?.email}  
-                                onChange={profilHandleChange}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <hr></hr>
-                    <div className={stylesAccount.formDouble}>
-                        <div className={stylesAccount.formInput}>
-                            <label htmlFor='firstname'>Prénom : </label>
-                            <input
-                                id="firstname"
-                                name="firstname"
-                                value={formData?.firstname}  
-                                placeholder={formData?.firstname}  
-                                onChange={profilHandleChange}
-                                required
-                                />
-                        </div>
-                        <div className={stylesAccount.formInput}>
-                            <label htmlFor='lastname'>Nom : </label>
-                            <input
-                                id="lastname"
-                                name="lastname"
-                                value={formData?.lastname}  
-                                placeholder={formData?.lastname} 
-                                onChange={profilHandleChange} 
-                                required
-                                />
-                        </div>
-                    </div>
-                    <div className={stylesAccount.formDouble}>
-                        <div className={stylesAccount.formInput}>
-                            <label htmlFor='city'>Ville : </label>
-                            <input
-                                id="city"
-                                name="city"
-                                value={formData?.city}  
-                                placeholder={formData?.city} 
-                                onChange={profilHandleChange} 
-                                required
-                                />
-                        </div>
-                        <div className={stylesAccount.formInput}>
-                            <label htmlFor='date-of-birth'>Date de naissance : </label>
-                            <input
-                                id="date-of-birth"
-                                name="date-of-birth"
-                                value={formData?.dateOfBirth}  
-                                placeholder={formData?.dateOfBirth} 
-                                onChange={profilHandleChange} 
-                                required
-                                />
-                        </div>
-                    </div>
-                    <hr></hr>
-                    <div>
-                        <h5>{auth?.isSuscriber ? "Vous êtes membre." : "Vous n'êtes pas membre."}  </h5>
-                        <span>{maj === true ? 'Profil mis à jour !' : ''}</span>
-                    </div>
-                </form>
-                <hr></hr>
-                <div className='container-buttons'>
-                    <button className="button dark-button" onClick={logout}>Se déconnecter</button>
-                    <button className="button dark-button" onClick={profilHandleSubmit}>Sauvegarder</button>
-                </div>
-            </div>
+            <Card 
+                title={auth?.username ? ('Bienvenue, ' + auth.username + ' !') : "Chargement..."}
+                msg={maj}
+                msgFinal={auth?.isSuscriber ? "Vous êtes membre." : "Vous n'êtes pas membre."}
+                submit={connexionHandleSubmit}
+                button={[
+                    {
+                        name: "Se déconnecter",
+                        click: logout
+                    },
+                    {
+                        name: "Modifier",
+                        click: profilHandleSubmit
+                    }
+                ]}
+                input={[
+                    {
+                        name: "Username",
+                        id: "username",
+                        value: formData.username,
+                        placeholder:formData.username,
+                        change: profilHandleChange,
+                        isRequired: false
+                    },
+                    {
+                        name: "Email",
+                        id: "email",
+                        value: formData.email,
+                        placeholder:formData.email,
+                        change : profilHandleChange,
+                        isRequired: false
+                    },
+                    {
+                        name: "Prénom",
+                        id: "firstname",
+                        value: formData.firstname,
+                        placeholder:formData.firstname,
+                        change : profilHandleChange,
+                        isRequired: false
+                    },
+                    {
+                        name: "Nom",
+                        id: "lastname",
+                        value: formData.lastname,
+                        placeholder:formData.lastname,
+                        change : profilHandleChange,
+                        isRequired: false
+                    },
+                    {
+                        name: "Ville",
+                        id: "city",
+                        value: formData.city,
+                        placeholder:formData.city,
+                        change : profilHandleChange,
+                        isRequired: false
+                    },
+                    {
+                        name: "Date de naissance",
+                        id: "dateOfBirth",
+                        value: formData.dateOfBirth,
+                        placeholder:formData.dateOfBirth,
+                        change : profilHandleChange,
+                        isRequired: false
+                    },
+                ]}
+            />
         ) : (
-            <div className='card'>
-                <p className={errMsg ? "errmsg" : "offscren"}>{errMsg}</p>
-                <h1>Connexion</h1>
-                <form className={stylesAccount.form} onSubmit={connexionHandleSubmit}>
-                    <div className={stylesAccount.formInput}>
-                        <label htmlFor="email" className='p-2'>Email: </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            onChange={connexionHandleChange}
-                            required
-                        />
-                    </div>
-                    <div className={stylesAccount.formInput}>
-                        <label htmlFor="password" className='p-2'>Password: </label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            onChange={connexionHandleChange}
-                            required
-                        />
-                    </div>
-                    <button className=''>Connexion</button>
-                </form>
-                <Link to='/register'> Vous n'êtes pas inscrits ? </Link>
-            </div>
+            <Card 
+                title="Connexion"
+                linkName="Vous n'êtes pas inscrits ?"
+                link="/signup"
+                msg={errMsg}
+                buttonForm="Connexion"
+                submit={connexionHandleSubmit}
+                input={[
+                    {
+                      name: "Email",
+                      id: "email",
+                      change: connexionHandleChange,
+                      isRequired: true
+                    },
+                    {
+                      name: "Mot de passe",
+                      id: "password",
+                      change : connexionHandleChange,
+                      isRequired: true
+                    }
+                  ]}
+            />
         )}     
     </section>
   )
