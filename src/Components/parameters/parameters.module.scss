@@ -1,0 +1,185 @@
+// Utilities
+@import "../../scss/color.scss";
+
+/* **************** CONTAINER RESULTAT ***************** */
+
+#container-resultat {
+	flex-grow: 1;
+	max-width: 400px;
+    min-width: 340px;
+    width: 30vw;
+	height: 100vh;
+	border-left: 2px solid $color-sombre;
+	overflow: scroll;
+
+	.bv-no-select {
+		h2, h3, h4, h5 {
+			opacity: 0.3;
+		}
+	}
+
+	#marge-resultat {
+		padding: 20px;
+
+		#meta-bureau {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
+		#container-options {
+			margin: 10px 0;
+		}
+		
+		.container-resultat-candidat {
+			.progressbar {
+				.bandeau-hover {
+                    pointer-events: none;
+					display: flex;
+					flex-direction: column;
+					gap: 3px;
+					opacity: 0;
+					width: max-content;
+					padding: 3px 10px;
+					background-color: $color-sombre;
+					color: white;
+					transform: translate(-20px, 6px);
+					transition: transform 0.25s ease-in-out, opacity 0.05s ease-in-out;
+				}
+			}
+
+			&:hover .bandeau-hover {
+				opacity: 0.8;
+				transform: translate(10px, 6px);
+			}
+
+		}
+        
+		.progressbar{
+            background-color: $color-secondaire !important;
+			border-radius:0;
+			overflow:visible;
+			margin: 1px 0 8px;
+			
+			.barre-resultat {
+                width: 0;
+				height: 10px;
+				background: $color-gris; 
+				-webkit-transition: width 1s ease-in-out;
+				transition: width 1.5s ease-in-out;
+			}
+		}
+
+        .nuance-EXD { background-color: $color-exd !important;}
+        .nuance-DVD { background-color: $color-dvd !important;}
+        .nuance-CEN { background-color: $color-cen !important;}
+        .nuance-DVG { background-color: $color-dvg !important;}
+        .nuance-ECO { background-color: $color-eco !important;}
+        .nuance-RDG { background-color: $color-rdg !important;}
+        .nuance-DXG { background-color: $color-dxg !important;}
+        
+        .parti-REG { background-color: $color-reg !important;}
+        .parti-REC { background-color: $color-rec !important;}
+        .parti-FN { background-color: $color-rn !important;}
+        .parti-RN { background-color: $color-rn !important;}
+        .parti-RN { background-color: $color-rn !important;}
+        .parti-UXD { background-color: $color-uxd !important;}
+        .parti-DSV { background-color: $color-uxd !important;}
+        .parti-LR { background-color: $color-lr !important;}
+        .parti-DVD { background-color: $color-dvd !important;}
+        .parti-ENS { background-color: $color-cen !important;}
+        .parti-EM { background-color: $color-cen !important;}
+        .parti-MODEM { background-color: $color-ldiv !important;}
+        .parti-DVG { background-color: $color-dvg !important;}
+        .parti-NUPES { background-color: $color-rdg !important;}
+        .parti-NFP { background-color: $color-rdg !important;}
+        .parti-LFI { background-color: $color-lfi !important;}
+        .parti-PS { background-color: $color-ps !important;}
+        .parti-ECO { background-color: $color-eco !important;}
+        .parti-EELV { background-color: $color-eelv !important;}
+        .parti-DIV { background-color: $color-eco !important;}
+        .parti-LDIV { background-color: $color-div !important;}
+        .parti-DIV { background-color: $color-div !important;}
+        .parti-DVC { background-color: $color-div !important;}
+	}
+}
+
+/*   0. BEFORE-OPEN STATE   */
+@starting-style {
+	[popover]:popover-open {
+	translate: 0 -22rem;
+	}
+}
+
+#tooltip {
+	position: absolute; 
+	display: none; 
+	color: white;
+	background-color: $color-sombre; 
+	border: 1px solid $color-secondaire; 
+	padding: 5px; 
+	z-index: 100;
+}
+
+/* **************** VOLET DÉPLIANT ***************** */
+
+.panneaux-score-resultat {
+	cursor: pointer;
+	padding: 0 0 10px 0;
+    margin: 10px 0 0;
+	border-bottom: 2px $color-sombre solid;
+	transition: all 0.2s ease;
+}
+
+.panneaux-score-resultat:hover {
+	background-color: $color-tertiaire;
+}
+
+.panneaux-score-volet {
+    #container-resultat-election {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+    }
+    
+    .h5-resultat {
+        margin: 10px 0 7px;
+    }
+
+    &.close  {
+        height: 30px !important;
+
+        #container-resultat-candidats {
+            display: none;
+            margin: 6px 0 0;
+        }
+    }   
+}
+
+.panneaux-score-volet {
+	height: 360px;
+	overflow-x: hidden;
+  	overflow-y: scroll;
+    transition: height 0.3s ease;
+	-ms-overflow-style: none; // IE 10+
+	overflow: -moz-scrollbars-none; // Firefox
+
+	h3 {
+		margin: 0;
+	}
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	.no-select {	opacity: 0.2;	}
+}
+
+.panneaux-score-button {
+    transition: all 0.3s ease;
+}
+
+.panneaux-score-resultat:hover .panneaux-score-button {
+	padding-left: 15px;
+	border-left: 3px solid $color-principale;
+}

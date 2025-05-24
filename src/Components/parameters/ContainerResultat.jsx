@@ -5,6 +5,9 @@ import { useParams } from 'react-router'
 import { useElection } from "../../context/ElectionsContext"
 import { useMap } from "../../context/MapContext"
 
+// CSS
+import stylesParam from './parameters.module.scss';
+
 const ContainerResultat = (props) => {
     const params = useParams()
     const { departement } = params; 
@@ -55,15 +58,16 @@ const ContainerResultat = (props) => {
     }
 
   return (
-        <div id="container-resultat-election">
-            <div className="container-abstention">
+        <div id={stylesParam["container-resultat-candidats"]}>
+            <div className={stylesParam["container-abstention"]}>
                 <span>Abstention : {perAbstentions}%</span>
-                <div className="progress">
-                    <div className="barre-abstention barre-resultat" role="progressbar" style={{width: perAbstentions+'%'}} >   
+                <div className={stylesParam["progressbar"]}>
+                    <div className={stylesParam["barre-abstention"]+' '+stylesParam["barre-resultat"]} 
+                        role="progressbar" style={{width: perAbstentions+'%'}} >   
                     </div>
                 </div> 
             </div>
-            <h5>Parmi les votes exprimés :</h5>
+            <h5 className={stylesParam["h5-resultat"]}>Parmi les votes exprimés :</h5>
             {resultCandidat && resultCandidat.map((candidat, index) => {
                 var nuance;
                 var parti;
@@ -75,15 +79,20 @@ const ContainerResultat = (props) => {
                 }
 
                 return (
-                    <div key={index} className="container-resultat-candidat"
+                    <div key={index} className={stylesParam["container-resultat-candidat"]}
                             id={candidat.parti_code && "container-"+candidat.parti_code}>
                         <span>{candidat.tete_de_liste && capitalizeFirstLetter(candidat.tete_de_liste)} : {Math.round(candidat.voix/inscrits*100)}%</span>
-                        <div className="progress">
+                        <div className={stylesParam["progressbar"]}>
                             <div
-                                id="barre-abstention" role="progressbar" 
-                                className={`barre-resultat ${nuance && 'nuance-'+nuance} ${parti_code && ' parti-'+parti_code}`} 
+                                id={stylesParam["barre-abstention"]} role="progressbar" 
+                                className={stylesParam["barre-resultat"] + ' ' + 
+                                            (nuance && stylesParam["nuance-"+nuance]) + ' ' + 
+                                            (parti_code && stylesParam["parti-"+parti_code])} 
                                 style={{width: (Math.round(candidat.voix/inscrits*100))+'%'}} >   
-                                <div className='bandeau-hover'>
+                                <div
+                                     className={stylesParam["bandeau-hover"] + ' ' + 
+                                                (nuance && stylesParam["nuance-"+nuance]) + ' ' + 
+                                                (parti_code && stylesParam["parti-"+parti_code])} >
                                     <span>Candidat·e : {candidat.tete_de_liste && capitalizeFirstLetter(candidat.tete_de_liste)}</span>
                                     <span>Parti : {parti && parti + (parti_code && ' (' + parti_code + ')')}</span>
                                     <span>Nombre de voix : {candidat.voix && candidat.voix}</span>

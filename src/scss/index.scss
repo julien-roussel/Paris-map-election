@@ -46,6 +46,13 @@ h5 {
 	margin: 0;
 }
 
+/* ************ ACTIVE / DESACTIVE ********* */
+
+.no-select {
+	h2, h3, h4, h5, a {
+		color: $color-secondaire;
+	}
+}
 
 /* **************** COMPOSITION ***************** */
 
@@ -104,174 +111,6 @@ h5 {
 	border-radius: 0;
 	background-color: $color-secondaire;
 }
-
-/* **************** CONTAINER RESULTAT ***************** */
-
-#container-resultat {
-	flex-grow: 1;
-	max-width: 400px;
-    min-width: 340px;
-    width: 30vw;
-	height: 100vh;
-	border-left: 2px solid $color-sombre;
-	overflow: scroll;
-
-	.bv-no-select {
-		h2, h3, h4, h5 {
-			opacity: 0.3;
-		}
-	}
-	#marge-resultat {
-		padding: 20px;
-
-		#meta-bureau {
-			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-		}
-
-		#container-options {
-			margin: 10px 0;
-		}
-		
-		.container-resultat-candidat {
-			.progress {
-				.bandeau-hover {
-					display: flex;
-					flex-direction: column;
-					gap: 3px;
-					opacity: 0;
-					width: max-content;
-					padding: 3px 10px;
-					background-color: $color-sombre;
-					color: white;
-					transform: translate(-20px, 2px);
-					transition: transform 0.25s ease-in-out, opacity 0.05s ease-in-out;
-				}
-			}
-
-			&:hover .bandeau-hover {
-				opacity: 1;
-				transform: translate(10px, 2px);
-			}
-		}
-
-		.progress{
-			background-color: $color-secondaire !important;
-			border-radius:0;
-			overflow:visible;
-			margin: 1px 0 8px;
-			
-			.barre-resultat {
-				width: 0;
-				height: 10px;
-				background: $color-gris; 
-				-webkit-transition: width 1s ease-in-out;
-				transition: width 1.5s ease-in-out;
-
-				
-				&.nuance-EXD { background: $color-exd;}
-				&.nuance-DVD { background: $color-dvd;}
-				&.nuance-CEN { background: $color-cen;}
-				&.nuance-DVG { background: $color-dvg;}
-				&.nuance-ECO { background: $color-eco;}
-				&.nuance-RDG { background: $color-rdg;}
-				&.nuance-DXG { background: $color-dxg;}
-				
-				&.parti-REG { background: $color-reg;}
-				&.parti-REC { background: $color-rec;}
-				&.parti-RN { background: $color-rn;}
-				&.parti-UXD { background: $color-uxd;}
-				&.parti-DSV { background: $color-uxd;}
-				&.parti-LR { background: $color-lr;}
-				&.parti-DVD { background: $color-dvd;}
-				&.parti-ENS { background: $color-cen;}
-				&.parti-EM { background: $color-cen;}
-				&.parti-DVG { background: $color-dvg;}
-				&.parti-NUPES { background: $color-rdg;}
-				&.parti-NFP { background: $color-rdg;}
-				&.parti-LFI { background: $color-lfi;}
-				&.parti-PS { background: $color-ps;}
-				&.parti-ECO { background: $color-eco;}
-				&.parti-EELV { background: $color-eelv;}
-				&.parti-DIV { background: $color-eco;}
-				&.parti-LDIV { background: $color-div;}
-				&.parti-DIV { background: $color-div;}
-				&.parti-DVC { background: $color-div;}
-			}
-		}
-	}
-}
-
-/*   0. BEFORE-OPEN STATE   */
-@starting-style {
-	[popover]:popover-open {
-	translate: 0 -22rem;
-	}
-}
-
-#tooltip {
-	position: absolute; 
-	display: none; 
-	color: white;
-	background-color: $color-sombre; 
-	border: 1px solid $color-secondaire; 
-	padding: 5px; 
-	z-index: 100;
-}
-
-/* **************** VOLET DÉPLIANT ***************** */
-
-.panneaux-score-resultat {
-	cursor: pointer;
-	padding: 0 0 10px 0;
-    margin: 10px 0 0;
-	border-bottom: 2px $color-sombre solid;
-	transition: all 0.2s ease;
-}
-
-.panneaux-score-resultat:hover {
-	background-color: $color-tertiaire;
-}
-
-.panneaux-score-volet.close  {
-	height: 30px !important;
-
-	#container-resultat-election {
-		display: none;
-		margin: 6px 0 0;
-
-	}
-}
-
-.panneaux-score-volet {
-	height: 360px;
-	overflow-x: hidden;
-  	overflow-y: scroll;
-    transition: height 0.3s ease;
-	-ms-overflow-style: none; // IE 10+
-	overflow: -moz-scrollbars-none; // Firefox
-
-	h3 {
-		margin: 0;
-	}
-	&::-webkit-scrollbar {
-		display: none;
-	}
-
-	.no-select {	opacity: 0.2;	}
-}
-
-.panneaux-score-button {
-    transition: all 0.3s ease;
-}
-
-.panneaux-score-resultat:hover .panneaux-score-button {
-	padding-left: 15px;
-	border-left: 3px solid $color-principale;
-}
-
-
 
 /* ************* CONTAINER RESULTAT FRANCE ************** */
 

@@ -8,6 +8,9 @@ import { useMap } from "../../context/MapContext"
 // Component
 import ContainerResultat from './ContainerResultat';
 
+// CSS
+import stylesParam from './parameters.module.scss';
+
 const ResultatsLateral = () => {
     const params = useParams()
     const { departement } = params; 
@@ -24,17 +27,20 @@ const ResultatsLateral = () => {
   };
 
   return (
-    <section id="div-resultat">
+    <section>
       {allNameElections.map((election, index) => {
         const isOpen = openVolets[election.idName];
         if(election.type == 'muni' &&  departement != 75) return;
         
         return (
-          <div key={index} id={election.idName} className="panneaux-score-resultat resultat-legislatives">
+          <div key={index} id={election.idName} className={stylesParam["panneaux-score-resultat"]}>
             <div  id={'volet-'+election.idName} 
                   onClick={() => toggleVolet(election.idName)}
-                  className={`panneaux-score-volet ${isOpen && bureauSelected  ? '' : 'close'}`}>
-              <h3 className={(bureauSelected ? '' : 'no-select ') + "panneaux-score-button"}>{election.name}</h3>
+                  className={stylesParam["panneaux-score-volet"] + ' ' + (isOpen && bureauSelected  ? '' : stylesParam["close"])}>
+              <h3 
+                className={stylesParam["panneaux-score-button"] + ' ' + (bureauSelected  ? '' : stylesParam["no-select"])}>
+                {election.name}
+              </h3>
               {bureauSelected && 
                   <ContainerResultat bureauSelected={bureauSelected} electionIdName={election.idName} />}
             </div>
