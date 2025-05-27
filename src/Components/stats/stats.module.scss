@@ -1,0 +1,34 @@
+// Utilities
+@import "../../scss/color.scss";
+
+#container-stats {
+    position: absolute;
+    width: 100%;
+    bottom: 5vh;
+    z-index: 400;
+    background-color: white;
+    border-top: 2px solid $color-sombre;
+    border-right: 2px solid $color-sombre;
+    border-top-right-radius: 80px;
+    
+    #marge-stats {
+        background-color: white;
+        margin: 10px 5% 5px;
+    
+        #header-stats {
+
+
+            #titre-stats {
+                margin: 0;
+                font-size: 3rem;
+            }
+        }
+        
+        .graph-stats {
+            width: 100% !important;
+            max-height: 500px;
+	        padding: 70px 100px;
+        }
+    }
+}
+

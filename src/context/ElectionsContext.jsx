@@ -116,7 +116,7 @@ export const ElectionsProvider = ({ children }) => {
               ...resultMeta,         // ajoute ou écrase avec les nouvelles
             };
           }
-        
+          console.log('Bureau élection : ', newData);
           return newData;
         });
     } catch (error) {

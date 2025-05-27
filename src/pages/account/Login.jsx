@@ -12,11 +12,11 @@ import Card from '../../Components/Composition/Card';
 const Login = (dataForm) => {
     // Context
     const { login, logout, auth, session, errMsg, setErrMsg } = useAuth();
-    
+
     // State
     const [user, setUser] = useState({});
     const [password, setPassword] = useState('');
-    
+
     const [maj, setMaj] = useState('');
     const [formData, setFormData] = useState({});
     const [birthdate, setBirthdate] = useState('');
@@ -27,9 +27,9 @@ const Login = (dataForm) => {
     };
 
     useEffect(() => {
-        if(auth) {
+        if (auth) {
             setBirthdate(formatDate(auth?.dateOfBirth))
-        }    
+        }
 
         setFormData({
             username: auth?.username || "",
@@ -40,21 +40,21 @@ const Login = (dataForm) => {
             city: auth?.city || "",
         });
     }, [auth])
-    
+
     useEffect(() => {
         setErrMsg('');
     }, [user, password])
 
     const updateProfile = async (updatedFields) => {
         if (!session) {
-          console.error("Utilisateur non connecté !");
-          return;
+            console.error("Utilisateur non connecté !");
+            return;
         }
         try {
-            const response = await axios.patch(`${LOCALHOST}/api/users/update/${auth._id}`, 
+            const response = await axios.patch(`${LOCALHOST}/api/users/update/${auth._id}`,
                 updatedFields,
-                {withCredentials: true}
-            )   
+                { withCredentials: true }
+            )
             setMaj('Profil mis à jour !')
         } catch (error) {
             console.error("Erreur lors d'update du profil", error);
@@ -68,14 +68,14 @@ const Login = (dataForm) => {
     const profilHandleSubmit = async (event) => {
         event.preventDefault();
         const cleanedData = Object.fromEntries(
-          Object.entries(formData).filter(([_, value]) => value !== "")
+            Object.entries(formData).filter(([_, value]) => value !== "")
         );
         await updateProfile(cleanedData); // Envoie uniquement les données modifiées
     };
 
     const connexionHandleChange = event => {
         const { name, value } = event.target
-        setUser(prevUser => ({...prevUser, [name]: value }))
+        setUser(prevUser => ({ ...prevUser, [name]: value }))
     }
 
     const connexionHandleSubmit = event => {
@@ -83,103 +83,103 @@ const Login = (dataForm) => {
         login(user)
     }
 
-    
 
-  return (
-    <section className="container container-center">
-        {session ? (
-            <Card 
-                title={auth?.username ? ('Bienvenue, ' + auth.username + ' !') : "Chargement..."}
-                msg={maj}
-                msgFinal={auth?.isSuscriber ? "Vous êtes membre." : "Vous n'êtes pas membre."}
-                submit={connexionHandleSubmit}
-                button={[
-                    {
-                        name: "Se déconnecter",
-                        click: logout
-                    },
-                    {
-                        name: "Modifier",
-                        click: profilHandleSubmit
-                    }
-                ]}
-                input={[
-                    {
-                        name: "Username",
-                        id: "username",
-                        value: formData.username,
-                        placeholder:formData.username,
-                        change: profilHandleChange,
-                        isRequired: false
-                    },
-                    {
-                        name: "Email",
-                        id: "email",
-                        value: formData.email,
-                        placeholder:formData.email,
-                        change : profilHandleChange,
-                        isRequired: false
-                    },
-                    {
-                        name: "Prénom",
-                        id: "firstname",
-                        value: formData.firstname,
-                        placeholder:formData.firstname,
-                        change : profilHandleChange,
-                        isRequired: false
-                    },
-                    {
-                        name: "Nom",
-                        id: "lastname",
-                        value: formData.lastname,
-                        placeholder:formData.lastname,
-                        change : profilHandleChange,
-                        isRequired: false
-                    },
-                    {
-                        name: "Ville",
-                        id: "city",
-                        value: formData.city,
-                        placeholder:formData.city,
-                        change : profilHandleChange,
-                        isRequired: false
-                    },
-                    {
-                        name: "Date de naissance",
-                        id: "dateOfBirth",
-                        value: formData.dateOfBirth,
-                        placeholder:formData.dateOfBirth,
-                        change : profilHandleChange,
-                        isRequired: false
-                    },
-                ]}
-            />
-        ) : (
-            <Card 
-                title="Connexion"
-                linkName="Vous n'êtes pas inscrits ?"
-                link="/signup"
-                msg={errMsg}
-                buttonForm="Connexion"
-                submit={connexionHandleSubmit}
-                input={[
-                    {
-                      name: "Email",
-                      id: "email",
-                      change: connexionHandleChange,
-                      isRequired: true
-                    },
-                    {
-                      name: "Mot de passe",
-                      id: "password",
-                      change : connexionHandleChange,
-                      isRequired: true
-                    }
-                  ]}
-            />
-        )}     
-    </section>
-  )
+
+    return (
+        <section className="container container-center">
+            {session ? (
+                <Card
+                    title={auth?.username ? ('Bienvenue, ' + auth.username + ' !') : "Chargement..."}
+                    msg={maj}
+                    msgFinal={auth?.isSuscriber ? "Vous êtes membre." : "Vous n'êtes pas membre."}
+                    submit={connexionHandleSubmit}
+                    button={[
+                        {
+                            name: "Se déconnecter",
+                            click: logout
+                        },
+                        {
+                            name: "Modifier",
+                            click: profilHandleSubmit
+                        }
+                    ]}
+                    input={[
+                        {
+                            name: "Username",
+                            id: "username",
+                            value: formData.username,
+                            placeholder: formData.username,
+                            change: profilHandleChange,
+                            isRequired: false
+                        },
+                        {
+                            name: "Email",
+                            id: "email",
+                            value: formData.email,
+                            placeholder: formData.email,
+                            change: profilHandleChange,
+                            isRequired: false
+                        },
+                        {
+                            name: "Prénom",
+                            id: "firstname",
+                            value: formData.firstname,
+                            placeholder: formData.firstname,
+                            change: profilHandleChange,
+                            isRequired: false
+                        },
+                        {
+                            name: "Nom",
+                            id: "lastname",
+                            value: formData.lastname,
+                            placeholder: formData.lastname,
+                            change: profilHandleChange,
+                            isRequired: false
+                        },
+                        {
+                            name: "Ville",
+                            id: "city",
+                            value: formData.city,
+                            placeholder: formData.city,
+                            change: profilHandleChange,
+                            isRequired: false
+                        },
+                        {
+                            name: "Date de naissance",
+                            id: "dateOfBirth",
+                            value: formData.dateOfBirth,
+                            placeholder: formData.dateOfBirth,
+                            change: profilHandleChange,
+                            isRequired: false
+                        },
+                    ]}
+                />
+            ) : (
+                <Card
+                    title="Connexion"
+                    linkName="Vous n'êtes pas inscrit·e ?"
+                    link="/signup"
+                    msg={errMsg}
+                    buttonForm="Connexion"
+                    submit={connexionHandleSubmit}
+                    input={[
+                        {
+                            name: "Email",
+                            id: "email",
+                            change: connexionHandleChange,
+                            isRequired: true
+                        },
+                        {
+                            name: "Mot de passe",
+                            id: "password",
+                            change: connexionHandleChange,
+                            isRequired: true
+                        }
+                    ]}
+                />
+            )}
+        </section>
+    )
 }
 
 export default Login

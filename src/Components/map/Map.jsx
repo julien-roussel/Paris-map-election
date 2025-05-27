@@ -14,6 +14,7 @@ import { useAuth } from "../../context/AuthContext"
 // Component
 import MapAutoCenter from './MapAutoCenter' 
 import ContainerPopUp from '../select/ContainerPopUp' 
+import ContainerStats from '../stats/ContainerStats';
 
 const Map = () => {
     // Params
@@ -187,35 +188,38 @@ const Map = () => {
     }
     
     return (
-        <MapContainer 
-            center={allNameMap[departement].pos}
-            minZoom={7} zoom={10} maxZoom={15} 
-            scrollWheelZoom={true} 
-            style={{ height: "90vh", width: "100%" }}>
-            <MapAutoCenter center={computedCenter} />
+        <div>
+            <MapContainer 
+                center={allNameMap[departement].pos}
+                minZoom={7} zoom={10} maxZoom={15} 
+                scrollWheelZoom={true} 
+                style={{ height: "90vh", width: "100%" }}>
+                <MapAutoCenter center={computedCenter} />
 
-            <LayersControl position="topright">
-                <Overlay checked name="Street map">
-                    <TileLayer
-                        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-                        attribution='© OpenStreetMap, © CartoDB'
-                    />  
-                </Overlay>    
+                <LayersControl position="topright">
+                    <Overlay checked name="Street map">
+                        <TileLayer
+                            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                            attribution='© OpenStreetMap, © CartoDB'
+                        />  
+                    </Overlay>    
 
-                {bureauVote?.features?.length > 0 && (
-                    <Overlay checked name="Bureaux de vote">
-                        <GeoJSON
-                            key={departement + '-' + bureauVote.features.length}
-                            data={bureauVote}
-                            style={dynamicStyle}
-                            onEachFeature={dynamicOnEachFeature}
-                            scrollWheelZoom={false}
-                            doubleClickZoom={false}  
-                        />
-                    </Overlay>
-                )}
-            </LayersControl>
-        </MapContainer>        
+                    {bureauVote?.features?.length > 0 && (
+                        <Overlay checked name="Bureaux de vote">
+                            <GeoJSON
+                                key={departement + '-' + bureauVote.features.length}
+                                data={bureauVote}
+                                style={dynamicStyle}
+                                onEachFeature={dynamicOnEachFeature}
+                                scrollWheelZoom={false}
+                                doubleClickZoom={false}  
+                            />
+                        </Overlay>
+                    )}
+                </LayersControl>
+            </MapContainer>   
+            <ContainerStats/>               
+        </div>  
     )
 }
 

@@ -44,7 +44,7 @@ const SignUp = () => {
         { !etape && (
             <Card 
                 title="Inscrivez-vous"
-                linkName="Vous êtes déjà inscrits ?"
+                linkName="Vous êtes déjà inscrit·e ?"
                 link="/login"
                 msg={errMsg}
                 buttonForm="Confirmez"
@@ -74,7 +74,7 @@ const SignUp = () => {
         { etape && (
             <Card 
             title="Dites-nous en plus ?"
-            linkName="Vous êtes déjà inscrits ?"
+            linkName="Vous êtes déjà inscrit·e ?"
             link="/login"
             msg={errMsg}
             buttonForm="Confirmez"

@@ -62,7 +62,7 @@ const Verify = () => {
         {status === 'success' && (
             <Card 
                 title={'Bravo, ' + (firstname && firstname)}
-                subtitle="Vous êtes maintenant inscrit !"
+                subtitle="Vous êtes maintenant inscrit·e !"
                 linkName="Il ne reste plus qu'à vous connecter."
                 link="/login"
             />
