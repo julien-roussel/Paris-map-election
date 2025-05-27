@@ -19,25 +19,39 @@ const ContainerStats = () => {
   const { auth, session } = useAuth();
   const { bureauSelected } = useMap();  
 
+  // State 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleVolet = () => {
+    if(session && bureauSelected) {
+      if(!isOpen) {
+        setIsOpen(true) 
+      } else {
+        setIsOpen(false)
+      }
+    } 
+  };
+
   return (
-    <section id={styleStats["container-stats"]}>
+    <section id={styleStats["container-stats"]} >
       <div id={styleStats["marge-stats"]}>
+        <h2 id={styleStats["titre-stats"]} onClick={() => toggleVolet()}>ANALYSE EN GRAPHIQUE DES STATISTIQUES</h2>
         {!session && (
           <div id={styleStats["header-stats"]}>
-            <h2 id={styleStats["titre-stats"]}>ANALYSE EN GRAPHIQUE DES STATISTIQUES</h2>
             <span>Pour profiter des analyses en graphiques, il faut être <a href="/login">connecté.</a></span>
           </div>
         )}
         {(session && !bureauSelected) && (
           <div id={styleStats["header-stats"]}>
-            <h2 id={styleStats["titre-stats"]}>ANALYSE EN GRAPHIQUE DES STATISTIQUES</h2>
-            <span>Pour ouvrir les graphiques, veuillez cliquer sur un bureau de vote.</span>
+            <span>Pour voir les graphiques, veuillez cliquer sur un bureau de vote.</span>
           </div>
         )}
         {(session && bureauSelected) && (
           <div id={styleStats["header-stats"]}>
-            <h2 id={styleStats["titre-stats"]}>ANALYSE EN GRAPHIQUE DES STATISTIQUES</h2>
-            <ContainerGraphLineBlocs/>
+            <span>Pour voir les graphiques, veuillez cliquer sur ce volet.</span>
+            {isOpen && (
+              <ContainerGraphLineBlocs/>
+            )}
           </div>
         )}
       </div>
