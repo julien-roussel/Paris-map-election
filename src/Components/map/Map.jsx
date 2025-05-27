@@ -32,6 +32,9 @@ const Map = () => {
     const { auth, session } = useAuth();
 
     const { BaseLayer, Overlay } = LayersControl;
+    
+    // State 
+    const [departementInfo, setDepartementInfo] = useState();
 
     // Charger les bureaux sur la map
     useEffect(() => {
@@ -39,7 +42,16 @@ const Map = () => {
         if(auth?.isSuscriber) loadElectionMapMember(electionNameSelected[0]?.idName, auth._id ,departement)
         if(session && !auth?.isSuscriber) loadElectionsMapConnected(auth?._id, departement)
         if(!session) loadElectionMapNoConnected(departement)
+        setDepartementInfo(allNameMap?.find(dept => dept.numero === departement))
     }, [departement]);
+
+    useEffect(() => {
+        setDepartementInfo(allNameMap?.find(dept => dept.numero === departement))
+    }, [departement, allNameMap]);
+
+    useEffect(() => {
+        console.log(departementInfo?.pos);
+    }, [departementInfo])
 
     function getOpacityFromScore(inscrits, score) {
         if (!inscrits || !score || inscrits === 0) return 0.3;
@@ -161,13 +173,10 @@ const Map = () => {
     }, [electionNameSelected, electionSelected, bureauSelected]);
 
     const computedCenter = useMemo(() => {
-        if (departement && allNameMap?.[departement]?.pos) {
-            return allNameMap[departement].pos;
-        }
-        return null;
-    }, [departement]);
+        return departementInfo?.pos || [48.8566, 2.3522];
+    }, [departementInfo]);
 
-    if (!departement || !allNameMap?.[departement]?.pos) {
+    if (!departement || !departementInfo?.pos) {
         return  (
             <>
                 <div id="container-nomap">
@@ -190,7 +199,7 @@ const Map = () => {
     return (
         <div>
             <MapContainer 
-                center={allNameMap[departement].pos}
+                center={departementInfo?.pos || [48.8566, 2.3522]}
                 minZoom={7} zoom={10} maxZoom={15} 
                 scrollWheelZoom={true} 
                 style={{ height: "90vh", width: "100%" }}>

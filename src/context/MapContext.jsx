@@ -34,7 +34,7 @@ export const MapProvider = ({ children }) => {
     // Pour charger tous les noms de département
     const loadAllNameMap = async () => {
         try {
-            const response = await axios.get(`${LOCALHOST}/api/map/alldepartement`);            
+            const response = await axios.get(`${LOCALHOST}/api/map/alldepartement`);   
             setAllNameMap(response.data)
         } catch (error) {
             console.error("Erreur de chargement GeoJSON :", error.message);

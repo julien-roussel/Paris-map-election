@@ -21,10 +21,15 @@ const SelectElection = () => {
 
     // State
     const [allNameArray, setAllNameArray] = useState('');
+    const [departementInfo, setDepartementInfo] = useState();
 
     useEffect(() => {
       if(allNameMap) setAllNameArray(Object.values(allNameMap))
     }, [allNameMap]); 
+
+    useEffect(() => {
+        setDepartementInfo(allNameMap?.find(dept => dept.numero === departement))
+    }, [departement, allNameMap]);
 
     useEffect(() => {
       if(auth?.isSuscriber) loadElectionMapMember(electionNameSelected[0]?.idName, auth._id ,departement)
@@ -40,7 +45,7 @@ const SelectElection = () => {
     <div id="" className="container-select">
         <select id="electionMenu"
                 onChange={(e) => navigateToMap(e.target.value)}>
-            <option value="">{departement ? departement + ' - ' + allNameMap?.[departement].nom : "Sélectionnez un département"}</option>
+            <option value="">{departement ? `${departement} - ${departementInfo?.nom}` : "Sélectionnez un département"}</option>
             {allNameArray && allNameArray.map((dept, index) => (
                 <option key={index} value={dept.numero}>{dept.numero} - {dept.nom}</option>
             ))}

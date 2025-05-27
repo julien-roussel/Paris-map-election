@@ -24,8 +24,8 @@ const getAllDepartement = async (req, res, next) => {
     
     try {
         const raw = fs.readFileSync(filepath, 'utf-8');
-        let data = Object.entries(JSON.parse(raw));
-        res.json(Object.fromEntries(data));
+        const data = JSON.parse(raw); 
+        res.json(data);
     } catch (error) {
         next(createError(500, error.message))
     }
