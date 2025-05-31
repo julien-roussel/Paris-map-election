@@ -11,19 +11,25 @@ import graphLineBlocs from "./graphLineBlocs.js"
 import styleStats from './stats.module.scss';
 
 const ContainerGraphLineBlocs = () => {
-  const { bureauSelected } = useMap();  
-  const { allNameElections, bureauDataSelect } = useElection();
+  const { bureauSelected,  } = useMap();  
+  const { allNameElections, bureauDataSelect, nuancePolitique } = useElection();
 
   useEffect(() => {
-    graphLineBlocs.generateLineGraph(bureauDataSelect, allNameElections);
+    if (
+      !bureauDataSelect || 
+      typeof bureauDataSelect !== 'object' || 
+      Object.keys(bureauDataSelect).length === 0 || 
+      !nuancePolitique
+    ) return;
+    graphLineBlocs.generateLineGraph(bureauDataSelect, nuancePolitique);
+    console.log('fonction ok');
     
     return () => {
-      // Nettoyer le graphique si nécessaire
       if (window.graphLineBlocs) {
         window.graphLineBlocs.destroy();
       }
     };
-  }, []);
+  }, [bureauDataSelect]);
   
   return (
     <canvas id="graphLineBlocs" className={styleStats["graph-stats"]} aria-label="chart" role="img" height="400px"></canvas>

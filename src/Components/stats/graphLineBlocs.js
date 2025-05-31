@@ -29,54 +29,71 @@ let chartInstance;
 
 // ----------------------------------------------------------------------------------------------
 // Fonction pour générer le graphique LINE des résultats de la Gauche, centre, DROITE et EXD
-function generateLineGraph(results, electionsName) {
-    var containerGraph = document.getElementById('graphLineBlocs')
-    if (!containerGraph) return;
+function generateLineGraph(results, nuancePolitique) {
+    const containerGraph = document.getElementById('graphLineBlocs');
+    if (!containerGraph || !results || !nuancePolitique) return;
     const ctx = containerGraph.getContext('2d');
 
-    if (chartInstance) {
-        chartInstance.destroy();
+    if (window.graphLineBlocs instanceof Chart) {
+        window.graphLineBlocs.destroy();
     }
-
-    var labels = electionsName
-    const colors = {    gauche: '#ff5d5d',    macron: '#ffb847',    droite: '#005dc7',    exd: '#ab785f'    };
-    var data = {
-        labels: labels,
-        datasets: [
-            {
-                label: 'Gauche',
-                data: results.gauche,  // Résultats pour "Gauche"
-                borderColor: colors.gauche,
-                fill: false
-            },
-            {
-                label: 'Centre (Macron)',
-                data: results.macron,  // Résultats pour "Macron"
-                borderColor: colors.macron,
-                fill: false
-            },
-            {
-                label: 'Divers Droite',
-                data: results.droite,  // Résultats pour "DROITE"
-                borderColor: colors.droite,
-                fill: false
-            },
-            {
-                label: 'Extrême Droite',
-                data: results.exd,  // Résultats pour "ExD"
-                borderColor: colors.exd,
-                fill: false
-            },
-            {
-                label: 'Abstention',
-                data: results.abstentions,  // Résultats pour l'abstention
-                borderColor: '#ebebeb',
-                fill: false
-            }
-        ]
+    const electionsName = Object.keys(results).filter(
+        key =>
+            key !== 'meta' &&
+            results[key] &&
+            Array.isArray(results[key].candidats)
+    );
+    
+    const data = {
+        labels: electionsName,
+        datasets: []
     };
 
-    // Créer le graphique LINE
+    // 1. Extraire toutes les tendances uniques à partir de nuancePolitiqu"
+    const tendancesMap = {};
+    Object.values(nuancePolitique).forEach(nuance => {
+        const tendance = nuance.tendance;
+        if (!tendancesMap[tendance]) {
+        tendancesMap[tendance] = {
+            label: tendance,
+            color: nuance.color || '#000000',
+            data: Array(electionsName.length).fill(0) // une valeur par élection
+        };
+        }
+    });
+
+    
+
+    // 2. Remplir les données par tendance pour chaque élection
+    electionsName.forEach((electionKey, electionIndex) => {
+        const candidats = results[electionKey]?.candidats;
+        
+        candidats.forEach(candidate => {
+        const { tendance, voix } = candidate;
+        
+        if (tendancesMap[tendance]) {
+            tendancesMap[tendance].data[electionIndex] += voix;
+        }
+        });
+    });
+
+    // 3. Transformer en datasets Chart.js
+    Object.values(tendancesMap).forEach(tendance => {
+        data.datasets.push({
+            label: tendance.label,
+            data: tendance.data,
+            borderColor: tendance.color || '#000000',
+            fill: false
+        });
+    });
+
+    // 4. Récupérer le max voix
+    const allVoix = Object.values(tendancesMap)
+                          .flatMap(tendance => tendance.data);
+    const maxVoix = Math.max(...allVoix);
+    const yMax = Math.ceil(maxVoix * 1.2);  
+
+    // 5. Créer le graphique LINE
     window.graphLineBlocs = new Chart(ctx, {
         type: 'line',
         data: data,
@@ -96,7 +113,7 @@ function generateLineGraph(results, electionsName) {
                 },
                 title: {
                     display: true,
-                    text: 'Résultats des 4 blocs',
+                    text: 'Résultats des élections par tendance',
                     font: {
                         size: 26,
                     },
@@ -117,7 +134,7 @@ function generateLineGraph(results, electionsName) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 400
+                    max: yMax
                 }
             }
         }
