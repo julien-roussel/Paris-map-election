@@ -2,15 +2,21 @@
 @import "../../scss/color.scss";
 
 #container-stats {
-    position: absolute;
+    position: relative;
     width: 100%;
-    bottom: 5vh;
+    min-height: 50vh;
+    top: -7vh;
     z-index: 400;
     background-color: white;
     border-top: 2px solid $color-sombre;
     border-right: 2px solid $color-sombre;
     border-top-right-radius: 80px;
+    transition: top 0.4s ease-in-out;
     
+    &.volet-open {
+        top: -44vh;
+    }
+
     #marge-stats {
         background-color: white;
         margin: 10px 5% 5px;
@@ -24,9 +30,10 @@
         }
         
         .graph-stats {
-            width: 100% !important;
-            max-height: 500px;
-	        padding: 70px 100px;
+            width: fit-content !important;
+            max-height: 400px;
+            max-width: 1000px;
+	        padding: 40px 100px;
         }
     }
 }

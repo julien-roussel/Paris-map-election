@@ -31,7 +31,7 @@ export const ElectionsProvider = ({ children }) => {
       setElectionSelected(undefined)
       const filteredResults = response.data;
       setElectionSelected(filteredResults);
-      console.log('electionSelected : ', filteredResults);
+      //console.log('electionSelected : ', filteredResults);
     } catch (error) {
         console.error('Erreur de récupération des données :', error);
     }
@@ -53,7 +53,7 @@ export const ElectionsProvider = ({ children }) => {
       setElectionSelected(undefined)
       const filteredResults = response.data;
       setElectionSelected(filteredResults);
-      console.log('electionSelected : ', filteredResults);
+      //console.log('electionSelected : ', filteredResults);
     } catch (error) {
         console.error('Erreur de récupération des données :', error);
     }

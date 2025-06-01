@@ -21,8 +21,7 @@ const ContainerGraphLineBlocs = () => {
       Object.keys(bureauDataSelect).length === 0 || 
       !nuancePolitique
     ) return;
-    graphLineBlocs.generateLineGraph(bureauDataSelect, nuancePolitique);
-    console.log('fonction ok');
+    graphLineBlocs.generateLineGraph(bureauDataSelect, allNameElections, nuancePolitique);
     
     return () => {
       if (window.graphLineBlocs) {
@@ -32,7 +31,7 @@ const ContainerGraphLineBlocs = () => {
   }, [bureauDataSelect]);
   
   return (
-    <canvas id="graphLineBlocs" className={styleStats["graph-stats"]} aria-label="chart" role="img" height="400px"></canvas>
+    <canvas id="graphLineBlocs" className={styleStats["graph-stats"]} aria-label="chart" role="img" height=""></canvas>
   )
 }
 

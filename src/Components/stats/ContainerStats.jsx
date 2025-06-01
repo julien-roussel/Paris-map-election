@@ -33,7 +33,7 @@ const ContainerStats = () => {
   };
 
   return (
-    <section id={styleStats["container-stats"]} >
+    <section id={styleStats["container-stats"]} className={isOpen && styleStats["volet-open"]}>
       <div id={styleStats["marge-stats"]}>
         <h2 id={styleStats["titre-stats"]} onClick={() => toggleVolet()}>ANALYSE EN GRAPHIQUE DES STATISTIQUES</h2>
         {!session && (
@@ -48,9 +48,14 @@ const ContainerStats = () => {
         )}
         {(session && bureauSelected) && (
           <div id={styleStats["header-stats"]}>
-            <span>Pour voir les graphiques, veuillez cliquer sur ce volet.</span>
+            {!isOpen && (
+              <span>Pour voir les graphiques, veuillez cliquer sur ce volet.</span>
+            )}
             {isOpen && (
-              <ContainerGraphLineBlocs/>
+              <>
+                <span>Pour fermer le volet, cliquez sur le titre.</span>
+                <ContainerGraphLineBlocs/>
+              </>
             )}
           </div>
         )}
