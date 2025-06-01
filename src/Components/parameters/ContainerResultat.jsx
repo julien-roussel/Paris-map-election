@@ -52,11 +52,6 @@ const ContainerResultat = (props) => {
         }
     }, [bureauDataSelect, props.electionIdName, allCandidats]);
 
-
-    function capitalizeFirstLetter(val) {
-        return String(val).charAt(0).toUpperCase() + String(val).slice(1);
-    }
-
   return (
         <div id={stylesParam["container-resultat-candidats"]}>
             <div className={stylesParam["container-abstention"]}>
@@ -81,7 +76,7 @@ const ContainerResultat = (props) => {
                 return (
                     <div key={index} className={stylesParam["container-resultat-candidat"]}
                             id={candidat.parti_code && "container-"+candidat.parti_code}>
-                        <span>{candidat.tete_de_liste && capitalizeFirstLetter(candidat.tete_de_liste)} : {Math.round(candidat.voix/inscrits*100)}%</span>
+                        <span><span className="capitalize">{candidat.tete_de_liste && candidat.tete_de_liste}</span> : {Math.round(candidat.voix/inscrits*100)}%</span>
                         <div className={stylesParam["progressbar"]}>
                             <div
                                 id={stylesParam["barre-abstention"]} role="progressbar" 
@@ -93,7 +88,7 @@ const ContainerResultat = (props) => {
                                      className={stylesParam["bandeau-hover"] + ' ' + 
                                                 (nuance && stylesParam["nuance-"+nuance]) + ' ' + 
                                                 (parti_code && stylesParam["parti-"+parti_code])} >
-                                    <span>Candidat·e : {candidat.tete_de_liste && capitalizeFirstLetter(candidat.tete_de_liste)}</span>
+                                    <span>Candidat·e : <span className="capitalize">{candidat.tete_de_liste && candidat.tete_de_liste}</span></span>
                                     <span>Parti : {parti && parti + (parti_code && ' (' + parti_code + ')')}</span>
                                     <span>Nombre de voix : {candidat.voix && candidat.voix}</span>
                                 </div>
