@@ -137,7 +137,7 @@ export const ElectionsProvider = ({ children }) => {
     }
   };
 
-  // Charger les nuances des élections disponibles
+  // Charger les noms des élections disponibles
   const loadAllNameElections = async () => {
     try {
       const response = await axios.get(`${LOCALHOST}/api/elections/allname`)
@@ -155,10 +155,57 @@ export const ElectionsProvider = ({ children }) => {
     }
   };
 
+  // Charger les noms des élections disponibles
+  // Quand l'utilisateur n'est pas connecté
+  const loadAllNameElectionsNoConnected = async () => {
+    try {
+      if (session) return;
+      const response = await axios.get(`${LOCALHOST}/api/elections/allname/offline`)
+      var elections = response.data;
+      setAllNameElections(elections)
+    } catch (error) {
+      console.error('❌ Erreur lors de récupération des données :', error.message);
+    }
+  };
+
+  // Charger les noms des élections disponibles
+  // Quand l'utilisateur est connecté
+  const loadAllNameElectionsConnected = async (userId) => {
+    try {
+      if (!session) return;
+      const response = await axios.get(`${LOCALHOST}/api/elections/allname/online/${userId}`, {
+          withCredentials: true
+        })   
+      var elections = response.data;
+      setAllNameElections(elections)
+    } catch (error) {
+      console.error('❌ Erreur lors de récupération des données :', error.message);
+    }
+  };
+  
+  // Charger les noms des élections disponibles
+  // Quand l'utilisateur est membre
+  const loadAllNameElectionsMember = async (userId) => {
+    try {
+      if (!session || !auth?.isSuscriber) return;
+      const response = await axios.get(`${LOCALHOST}/api/elections/allname/member/${userId}`, {
+          withCredentials: true
+        })   
+      var elections = response.data;
+      setAllNameElections(elections)
+    } catch (error) {
+      console.error('❌ Erreur lors de récupération des données :', error.message);
+    }
+  };
+
   useEffect(() => {
     loadNuancePolitique();
-    loadAllNameElections();    
-  }, [session]); 
+    if(!session) loadAllNameElectionsNoConnected();
+    if(auth) {
+      if(session && !auth?.isSuscriber)loadAllNameElectionsConnected(auth?._id); 
+      if(session && auth?.isSuscriber) loadAllNameElectionsMember(auth?._id);   
+    }
+  }, [session, auth]); 
   
   return (
     <ElectionsContext.Provider value={{ 

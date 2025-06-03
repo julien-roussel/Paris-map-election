@@ -41,6 +41,87 @@ const getAllNameElections = async (req, res, next) => {
         next(createError(500, error.message))
     }
 }
+// Route pour charger les nuances politiques des candidats
+// Si l'utilisateur n'est pas connecté
+const getAllNameElectionsNoConnected = async (req, res, next) => {
+    try {
+        const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
+
+        if (!fs.existsSync(filepath)) {
+            return res.status(404).json({ 
+                    error: `Fichier all_elections.json est introuvable.` 
+                });
+        }
+
+        const raw = fs.readFileSync(filepath, 'utf-8');
+        const data = JSON.parse(raw);
+        const filtered = data.filter(election => election.idName === 'presi2022')
+        res.json(filtered);
+    } catch (error) {
+        next(createError(500, error.message))
+    }
+}
+
+// Route pour charger les nuances politiques des candidats
+// Si l'utilisateur est connecté
+const getAllNameElectionsConnected = async (req, res, next) => {
+    try {
+        // Vérifier si l'utilisateur est connecté 
+        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
+        
+        // Vérifier si l'utilisateur existe
+        const user = await Users.findById(req.params.id);
+        if(!user) return next(createError(404, 'User not found'))
+            
+        // Vérifier si l'utilisateur est authentifié
+        if( user._id.toString() !== req.user.id.toString()) return next(createError(403, 'Accès refusé'))
+        
+        const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
+        if (!fs.existsSync(filepath)) {
+        return res.status(404).json({ 
+                error: `Fichier all_elections.json est introuvable.` 
+            });
+        }
+
+        const raw = fs.readFileSync(filepath, 'utf-8');
+        const data = JSON.parse(raw);
+        const filtered = data.filter(election => election.type == 'presi')
+        res.json(filtered);
+        
+    } catch (error) {
+        next(createError(500, error.message))
+    }
+}
+
+// Route pour charger les nuances politiques des candidats
+// Si l'utilisateur est connecté
+const getAllNameElectionsMember = async (req, res, next) => {
+    try {
+        // Vérifier si l'utilisateur est connecté 
+        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
+        
+        // Vérifier si l'utilisateur existe
+        const user = await Users.findById(req.params.id);
+        if(!user) return next(createError(404, 'User not found'))
+            
+        // Vérifier si l'utilisateur est authentifié
+        if( user._id.toString() !== req.user.id.toString()) return next(createError(403, 'Accès refusé'))
+        
+        const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
+        if (!fs.existsSync(filepath)) {
+        return res.status(404).json({ 
+                error: `Fichier all_elections.json est introuvable.` 
+            });
+        }
+
+        const raw = fs.readFileSync(filepath, 'utf-8');
+        const data = JSON.parse(raw);
+        res.json(data);
+        
+    } catch (error) {
+        next(createError(500, error.message))
+    }
+}
 
 // Route pour charger les résultats pour un bureau de vote 
 const getElectionByBv = async (req, res, next) => {
@@ -199,6 +280,9 @@ const getResultElectionMember = async (req, res, next) => {
 }
 
 module.exports = {
+    getAllNameElectionsNoConnected,
+    getAllNameElectionsConnected,
+    getAllNameElectionsMember,
     getAllCandidats,
     getAllNameElections,
     getElectionByBv,
