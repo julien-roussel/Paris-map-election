@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router'
 
 // Component
 import Layout from './components/Layout';
+import LayoutMap from './components/LayoutMap';
 
 // Page JSX
 import Home from './pages/Home.jsx';
@@ -28,13 +29,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home/>} />
-          <Route path="/analyse-map" element={<AnalyseMap/>} />  
-          <Route path="/analyse-map/:departement" element={<AnalyseMap/>} />  
           <Route path="/about" element={<About/>} />  
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<SignUp/>} />
           <Route path="/verify/:token" element={<Verify/>} />
           <Route path='*' element={<Nothing/>} />
+        </Route>
+        <Route path="/" element={<LayoutMap/>}>
+          <Route path="/analyse-map" element={<AnalyseMap/>} />  
+          <Route path="/analyse-map/:departement" element={<AnalyseMap/>} />  
         </Route>
       </Routes>
     </>

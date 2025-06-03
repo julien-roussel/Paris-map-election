@@ -20,6 +20,7 @@ h1 {
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	margin: 0;
+	color: $color-sombre;
 }
 
 h2 {
@@ -50,9 +51,33 @@ h5 {
 	text-transform: capitalize;
 }
 
+.texte-bold {
+	font-weight: 700;
+	color: $color-sombre;
+}
+
+.texte-white {
+	color: white;
+}
+
+a {
+	font-weight: 500;
+	color: $color-principale;
+
+	&:hover {
+		color: $color-secondaire;
+	}
+}
+
+hr {
+	width: 100%;
+	border-width: 2px
+}
+
 /* ************ ACTIVE / DESACTIVE ********* */
 
 .no-select {
+	color: $color-secondaire;
 	h2, h3, h4, h5, a {
 		color: $color-secondaire;
 	}
@@ -63,7 +88,33 @@ h5 {
 .container {
     max-width: 1080px;
     margin: 0 auto;
+
+}
+
+.container-paragraphe {
+	margin: 100px auto;
+	max-width: 940px;
+
+	h1, h2, h3, h4 {
+		margin-top: 50px;
+	}
+}
+
+.container-scroll {
+	overflow: scroll;
+	height: 100%;
+}
+
+.container-static {
+    max-width: 1080px;
+    margin: 0 auto;
 	height: 90vh;
+}
+
+.container-display {
+	display: flex;
+	align-items: stretch;
+	justify-content: space-between;
 }
 
 .container-center {
@@ -116,65 +167,32 @@ h5 {
 	background-color: $color-secondaire;
 }
 
-/* ************* CONTAINER RESULTAT FRANCE ************** */
+/* ************* LEAFLET MAP ************** */
 
-#container-france {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	height: 10%;
-	min-height: 110px;
-	border-top: 2px solid $color-sombre;
+.leaflet-container {
+	background-color: white !important;
+	
+	.leaflet-tile-container {
+		opacity: 0.7;
+	}
 }
 
-#container-france h2 {
-	line-height: 0.8;
-	padding: 0 20px;
-	margin: 0;
+.leaflet-control-layers .leaflet-control {
+    //padding: 10px;
 }
 
-#container-barre-france {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-end;
-	justify-content: space-around;
-	width: 68%;
-	height: 100%;
-	border-left: 2px solid $color-sombre;
-	padding: 0 4% 10px;
-	overflow: hidden;
+.leaflet-control-layers {
+    //display: none;
+    box-shadow: none;
+    background-color: white;
+    padding: 10px;
+    border-radius: 4px;
+
+    a {
+        display: none;
+    }
 }
 
-#container-score-france {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: space-between;
-	gap: 2px 20px;
-	padding: 10px 20px;
-	flex-wrap: wrap;
-	line-height: 1.2;
+.leaflet-control-layers .leaflet-control-layers-list {
+    display: block !important;
 }
-
-#container-score-france>div {
-	align-items: center;
-}
-
-#container-score-france .Gauche strong {	color: $color-gauche;	}
-#container-score-france .Droite strong {	color: $color-droite;	}
-#container-score-france .Macron strong {	color: $color-macron;	}
-#container-score-france .Extdroite strong {	color: $color-exd;	}
-#container-score-france .Abstention strong {	color: $color-gris;	}
-
-.container-resultat-france {
-	height: 100%;
-}
-
-.container-resultat-france>div{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	line-height: 1;
-}
-

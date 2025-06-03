@@ -1,0 +1,32 @@
+// Utilities
+@import "../../scss/color.scss";
+
+
+/* ************* MAP ************** */
+
+#container-map {
+	display: flex;
+	height: 90vh;
+	align-items: stretch;
+	justify-content: space-between;
+	overflow: hidden;
+}
+
+#map-container {
+    width: 70vw;
+    flex-grow: 4;
+	flex-shrink: 10;
+	display: flex;
+	flex-direction: column;
+}
+
+#container-popup {
+	height: 90vh;
+    width: 70vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    position: absolute;
+    z-index: 500;
+}

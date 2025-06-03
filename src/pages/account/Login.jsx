@@ -86,7 +86,7 @@ const Login = (dataForm) => {
 
 
     return (
-        <section className="container container-center">
+        <section className="container-static container-center">
             {session ? (
                 <Card
                     title={auth?.username ? ('Bienvenue, ' + auth.username + ' !') : "Chargement..."}

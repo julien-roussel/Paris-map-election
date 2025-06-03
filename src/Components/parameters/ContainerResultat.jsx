@@ -88,9 +88,22 @@ const ContainerResultat = (props) => {
                                      className={stylesParam["bandeau-hover"] + ' ' + 
                                                 (nuance && stylesParam["nuance-"+nuance]) + ' ' + 
                                                 (parti_code && stylesParam["parti-"+parti_code])} >
-                                    <span>Candidat·e : <span className="capitalize">{candidat.tete_de_liste && candidat.tete_de_liste}</span></span>
-                                    <span>Parti : {parti && parti + (parti_code && ' (' + parti_code + ')')}</span>
-                                    <span>Nombre de voix : {candidat.voix && candidat.voix}</span>
+                                    <span>
+                                        <span className='texte-bold texte-white'>Candidat·e : </span> 
+                                        <span className="capitalize">{candidat.tete_de_liste && candidat.tete_de_liste}</span>
+                                    </span>
+                                    <span>
+                                        <span className='texte-bold texte-white'>Parti : </span> 
+                                        {parti_code && parti_code} - {parti && parti}
+                                    </span>
+                                    <span>
+                                        <span className='texte-bold texte-white'>Nuance : </span> 
+                                        {candidat.tendance && candidat.tendance}
+                                    </span>
+                                    <span>
+                                        <span className='texte-bold texte-white'>Nombre de voix : </span>
+                                            {candidat.voix && candidat.voix}
+                                    </span>
                                 </div>
                             </div>
                         </div> 

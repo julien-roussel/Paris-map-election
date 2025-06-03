@@ -4,7 +4,7 @@ import { MapContainer, LayersControl, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 // CSS
-import './map.scss'
+import stylesMap from './map.module.scss';
 
 // Context
 import { useElection } from "../../context/ElectionsContext"
@@ -48,10 +48,6 @@ const Map = () => {
     useEffect(() => {
         setDepartementInfo(allNameMap?.find(dept => dept.numero === departement))
     }, [departement, allNameMap]);
-
-    useEffect(() => {
-        console.log(departementInfo?.pos);
-    }, [departementInfo])
 
     function getOpacityFromScore(inscrits, score) {
         if (!inscrits || !score || inscrits === 0) return 0.3;
@@ -179,7 +175,7 @@ const Map = () => {
     if (!departement || !departementInfo?.pos) {
         return  (
             <>
-                <div id="container-nomap">
+                <div id={stylesMap["container-popup"]}>
                     <ContainerPopUp/>
                 </div>
                 <MapContainer 

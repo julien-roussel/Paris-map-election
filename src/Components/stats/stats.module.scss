@@ -11,29 +11,49 @@
     border-top: 2px solid $color-sombre;
     border-right: 2px solid $color-sombre;
     border-top-right-radius: 80px;
-    transition: top 0.4s ease-in-out;
+    transition: top 0.2s ease-in-out;
     
     &.volet-open {
         top: -44vh;
     }
-
-    #marge-stats {
-        background-color: white;
-        margin: 10px 5% 5px;
     
-        #titre-stats {
-            margin: 0;
-            font-size: 3rem;
-        }
+    #marge-stats {
+        margin: 0 0 5px;
+        
         #header-stats {
+            width: 100%;
+            padding: 10px 5% 10px;
+            border-bottom: 2px solid $color-sombre;
+            border-top-right-radius: 80px;
+            box-sizing: border-box;
 
+            &:hover {
+                background-color: $color-tertiaire;
+                cursor: pointer;
+            }
+            
+            #titre-stats {
+                margin: 0;
+                font-size: 3rem;
+                transition: all 0.2s ease;
+
+            }
+            
+            .titre-animation:hover {
+            padding-left: 15px;
+                border-left: 3px solid $color-principale;
+            }
         }
         
-        .graph-stats {
-            width: fit-content !important;
-            max-height: 400px;
-            max-width: 1000px;
-	        padding: 40px 100px;
+        #container-graph {
+            margin: 0 5%;
+
+            .graph-stats {
+                width: fit-content !important;
+                max-height: 400px;
+                max-width: 1000px;
+                padding: 40px 0;
+            }
         }
     }
 }

@@ -33,30 +33,21 @@ const ContainerStats = () => {
   };
 
   return (
-    <section id={styleStats["container-stats"]} className={isOpen && styleStats["volet-open"]}>
+    <section id={styleStats["container-stats"]} className={isOpen ? styleStats["volet-open"] : ''}>
       <div id={styleStats["marge-stats"]}>
-        <h2 id={styleStats["titre-stats"]} onClick={() => toggleVolet()}>ANALYSE EN GRAPHIQUE DES STATISTIQUES</h2>
-        {!session && (
-          <div id={styleStats["header-stats"]}>
-            <span>Pour profiter des analyses en graphiques, il faut être <a href="/login">connecté.</a></span>
-          </div>
-        )}
-        {(session && !bureauSelected) && (
-          <div id={styleStats["header-stats"]}>
-            <span>Pour voir les graphiques, veuillez cliquer sur un bureau de vote.</span>
-          </div>
-        )}
-        {(session && bureauSelected) && (
-          <div id={styleStats["header-stats"]}>
-            {!isOpen && (
-              <span>Pour voir les graphiques, veuillez cliquer sur ce volet.</span>
-            )}
-            {isOpen && (
-              <>
-                <span>Pour fermer le volet, cliquez sur le titre.</span>
-                <ContainerGraphLineBlocs/>
-              </>
-            )}
+        <div id={styleStats["header-stats"]} onClick={() => toggleVolet()}>
+          <h2 id={styleStats["titre-stats"]} 
+              className={session && bureauSelected ? styleStats["titre-animation"] : "no-select" }>
+              ANALYSE EN GRAPHIQUE DES STATISTIQUES
+          </h2>
+          {!session && (<span>Pour profiter des analyses en graphiques, il faut être <a href="/login">connecté.</a></span>)}
+          {(session && !bureauSelected) && (<span>Pour voir les graphiques, veuillez cliquer sur un bureau de vote.</span>)}
+          {(session && bureauSelected && !isOpen) && (<span>Pour voir les graphiques, veuillez cliquer sur ce volet.</span>)}
+          {(session && bureauSelected && isOpen) && (<span>Pour fermer le volet, cliquez sur le titre.</span>)}
+        </div>
+        {(session && bureauSelected && isOpen) && (
+          <div id={styleStats["container-graph"]}>
+              <ContainerGraphLineBlocs/>
           </div>
         )}
       </div>

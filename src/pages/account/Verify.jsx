@@ -44,7 +44,7 @@ const Verify = () => {
     }, [token]);
 
   return (
-    <section className="container container-center">
+    <section className="container-static container-center">
         {status === 'loading' && (
             <Card 
                 title="Chargement..."

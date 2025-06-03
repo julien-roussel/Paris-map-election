@@ -14,7 +14,7 @@ import { useMap } from "../context/MapContext"
 
 // CSS
 import stylesParam from '../Components/parameters/parameters.module.scss';
-
+import stylesMap from '../Components/map/map.module.scss';
 
 const MapParis = () => {
     const params = useParams()
@@ -33,8 +33,8 @@ const MapParis = () => {
    }
 
   return (
-    <div id="container" className="map">
-        <div id="map-container" className="map-image"> 
+    <div id={stylesMap["container-map"]}>
+        <div id={stylesMap["map-container"]} className="map-image"> 
             <SelectMode/>
             <Map departement={departement} />
         </div>

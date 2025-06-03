@@ -40,7 +40,7 @@ const SignUp = () => {
     }
         
   return (
-    <section className="container container-center">
+    <section className="container-static container-center">
         { !etape && (
             <Card 
                 title="Inscrivez-vous"

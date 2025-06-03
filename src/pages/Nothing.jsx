@@ -6,7 +6,7 @@ import Card from '../Components/Composition/Card';
 
 const Nothing = () => {
   return (
-    <section className="container container-center">
+    <section id="container-static" className="container container-center">
       <Card 
         title="Error 404"
         subtitle="Il n'y a rien ici."

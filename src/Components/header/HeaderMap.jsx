@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 
 // Componennt
 import Logo from './Logo'
-import SelectElection from '../../Components/select/SelectElection';
-import SelectMap from '../../Components/select/SelectMap'
+import SelectElection from '../select/SelectElection';
+import SelectMap from '../select/SelectMap'
 
 // Contexte
 import { useAuth } from "../../context/AuthContext"
@@ -12,7 +12,7 @@ import { useAuth } from "../../context/AuthContext"
 // SCSS
 import './header.scss';
 
-const Header = () => {
+const HeaderMap = () => {
   const { session } = useAuth();
 
   return (
@@ -24,8 +24,10 @@ const Header = () => {
         <Link to='/about'><div>À propos</div></Link>
         <Link to='/login'><div>{session ? 'Compte' : 'Login'}</div></Link>
       </nav>
+      <SelectMap />
+      <SelectElection />
     </header>
   )
 }
 
-export default Header
+export default HeaderMap

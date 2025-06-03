@@ -49,8 +49,10 @@
 			}
 
 			&:hover .bandeau-hover {
-				opacity: 0.8;
+				opacity: 0.9;
 				transform: translate(10px, 6px);
+				width: 300px;
+				overflow-x: scroll;
 			}
 
 		}
@@ -158,7 +160,7 @@
 }
 
 .panneaux-score-volet {
-	height: 360px;
+	height: 370px;
 	overflow-x: hidden;
   	overflow-y: scroll;
     transition: height 0.3s ease;
