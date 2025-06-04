@@ -138,24 +138,6 @@ export const ElectionsProvider = ({ children }) => {
   };
 
   // Charger les noms des élections disponibles
-  const loadAllNameElections = async () => {
-    try {
-      const response = await axios.get(`${LOCALHOST}/api/elections/allname`)
-      var elections = response.data;
-      if (auth?.isSuscriber) {
-        elections  = response.data;
-      } else if (auth?.isSuscriber === false) {
-        elections = elections.filter(election => election.type === 'presi')
-      } else if (!session) {
-        elections = elections.filter(election => election.idName === 'presi2022')
-      } 
-      setAllNameElections(elections)
-    } catch (error) {
-      console.error('❌ Erreur lors de récupération des données :', error.message);
-    }
-  };
-
-  // Charger les noms des élections disponibles
   // Quand l'utilisateur n'est pas connecté
   const loadAllNameElectionsNoConnected = async () => {
     try {

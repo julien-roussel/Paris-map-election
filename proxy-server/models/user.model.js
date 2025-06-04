@@ -34,6 +34,14 @@ const userSchema = mongoose.Schema(
             type: Date,
             required: true,
             trim: true,
+            validate: {
+                validator: (v) => {
+                const minDate = new Date('1900-01-01');
+                const maxDate = new Date();
+                return v >= minDate && v <= maxDate;
+                },
+                message: props => `Date invalide : ${props.value}`
+            }
         },
         city:{
             type: String,

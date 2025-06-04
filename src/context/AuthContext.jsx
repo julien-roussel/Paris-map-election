@@ -7,14 +7,17 @@ const AuthContext = createContext();
 const LOCALHOST = import.meta.env.VITE_LOCALHOST;
 
 export const AuthProvider = ({ children }) => {
-    // Etat pour suivre l'authentification
+    // State pour suivre l'authentification
     const [isLoading, setIsLoading] = useState(false);
     const [session, setSession] = useState(false);
     const [errMsg, setErrMsg] = useState('');
 
-    // Etat pour stocker les infos de l'user connecté
+    // State pour stocker les infos de l'user connecté
     const [auth, setAuth] = useState(null);
     const [userId, setUserId] = useState(null);
+
+    // State pour stocker les villes
+    const [city, setCity] = useState()
 
     // Navigate
     const navigate = useNavigate()
@@ -109,11 +112,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loadCity = async () => {
+    try {
+      const { data, status } = await axios.get('https://geo.api.gouv.fr/communes?fields=nom,code,codesPostaux&format=json&limit=5000')
+      if(status === 200) setCity(data)
+    } catch(error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    loadCity();
+  }, []);
+
   return (
     <AuthContext.Provider value={{ 
         login, 
         logout, 
         signUp,
+        city,
         session, 
         auth, 
         errMsg, 

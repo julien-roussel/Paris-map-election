@@ -9,7 +9,7 @@ import Card from '../../Components/Composition/Card';
 
 const SignUp = () => {
     // Context
-    const { signUp, auth, session, errMsg, setErrMsg } = useAuth();
+    const { signUp, auth, session, errMsg, setErrMsg, city } = useAuth();
 
     // State
     const [etape, setEtape] = useState(false);
@@ -65,6 +65,7 @@ const SignUp = () => {
                     {
                         name: "Mot de passe",
                         id: "password",
+                        type: "password",
                         change : signUpHandleChange,
                         isRequired: true
                     }
@@ -93,17 +94,23 @@ const SignUp = () => {
                     isRequired: true
                 },
                 {
+                    name: "Date de naissance",
+                    id: "dateOfBirth",
+                    type: "date",
+                    max: "2008-01-01",
+                    change : signUpHandleChange,
+                    isRequired: true
+                },
+            ]}
+            select={[
+                {
                     name: "Ville",
                     id: "city",
                     change : signUpHandleChange,
-                    isRequired: false
-                },
-                {
-                    name: "Date de naissance",
-                    id: "dateOfBirth",
-                    change : signUpHandleChange,
-                    isRequired: false
-                },
+                    isRequired: true,
+                    placeholder: "Sélectionnez votre ville",
+                    data: city
+                }
             ]}
         />
         )}

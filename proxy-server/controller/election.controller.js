@@ -25,22 +25,6 @@ const getAllCandidats = async (req, res, next) => {
     }
 }
 
-// Route pour charger tous les noms d'élections disponibles
-const getAllNameElections = async (req, res, next) => {
-    const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
-    if (!fs.existsSync(filepath)) {
-    return res.status(404).json({ 
-            error: `Fichier all_elections.json est introuvable.` 
-        });
-    }
-    try {
-        const raw = fs.readFileSync(filepath, 'utf-8');
-        const data = JSON.parse(raw);
-        res.json(data);
-    } catch (error) {
-        next(createError(500, error.message))
-    }
-}
 // Route pour charger les nuances politiques des candidats
 // Si l'utilisateur n'est pas connecté
 const getAllNameElectionsNoConnected = async (req, res, next) => {
@@ -284,7 +268,6 @@ module.exports = {
     getAllNameElectionsConnected,
     getAllNameElectionsMember,
     getAllCandidats,
-    getAllNameElections,
     getElectionByBv,
     getResultElectionNoConnected,
     getResultElectionConnected,

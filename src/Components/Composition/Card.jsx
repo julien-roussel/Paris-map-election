@@ -11,7 +11,7 @@ const Card = ({ title, subtitle,
                 linkName, link, 
                 msg, msgFinal, 
                 buttonForm, button, 
-                input, submit}) => {
+                input, select, submit}) => {
   return (
     <div className='card'>
         <hr></hr>
@@ -25,11 +25,33 @@ const Card = ({ title, subtitle,
                     id={input.id}
                     placeholder={input.placeholder && input.placeholder}
                     value={input.value && input.value}
-                    type={input.id}
+                    type={input.type && input.type}
+                    max={input.max && input.max}
                     change={input.change}
                     isRequired={input.isRequired}
                 />
             ))}
+            {select && select.map((select, index) => {
+                const data = select?.data;
+                console.log(data);
+                
+                return (
+                    <div className={stylesCard.formInput}>
+                        <label for={select.id} >Adresse</label>
+                        <select 
+                            className={stylesCard["select-form"]}
+                            key={index} 
+                            id={select.id}
+                            change={select.change}
+                            isRequired={select.isRequired}
+                        >
+                            <option value="">{select.placeholder && select.placeholder}</option>
+                            {Array.isArray(data) && data.map((data, index) => ( 
+                                <option key={index} value={data.code && data.code}>{data.nom && data.nom}</option>
+                            ))}
+                        </select>
+                    </div>
+                )})}
             <h5>{msgFinal && msgFinal}</h5>
             <p className={msg ? "activate" : "offscren"}>{msg && msg}</p>
             <div className='container-buttons'>
