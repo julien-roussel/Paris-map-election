@@ -60,6 +60,13 @@ h5 {
 	color: white;
 }
 
+.texte-logo {
+    font-size: 1rem;
+	font-weight: 800;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
 a {
 	font-weight: 500;
 	color: $color-principale;
@@ -71,7 +78,13 @@ a {
 
 hr {
 	width: 100%;
-	border-width: 2px
+	border-top-width: 1px;
+	border-color: $color-sombre;
+	margin: 0;
+}
+
+button {
+	border: 1px solid $color-gris;
 }
 
 /* ************ ACTIVE / DESACTIVE ********* */
@@ -152,17 +165,25 @@ hr {
 	max-width: 600px;	
 }
 
+#container-home-intro {
+	.container-paragraphe {
+		margin: 60px 50px;
+	}
+}
+
 .container-home {
 	width: 50%;
 	
-	h1 {	font-size: 12rem !important; 	}
+	h1 {	
+		font-size: 12rem !important; 	
+		margin: 30px 50px 10px;
+	}
 	h2 {	margin: 30px 0 2px;	}
 
 
 	video {	width: 100%;	}
 
 	&:nth-child(1) {	border-right: 2px solid $color-sombre;	}
-	&:nth-child(2) {	padding: 6% 120px;	}
 }
 
 /* ************* MENU ************** */

@@ -11,7 +11,7 @@ const About = () => {
           <h1>Comment fonctionne SUFFRAMAP ?</h1>
 
           <p>
-            <span className="texte-bold">Sufframap</span> est un outil citoyen d'exploration des résultats électoraux français, construit autour du niveau le plus fin de lecture disponible : le <span className="texte-bold">bureau de vote</span>.
+            <span className='texte-logo'>Sufframap</span> est un outil citoyen d'exploration des résultats électoraux français, construit autour du niveau le plus fin de lecture disponible : le <span className="texte-bold">bureau de vote</span>.
             Les données proviennent exclusivement de sources officielles (Ministère de l'Intérieur, data.gouv.fr, etc.). Elles sont préalablement <span className="texte-bold">parsées</span>, nettoyées, enrichies puis stockées dans une base de données sécurisée. Ce traitement permet de proposer une navigation fluide, sans appels externes lourds, et garantit une meilleure stabilité d’accès.
           </p>
 
@@ -123,7 +123,7 @@ const About = () => {
             <li>La nature de l’erreur constatée (résultat erroné, blocage technique, affichage incorrect…)</li>
           </ul>
           <p>
-            Votre signalement contribuera à améliorer la qualité de Sufframap. Merci pour votre vigilance et votre aide précieuse.
+            Votre signalement contribuera à améliorer la qualité de <span className='texte-logo'>Sufframap</span>. Merci pour votre vigilance et votre aide précieuse.
           </p>
           <Button 
             name="Signalez un problème"

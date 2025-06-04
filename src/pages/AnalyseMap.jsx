@@ -39,18 +39,20 @@ const MapParis = () => {
             <Map departement={departement} />
         </div>
         <div id={stylesParam["container-resultat"]}>
-            <div id={stylesParam["marge-resultat"]} className={(!bureauDataSelect && !bureauDataSelect?.meta) ? 'no-select' : undefined}>
+            <div id={stylesParam["marge-resultat"]}>
                 <h1>résultats élections</h1>
                 <span>{(!bureauDataSelect && !bureauDataSelect?.meta) ? 'Sélectionnez un bureau :' : "Bureau sélectionné :"}</span>
-                <h3>{departement ? departement + ' - ' : ''}{nomDep ? nomDep : 'Département sélectionné'} </h3>
-                <h4>{nomCommune ? nomCommune : 'Nom de la commune'}</h4>
-                <div id={stylesParam["meta-bureau"]}>
-                    <h5>Circonscription {bureauDataSelect ? circo : '__'}</h5>
-                    /
-                    <h5>Bureau de vote {bureauDataSelect ? bureau : '__'}</h5>
+                <div className={(!bureauDataSelect && !bureauDataSelect?.meta) ? 'no-select' : undefined}>
+                    <h3>{departement ? departement + ' - ' : ''}{nomDep ? nomDep : 'Département sélectionné'} </h3>
+                    <h4>{nomCommune ? nomCommune : 'Nom de la commune'}</h4>
+                    <div id={stylesParam["meta-bureau"]}>
+                        <h5>Circonscription {bureauDataSelect ? circo : '__'}</h5>
+                        /
+                        <h5>Bureau de vote {bureauDataSelect ? bureau : '__'}</h5>
+                    </div>
+                    <OptionResultat/>
+                    <ResultatsLateral/>
                 </div>
-                <OptionResultat/>
-                <ResultatsLateral/>
             </div>
         </div>
     </div>
