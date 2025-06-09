@@ -26,6 +26,7 @@ const Card = ({ title, subtitle,
                     placeholder={input.placeholder && input.placeholder}
                     value={input.value && input.value}
                     type={input.type && input.type}
+                    min={input.min && input.min}
                     max={input.max && input.max}
                     change={input.change}
                     isRequired={input.isRequired}
@@ -33,7 +34,6 @@ const Card = ({ title, subtitle,
             ))}
             {select && select.map((select, index) => {
                 const data = select?.data;
-                console.log(data);
                 
                 return (
                     <div className={stylesCard.formInput}>
@@ -42,12 +42,12 @@ const Card = ({ title, subtitle,
                             className={stylesCard["select-form"]}
                             key={index} 
                             id={select.id}
-                            change={select.change}
+                            onChange={select.change}
                             isRequired={select.isRequired}
                         >
                             <option value="">{select.placeholder && select.placeholder}</option>
                             {Array.isArray(data) && data.map((data, index) => ( 
-                                <option key={index} value={data.code && data.code}>{data.nom && data.nom}</option>
+                                <option key={index} value={data.nom && data.nom}>{data.nom && data.nom}</option>
                             ))}
                         </select>
                     </div>

@@ -12,7 +12,7 @@ const Home = () => {
             <video className="image-fade hidden visible animated fadeInUp" playsInline="" autoPlay loop muted="" src="../../../public/video/map-video_01.mp4">
             </video>
           </div>
-          <div id="container-home-intro" className="container-home">
+          <div id="container-home-intro" className="">
             <h1>SUFFRAMAP</h1>
             <hr></hr>
             <section className='container-paragraphe'>

@@ -29,6 +29,10 @@ const signUp = async (req, res, next) => {
             user
         })
     } catch(error) {
+        if (error.name === 'ValidationError') {
+            const messages = Object.values(error.errors).map(err => err.message);
+            return res.status(400).json({ error: messages.join(', ') });
+        }
         next(createError(500, error.message))
     }
 }

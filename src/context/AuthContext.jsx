@@ -103,11 +103,13 @@ export const AuthProvider = ({ children }) => {
       if(status === 200) {
         setAuth(data.others);
         setIsLoading(false);
-        setSession(true);     
+        setSession(true);    
+        setErrMsg("Mail envoyé !"); 
       }
+      if(status === 400) setErrMsg("Erreur dans les champs remplis");
+      if(status === 500) setErrMsg("Une erreur s'est produite");
     } catch(error) {
-      console.log(error.message);
-      setErrMsg('Votre email ou mot de passe est mauvais.');
+      console.error("❌ Inscription échouée :", error);
       setIsLoading(false)
     }
   };

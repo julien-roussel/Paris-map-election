@@ -16,7 +16,7 @@ const SignUp = () => {
     const [formData, setFormData] = useState({});
     
     const navigate = useNavigate();
-    if(session) navigate('/login/') 
+    if(session) navigate('/login') 
 
     useEffect(() => {
         console.log(formData);
@@ -33,6 +33,7 @@ const SignUp = () => {
     }
 
     const signUpHandleSubmit = async (event) => {
+        event.preventDefault(); 
         const cleanedData = Object.fromEntries(
             Object.entries(formData).filter(([_, value]) => value !== "")
         );
@@ -41,7 +42,7 @@ const SignUp = () => {
         
   return (
     <section className="container-static container-center">
-        { !etape && (
+        { !session && !etape && (
             <Card 
                 title="Inscrivez-vous"
                 linkName="Vous êtes déjà inscrit·e ?"
@@ -72,7 +73,7 @@ const SignUp = () => {
                 ]}
             />
         )}
-        { etape && (
+        { !session && etape && (
             <Card 
             title="Dites-nous en plus ?"
             linkName="Vous êtes déjà inscrit·e ?"
@@ -97,6 +98,7 @@ const SignUp = () => {
                     name: "Date de naissance",
                     id: "dateOfBirth",
                     type: "date",
+                    min: "1900-01-01",
                     max: "2008-01-01",
                     change : signUpHandleChange,
                     isRequired: true
@@ -112,7 +114,15 @@ const SignUp = () => {
                     data: city
                 }
             ]}
-        />
+            />
+        )}
+        { session && (
+            <Card 
+                title="Il reste une étape"
+                subtitle="Validez votre inscription par mail."
+                linkName="Revenir à la page d'accueil"
+                link="/"
+            />
         )}
     </section>
   )
