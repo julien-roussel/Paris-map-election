@@ -83,8 +83,6 @@ const Login = (dataForm) => {
         login(user)
     }
 
-
-
     return (
         <section className="container-static container-center">
             {session ? (
@@ -172,6 +170,7 @@ const Login = (dataForm) => {
                         {
                             name: "Mot de passe",
                             id: "password",
+                            type: "password",
                             change: connexionHandleChange,
                             isRequired: true
                         }

@@ -10,6 +10,7 @@ import Home from './pages/Home.jsx';
 import AnalyseMap from './pages/AnalyseMap.jsx';
 import About from './pages/About.jsx';
 import Nothing from './pages/Nothing.jsx';
+import Contact from './pages/Contact.jsx';
 import Login from './pages/account/Login.jsx';
 import SignUp from './pages/account/SignUp.jsx';
 import Verify from './pages/account/Verify.jsx';
@@ -32,6 +33,7 @@ function App() {
           <Route path="/about" element={<About/>} />  
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<SignUp/>} />
+          <Route path="/contact" element={<Contact/>} />
           <Route path="/verify/:token" element={<Verify/>} />
           <Route path='*' element={<Nothing/>} />
         </Route>

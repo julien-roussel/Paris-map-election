@@ -6,12 +6,14 @@ import stylesCard from './card.module.scss';
 
 // Component
 import Input from './Input';
+import TextArea from './TextArea';
 
 const Card = ({ title, subtitle, 
                 linkName, link, 
                 msg, msgFinal, 
                 buttonForm, button, 
-                input, select, submit}) => {
+                input, textArea, select, 
+                submit}) => {
   return (
     <div className='card'>
         <hr></hr>
@@ -36,14 +38,13 @@ const Card = ({ title, subtitle,
                 const data = select?.data;
                 
                 return (
-                    <div className={stylesCard.formInput}>
-                        <label for={select.id} >Adresse</label>
+                    <div key={index} id={stylesCard["select-" + select.id]} className={stylesCard.formInput}>
+                        <label htmlFor={select.id} >Adresse</label>
                         <select 
                             className={stylesCard["select-form"]}
-                            key={index} 
                             id={select.id}
                             onChange={select.change}
-                            isRequired={select.isRequired}
+                            required={select.isRequired ? true : false}
                         >
                             <option value="">{select.placeholder && select.placeholder}</option>
                             {Array.isArray(data) && data.map((data, index) => ( 
@@ -51,7 +52,20 @@ const Card = ({ title, subtitle,
                             ))}
                         </select>
                     </div>
-                )})}
+                )})
+            }
+            {textArea && textArea.map((textArea, index) => (
+                <TextArea 
+                    key={index}
+                    name={textArea.name}
+                    id={textArea.id}
+                    placeholder={textArea.placeholder && textArea.placeholder}
+                    rows={textArea.rows && textArea.rows}
+                    cols={textArea.cols && textArea.cols}
+                    change={textArea.change}
+                    isRequired={textArea.isRequired}
+                />
+            ))}
             <h5>{msgFinal && msgFinal}</h5>
             <p className={msg ? "activate" : "offscren"}>{msg && msg}</p>
             <div className='container-buttons'>

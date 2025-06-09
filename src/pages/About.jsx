@@ -127,7 +127,7 @@ const About = () => {
           </p>
           <Button 
             name="Signalez un problème"
-            link="/"
+            link="/contact"
           />
         </section>
       </div>

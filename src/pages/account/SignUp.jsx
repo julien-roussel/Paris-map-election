@@ -9,14 +9,20 @@ import Card from '../../Components/Composition/Card';
 
 const SignUp = () => {
     // Context
-    const { signUp, auth, session, errMsg, setErrMsg, city } = useAuth();
+    const { signUp, auth, session, errMsg, city } = useAuth();
 
     // State
     const [etape, setEtape] = useState(false);
     const [formData, setFormData] = useState({});
     
+    // Navigate
     const navigate = useNavigate();
-    if(session) navigate('/login') 
+
+    useEffect(() => {
+        if (!loading && !session) {
+            navigate("/login");
+        }
+    }, [loading, session, navigate]); 
 
     useEffect(() => {
         console.log(formData);
