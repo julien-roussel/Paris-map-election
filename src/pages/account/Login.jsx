@@ -145,6 +145,7 @@ const Login = (dataForm) => {
                         {
                             name: "Date de naissance",
                             id: "dateOfBirth",
+                            type: "date",
                             value: formData.dateOfBirth,
                             placeholder: formData.dateOfBirth,
                             change: profilHandleChange,

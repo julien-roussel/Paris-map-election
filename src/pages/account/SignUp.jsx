@@ -9,7 +9,7 @@ import Card from '../../Components/Composition/Card';
 
 const SignUp = () => {
     // Context
-    const { signUp, auth, session, errMsg, city } = useAuth();
+    const { signUp, auth, session, errMsg, loading, city } = useAuth();
 
     // State
     const [etape, setEtape] = useState(false);

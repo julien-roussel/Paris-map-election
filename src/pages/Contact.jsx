@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // Contexte
 import { useAuth } from "../context/AuthContext"
@@ -7,12 +8,14 @@ import { useAuth } from "../context/AuthContext"
 // Component
 import Card from '../Components/Composition/Card';
 
+const LOCALHOST = import.meta.env.VITE_DOMAIN_APP_BACK;
+
 const Contact = () => {
     // Context
-    const { auth, loading, session, errMsg } = useAuth();
+    const { auth, loading, session, errMsg, setErrMsg, setIsLoading } = useAuth();
     
     // State
-    const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+    const [formData, setFormData] = useState({ titre: "", message: "", objet: "" });
     const [status, setStatus] = useState("");
     const [objets, setObjets] = useState([
         {nom: "Signalez une erreur"},
@@ -21,26 +24,30 @@ const Contact = () => {
     ]) 
 
     //Handle
-    const messageHandleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const messageHandleChange = (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+    }
 
     const messageHandleSubmit = async (e) => {
             e.preventDefault();
-
+            setIsLoading(true)
             try {
-            const res = await fetch("http://localhost:5000/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
+                const res = await axios.post(`${LOCALHOST}/api/contact/message/${auth._id}`,
+                            formData,
+                            { withCredentials: true }
+            );
 
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || "Erreur lors de l'envoi.");
 
             setStatus("Message envoyé !");
             setFormData({ titre: "", message: "", objet: "" });
+            setIsLoading(false)
+            setErrMsg("Le message a été envoyé avec succès !")
         } catch (err) {
             setStatus(err.message);
+            setIsLoading(false)
+            setErrMsg("Le message n'a pas pu s'envoyer.")
         }
     };
 
@@ -48,10 +55,12 @@ const Contact = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (loading || !session) {
-            //navigate("/login");
+        if(!loading) {
+            return
+        } else if (loading && !auth) {
+            navigate("/login");
         }
-    }, [loading, session, navigate]);
+    }, [loading, auth, navigate]);
 
   return (
     <section className="container-static container-center">

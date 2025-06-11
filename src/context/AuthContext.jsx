@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
       const checkAuth = async () => {
+        setIsLoading(true)
         try {
           const { data, status } = await axios.get(`${LOCALHOST}/api/users/verify`, {
             withCredentials: true
@@ -126,7 +127,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     loadCity();
   }, []);
-
+  
   return (
     <AuthContext.Provider value={{ 
         login, 
@@ -137,6 +138,7 @@ export const AuthProvider = ({ children }) => {
         auth, 
         errMsg, 
         setErrMsg, 
+        setIsLoading,
         isLoading }}>
       {children}
     </AuthContext.Provider>

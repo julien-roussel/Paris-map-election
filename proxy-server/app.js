@@ -12,6 +12,7 @@ const app = express();
 const elecRouter = require('./router/election.router')
 const mapRouter = require('./router/map.router')
 const userRouter = require('./router/user.router')
+const contactRouter = require('./router/contact.router')
 
 
 // CONNEXION MONGO
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use("/api/elections", elecRouter)
 app.use("/api/map", mapRouter)
 app.use("/api/users", userRouter)
+app.use("/api/contact", contactRouter)
 
 // MIDDLEWARES DE GESTION D'ERROR
 app.use((error, req, res, next) => {
