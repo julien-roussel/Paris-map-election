@@ -31,11 +31,13 @@ export const AuthProvider = ({ children }) => {
           });
           setUserId(data.userId);
           setSession(true);  
-          getUserById(data.userId);        
+          getUserById(data.userId);   
+          setIsLoading(false)     
         } catch (error) {
           console.log(error.message);
           setSession(false);
           setAuth(null);
+          setIsLoading(false)
         }
       };
 

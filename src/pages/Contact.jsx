@@ -57,14 +57,14 @@ const Contact = () => {
     useEffect(() => {
         if(!loading) {
             return
-        } else if (loading && !auth) {
+        } else if (!auth) {
             navigate("/login");
         }
     }, [loading, auth, navigate]);
 
   return (
     <section className="container-static container-center">
-        {session && (
+        {session ? (
             <Card
                 title="Contactez-nous"
                 subtitle="Vous voulez nous adresser un message ?"
@@ -99,6 +99,13 @@ const Contact = () => {
                         isRequired: true
                     }
                 ]}
+            />
+        ) : (
+            <Card
+                title="Connectez-vous"
+                subtitle="Pour nous adresser un message"
+                linkName="Se connecter"
+                link="/login"
             />
         )}
     </section>
