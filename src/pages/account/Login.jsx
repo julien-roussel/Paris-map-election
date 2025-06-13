@@ -11,7 +11,7 @@ import Card from '../../Components/Composition/Card';
 
 const Login = (dataForm) => {
     // Context
-    const { login, logout, auth, session, errMsg, setErrMsg } = useAuth();
+    const { login, logout, auth, session, errMsg, setErrMsg, city } = useAuth();
 
     // State
     const [user, setUser] = useState({});
@@ -135,14 +135,6 @@ const Login = (dataForm) => {
                             isRequired: false
                         },
                         {
-                            name: "Ville",
-                            id: "city",
-                            value: formData.city,
-                            placeholder: formData.city,
-                            change: profilHandleChange,
-                            isRequired: false
-                        },
-                        {
                             name: "Date de naissance",
                             id: "dateOfBirth",
                             type: "date",
@@ -151,6 +143,16 @@ const Login = (dataForm) => {
                             change: profilHandleChange,
                             isRequired: false
                         },
+                    ]}
+                    select={[
+                        {
+                            name: "Ville",
+                            id: "city",
+                            isRequired: false,
+                            placeholder: formData.city,
+                            change: profilHandleChange,
+                            data: city
+                        }
                     ]}
                 />
             ) : (

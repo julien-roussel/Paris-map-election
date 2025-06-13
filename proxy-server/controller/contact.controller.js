@@ -40,11 +40,13 @@ const postContact = async (req, res, next) => {
         await transporter.sendMail({
             from: `"${user.firstname} ${user.lastname}" <${user.email}>`,
             to: process.env.EMAIL_USER,
-            subject: `"Form contact : ${objet}"`,
+            subject: `"Form contact : ${user.username} / ${objet}"`,
             html: ` <h1>Form contact</h1><br/>
                     <h2>Message de ${user.firstname} ${user.lastname}</h2><br/>
-                    <p><${user.email}</p>
+                    <a><${user.email}</a>
                     <p>Vous avez reçu un nouveau message du formulaire de contact du site Sufframap :</p>
+                    <hr>
+                    <h3>${titre}</h3>
                     ${message}
             `,
         });

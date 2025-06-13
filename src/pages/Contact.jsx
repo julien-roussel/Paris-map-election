@@ -12,11 +12,12 @@ const LOCALHOST = import.meta.env.VITE_DOMAIN_APP_BACK;
 
 const Contact = () => {
     // Context
-    const { auth, loading, session, errMsg, setErrMsg, setIsLoading } = useAuth();
+    const { auth, loading, session, setIsLoading } = useAuth();
     
     // State
     const [formData, setFormData] = useState({ titre: "", message: "", objet: "" });
-    const [status, setStatus] = useState("");
+    const [msg, setMsg] = useState("");
+
     const [objets, setObjets] = useState([
         {nom: "Signalez une erreur"},
         {nom: "Recherche d'informations"},
@@ -30,25 +31,26 @@ const Contact = () => {
 
     const messageHandleSubmit = async (e) => {
             e.preventDefault();
+            
             setIsLoading(true)
             try {
                 const res = await axios.post(`${LOCALHOST}/api/contact/message/${auth._id}`,
                             formData,
                             { withCredentials: true }
-            );
+                );
 
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Erreur lors de l'envoi.");
-
-            setStatus("Message envoyé !");
-            setFormData({ titre: "", message: "", objet: "" });
-            setIsLoading(false)
-            setErrMsg("Le message a été envoyé avec succès !")
+            if (res.status === 200) {                
+                setMsg("Le message a été envoyé avec succès !")
+                setFormData({ titre: "", message: "", objet: "" });
+            } else {
+                setMsg("Une erreur est survenue.")
+            }
         } catch (err) {
-            setStatus(err.message);
-            setIsLoading(false)
-            setErrMsg("Le message n'a pas pu s'envoyer.")
+            setMsg("Le message n'a pas pu s'envoyer.")
+        } finally {
+            setIsLoading(false);
         }
+
     };
 
     // Navigate
@@ -68,7 +70,7 @@ const Contact = () => {
             <Card
                 title="Contactez-nous"
                 subtitle="Vous voulez nous adresser un message ?"
-                msg={errMsg}
+                msg={msg}
                 buttonForm="Confirmez"
                 submit={messageHandleSubmit}
                 input={[
