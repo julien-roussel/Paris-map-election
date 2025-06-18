@@ -161,7 +161,7 @@ button {
 #container-home-video {	
 	display: flex;
 	flex-direction: row;
-    align-items: flex-end;
+    align-items: flex-start;
 	max-width: 600px;	
 }
 
@@ -227,3 +227,33 @@ button {
     display: block !important;
 }
 
+
+/* ************************** MEDIA QUERIES ************************** */
+/* ******************************************************************* */
+
+/* //////////////////////////////////////// PORTRAIT //////////////// */
+/* Pour le format portrait */
+
+@media (orientation: portrait) {
+
+}
+
+/* ///////////////////////////////////////// 1140px //////////////// */
+/* Ajustements à partir de la colonne principale */
+
+@media screen and (max-width: 1140px) {
+
+
+}
+
+
+/* ///////////////////////////////////////// 960px //////////////// */
+
+@media screen and (max-width: 960px) {
+	#container-home-video {
+		display: none;
+	}
+	.container-paragraphe {
+		margin: 60px 50px;
+	}
+}

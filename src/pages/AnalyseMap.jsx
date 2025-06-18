@@ -42,7 +42,8 @@ const MapParis = () => {
             <div id={stylesParam["marge-resultat"]}>
                 <h1>résultats élections</h1>
                 <span>{(!bureauDataSelect && !bureauDataSelect?.meta) ? 'Sélectionnez un bureau :' : "Bureau sélectionné :"}</span>
-                <div className={(!bureauDataSelect && !bureauDataSelect?.meta) ? 'no-select' : undefined}>
+                <div id={stylesParam["container-information-bureau"]}
+                    className={(!bureauDataSelect && !bureauDataSelect?.meta) ? 'no-select' : undefined}>
                     <h3>{departement ? departement + ' - ' : ''}{nomDep ? nomDep : 'Département sélectionné'} </h3>
                     <h4>{nomCommune ? nomCommune : 'Nom de la commune'}</h4>
                     <div id={stylesParam["meta-bureau"]}>

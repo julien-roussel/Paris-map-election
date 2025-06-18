@@ -11,6 +11,7 @@
 	height: 100vh;
 	border-left: 2px solid $color-sombre;
 	overflow: scroll;
+	z-index: 401;
 
 	.bv-no-select {
 		h2, h3, h4, h5 {
@@ -29,6 +30,16 @@
 
 		#container-options {
 			margin: 10px 0;
+		}
+
+		#container-information-bureau{
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+
+			section {
+				width: 100%;
+			}
 		}
 		
 		.container-resultat-candidat {
@@ -182,4 +193,54 @@
 .panneaux-score-resultat:hover .panneaux-score-button {
 	padding-left: 15px;
 	border-left: 3px solid $color-principale;
+}
+
+/* ************************** MEDIA QUERIES ************************** */
+/* ******************************************************************* */
+
+
+/* ///////////////////////////////////////// 860px //////////////// */
+
+@media screen and (max-width: 860px) {
+	#container-resultat {
+		max-width: 100%;
+		width: 100%;
+		border-top: 2px solid $color-sombre;
+		border-left: 0;
+		border-right: 0;
+		background: white;
+
+		#marge-resultat {
+			h1 {
+				font-size: 3rem !important;
+    			letter-spacing: 1px;
+			}
+			
+			#container-information-bureau {
+				display: flex;
+				align-items: flex-start;
+				align-items: flex-end;
+
+				h2, h3, h4 {
+					font-size: 1.2rem !important;
+					margin: 0 5px;
+				}
+				h5 {
+					font-size: 1rem !important;
+					margin: 0 5px;
+				}
+			}
+
+			section {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				column-gap: 1%;
+
+				&>div {
+					width: 49%;
+				}
+			}
+		}
+	}
 }

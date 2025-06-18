@@ -15,6 +15,7 @@ import App from './App.jsx'
 import { ElectionsProvider } from "./context/ElectionsContext.jsx";
 import { MapProvider } from "./context/MapContext.jsx";
 import { AuthProvider } from './context/AuthContext.jsx';
+import { ResponsiveProvider } from './context/ResponsiveContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -22,7 +23,9 @@ createRoot(document.getElementById('root')).render(
       <AuthProvider>
         <MapProvider>
           <ElectionsProvider>
-            <App />
+            <ResponsiveProvider>
+              <App />
+            </ResponsiveProvider>
           </ElectionsProvider>
         </MapProvider>
       </AuthProvider>

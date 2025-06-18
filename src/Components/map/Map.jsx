@@ -10,6 +10,7 @@ import stylesMap from './map.module.scss';
 import { useElection } from "../../context/ElectionsContext"
 import { useMap } from "../../context/MapContext"
 import { useAuth } from "../../context/AuthContext"
+import { useResponsive } from "../../context/ResponsiveContext"
 
 // Component
 import MapAutoCenter from './MapAutoCenter' 
@@ -30,11 +31,19 @@ const Map = () => {
             setBureauDataSelect } = useElection();
     const { modeMap, loadMapBureau, bureauVote, selectBureau, bureauSelected, allNameMap } = useMap();
     const { auth, session } = useAuth();
+    const { widthPage, handleResize } = useResponsive();
 
     const { BaseLayer, Overlay } = LayersControl;
     
     // State 
     const [departementInfo, setDepartementInfo] = useState();
+
+     useEffect(() => {
+        return () => {
+            // Dès que la fenêtre est redimensionner, relancer la function
+            window.addEventListener("resize", handleResize);
+        };
+    }, []);
 
     // Charger les bureaux sur la map
     useEffect(() => {
@@ -182,7 +191,7 @@ const Map = () => {
                     center={[48.8566, 2.3522]}
                     minZoom={7} zoom={10} maxZoom={15} 
                     scrollWheelZoom={true} 
-                    style={{ height: "90vh", width: "100%" }}>
+                    style={ widthPage > 860 ? {height: "90vh", width: "100%"} : {height: "60vh", width: "100%"}}>
 
                     <TileLayer
                         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -198,7 +207,7 @@ const Map = () => {
                 center={departementInfo?.pos || [48.8566, 2.3522]}
                 minZoom={7} zoom={10} maxZoom={15} 
                 scrollWheelZoom={true} 
-                style={{ height: "90vh", width: "100%" }}>
+                style={ widthPage > 860 ? {height: "90vh", width: "100%"} : {height: "60vh", width: "100%"}}>
                 <MapAutoCenter center={computedCenter} />
 
                 <LayersControl position="topright">
