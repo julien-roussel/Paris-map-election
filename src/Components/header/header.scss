@@ -44,6 +44,48 @@ header {
         }
     }
 
+    svg {   
+        display: none;  
+        stroke-width: 3;
+        stroke-linecap: round;
+        padding: 0 10px;
+    }
+
+    #container-burger-menu {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 501;
+
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        padding: 30px 0;
+        background-color: white;
+        
+        &.activate {
+            display: flex;
+        }
+        
+        a {
+            font-size: 2rem; 
+            line-height: 1; 
+            text-decoration: none;
+            color: $color-sombre;
+        }
+
+        hr {
+            max-width: 80%;
+            margin: 0 auto;
+            border-width: 1px;
+            border-color: $color-sombre;
+        }
+    }
+
     .container-select {
         height: 100%;
         
@@ -58,9 +100,14 @@ header {
             font-weight: 500;
             text-align: center;
             border-left: solid 2px $color-sombre;
-    
+            
             &:hover {
                 color: $color-principale;
+            }
+            
+            option {
+                font-size: 1rem;
+
             }
         }
     }
@@ -75,12 +122,45 @@ header {
 /* ///////////////////////////////////////// 860px //////////////// */
 
 @media screen and (max-width: 860px) {
+	#header-map {
+        font-size: 0.85rem;
+        padding: 0;
+
+        #header-logo {
+            font-size: 2.7rem;
+        }
+
+        nav {   display: none;  }
+
+        svg {
+            display: block;
+            stroke: $color-sombre;
+        }
+        
+        .container-select {
+            select {
+                font-size: 0.85rem;
+            }
+        }
+    }
+}
+
+/* ///////////////////////////////////////// 450px //////////////// */
+
+@media screen and (max-width: 450px) {
 	header {
         font-size: 0.85rem;
         padding: 0;
 
         #header-logo {
             font-size: 2.7rem;
+        }
+
+        nav {   display: none;  }
+
+        svg {
+            display: block;
+            stroke: $color-sombre;
         }
         
         .container-select {

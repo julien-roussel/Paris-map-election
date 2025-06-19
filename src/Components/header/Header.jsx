@@ -1,10 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router';
 
 // Componennt
 import Logo from './Logo'
-import SelectElection from '../../Components/select/SelectElection';
-import SelectMap from '../../Components/select/SelectMap'
+import HeaderIconBurger from './HeaderIconBurger';
 
 // Contexte
 import { useAuth } from "../../context/AuthContext"
@@ -15,6 +14,17 @@ import './header.scss';
 const Header = () => {
   const { session } = useAuth();
 
+  // State
+  const [burgerMenu, setBurgerMenu] = useState(false);
+
+  const handleClick = () => {
+    if(!burgerMenu) { 
+      setBurgerMenu(true) 
+    } else {
+      setBurgerMenu(false) 
+    }
+  }
+
   return (
     <header>
       <Logo />
@@ -24,6 +34,9 @@ const Header = () => {
         <Link to='/about'><div>À propos</div></Link>
         <Link to='/login'><div>{session ? 'Compte' : 'Login'}</div></Link>
       </nav>
+      <HeaderIconBurger 
+        onclick={handleClick}
+        />
     </header>
   )
 }

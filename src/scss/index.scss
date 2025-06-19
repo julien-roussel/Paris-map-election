@@ -227,6 +227,10 @@ button {
     display: block !important;
 }
 
+.leaflet-top, .leaflet-bottom {
+	z-index: 400 !important;
+}
+
 
 /* ************************** MEDIA QUERIES ************************** */
 /* ******************************************************************* */
@@ -254,6 +258,17 @@ button {
 		display: none;
 	}
 	.container-paragraphe {
-		margin: 60px 50px;
+		margin: 60px 40px;
 	}
 }
+
+/* ///////////////////////////////////////// 450px //////////////// */
+
+@media screen and (max-width: 450px) {
+	.container-paragraphe, #container-home-intro .container-paragraphe {
+		margin: 60px 20px;
+	}
+}
+
+
+

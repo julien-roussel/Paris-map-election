@@ -229,18 +229,39 @@
 					font-size: 1rem !important;
 					margin: 0 5px;
 				}
+
+				.panneaux-score-button {
+					margin: 0;
+				}
 			}
 
 			section {
 				display: flex;
 				flex-direction: row;
 				flex-wrap: wrap;
+				align-content: stretch;
 				column-gap: 1%;
 
-				&>div {
-					width: 49%;
+				.panneaux-score-resultat {
+					min-width: 250px;
+					width: 100%;
+        			max-width: 49%;
+					margin: 5px 0 0;
+					padding: 0 0 5px 0;
 				}
 			}
+		}
+	}
+}
+
+@media screen and (max-width: 550px) {
+	#container-resultat {
+		#marge-resultat {
+			section {
+				.panneaux-score-resultat {
+					max-width: 100%;
+				}
+			}		
 		}
 	}
 }
