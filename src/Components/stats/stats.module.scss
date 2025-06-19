@@ -73,4 +73,9 @@
             top: -50vh;
         }
 	}
+    
+    #container-stats #marge-stats #container-graph .graph-stats {
+        padding: 0;
+        max-height: 1000px;
+    } 
 }

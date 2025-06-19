@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 // Context
 import { useElection } from "../../context/ElectionsContext"
 import { useMap } from "../../context/MapContext"
+import { useResponsive } from "../../context/ResponsiveContext.jsx"
 
 // JS
 import graphLineBlocs from "./graphLineBlocs.js"
@@ -11,7 +12,8 @@ import graphLineBlocs from "./graphLineBlocs.js"
 import styleStats from './stats.module.scss';
 
 const ContainerGraphLineBlocs = () => {
-  const { bureauSelected,  } = useMap();  
+  const { bureauSelected,  } = useMap(); 
+  const { widthPage } = useResponsive(); 
   const { allNameElections, bureauDataSelect, nuancePolitique } = useElection();
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const ContainerGraphLineBlocs = () => {
       Object.keys(bureauDataSelect).length === 0 || 
       !nuancePolitique
     ) return;
-    graphLineBlocs.generateLineGraph(bureauDataSelect, allNameElections, nuancePolitique);
+    graphLineBlocs.generateLineGraph(bureauDataSelect, allNameElections, nuancePolitique, widthPage);
     
     return () => {
       if (window.graphLineBlocs) {

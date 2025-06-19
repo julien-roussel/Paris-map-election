@@ -29,7 +29,7 @@ let chartInstance;
 
 // ----------------------------------------------------------------------------------------------
 // Fonction pour générer le graphique LINE des résultats de la Gauche, centre, DROITE et EXD
-function generateLineGraph(results, allNameElections, nuancePolitique) {
+function generateLineGraph(results, allNameElections, nuancePolitique, widthPage) {
     const containerGraph = document.getElementById('graphLineBlocs');
     if (!containerGraph || !results || !nuancePolitique) return;
     const ctx = containerGraph.getContext('2d');
@@ -44,6 +44,7 @@ function generateLineGraph(results, allNameElections, nuancePolitique) {
 
     const labels = electionsName.map(id => {
         const match = allNameElections.find(e => e.idName === id);
+        if(widthPage < 860) return match ? match.idName : id;
         return match ? match.name : id;
     });
 
@@ -114,15 +115,17 @@ function generateLineGraph(results, allNameElections, nuancePolitique) {
         data: data,
         options: {
             responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: widthPage > 860 ? 1.25 : 1,
             plugins: {
                 legend: {
-                    position: 'left',
+                    position: widthPage > 860 ? 'left' : 'bottom',
                     labels: {
-                        boxWidth: 40, 
-                        boxHeight: 20, 
+                        boxWidth:  widthPage > 860 ? 40 : 10, 
+                        boxHeight:  widthPage > 860 ? 20 : 3, 
                         padding: 10,
                         font: {
-                            size: 12
+                            size:  widthPage > 860 ? 12 : 8
                         }
                     }
                 },
@@ -130,7 +133,7 @@ function generateLineGraph(results, allNameElections, nuancePolitique) {
                     display: true,
                     text: 'Résultats des élections par tendance',
                     font: {
-                        size: 26,
+                        size:  widthPage > 860 ? 26 : 18,
                     },
                 },
                 subtitle: {
