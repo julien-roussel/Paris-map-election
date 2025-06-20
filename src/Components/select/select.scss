@@ -12,6 +12,8 @@
 	margin: 0 0 10px 0;
     
     select {
+        box-sizing: border-box;
+        font-size: 1rem;
         padding: 4px 8px;
         background-color: $color-gris;
         color: white;
@@ -66,6 +68,26 @@
     span {
         position: relative;
         top: 1px;
+    }
+}
+
+.select-animation {
+    transition: 
+        0.1s opacity 0.2s ease-in-out, 
+        0.1s max-height 0.1s ease-in-out,
+        0.1s transform 0s ease-in-out;
+        opacity: 0;
+        max-height: 0 !important;
+        transform: translateY(-150px);
+        
+        &.activate {
+            transition: 
+            0.1s opacity 0s ease-in-out, 
+            0.2s max-height 0s ease-in-out,
+            0.1s transform 0.2s ease-in-out;
+        opacity: 1;
+        max-height: 200px !important;
+        transform: translateY(0);
     }
 }
 

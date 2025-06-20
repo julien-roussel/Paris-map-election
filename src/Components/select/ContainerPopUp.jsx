@@ -9,6 +9,9 @@ import { useAuth } from "../../context/AuthContext"
 // CSS
 import stylesPopUp from './popup.module.scss';
 
+// Component
+import CustomSelect from './CustomSelect';
+
 const ContainerPopUp = () => {
   const navigate = useNavigate();
 
@@ -32,8 +35,7 @@ const ContainerPopUp = () => {
   }, [allNameMap]);
 
   // 1 - Sélection des élections
-  const popElectChange = async (event) => {
-    const { value } = event.target
+  const handleElectionSelect = (value) => {
     setPopElectSelected(value);
   }
   
@@ -44,9 +46,7 @@ const ContainerPopUp = () => {
   }
   
   // 2 - Sélection du département
-  const popDeptChange = (event) => {
-    const { value } = event.target
-    console.log(value);
+  const popDeptChange = (value) => {
     setPopDepartementSelected(value);
   }
   
@@ -68,19 +68,21 @@ const ContainerPopUp = () => {
     <div className={stylesPopUp.containerpopup}>
         { !etape && (
             <div id="pop-election" className={stylesPopUp.popup}>
-              <h3>Élections non chargées <span className={stylesPopUp.popupetape}>1/2</span></h3>
-              <p>La carte ne s'affiche pas, car aucune élection est sélectionnée.</p>
-              <h5>Veuillez sélectionner une élection</h5>
-              <form id="" className={stylesPopUp.containerselect}
-                    onSubmit={popElectSubmit} onChange={popElectChange}>
-                  <select id="electionMenu">
-                      <option value={false}>{electionNameSelected[0] ? electionNameSelected[0]?.name : "Sélectionnez une élection"}</option>
-                      {allNameElections.map((election, index) => {
-                        if(election.type == 'muni' &&  popDepartementSelected != 75) return;
-                        return (
-                          <option key={index} value={election.idName}>{election.name}</option>
-                      )})}
-                  </select>
+              <div id={stylesPopUp["pop-informations"]}>
+                <h3>Élections non chargées <span className={stylesPopUp.popupetape}>1/2</span></h3>
+                <p>La carte ne s'affiche pas, car aucune élection est sélectionnée.</p>
+                <h5>Veuillez sélectionner une élection</h5>
+              </div>
+              <form className={stylesPopUp.containerselect}
+                    onSubmit={popElectSubmit}>
+                  <CustomSelect
+                    options={allNameElections
+                      .filter(election => !(election.type === 'muni' && popDepartementSelected != 75))
+                      .map(e => ({ value: e.idName, label: e.name }))}
+                    selectedValue={popElectSelected}
+                    onSelect={handleElectionSelect}
+                    placeholder={electionNameSelected[0]?.name || "Sélectionnez une élection"}
+                  />
                   <hr></hr>
                   <div className='container-buttons'>
                     <button 
@@ -105,17 +107,20 @@ const ContainerPopUp = () => {
 
         { etape && (
           <div id="pop-departement" className={stylesPopUp.popup} >
-              <h3>Carte non chargée <span className={stylesPopUp.popupetape}>2/2</span></h3>
-              <p>La carte ne s'affiche pas, car aucun département est sélectionné.</p>
-              <h5>Veuillez sélectionner un département</h5>
+              <div id={stylesPopUp["pop-informations"]}>
+                <h3>Carte non chargée <span className={stylesPopUp.popupetape}>2/2</span></h3>
+                <p>La carte ne s'affiche pas, car aucun département est sélectionné.</p>
+                <h5>Veuillez sélectionner un département</h5>
+              </div>
               <form id="" className={stylesPopUp.containerselect} 
                     onSubmit={popDeptSubmit} onChange={popDeptChange}>
-                  <select id="electionMenu">
-                      <option value={false}>Sélectionnez un département</option>
-                      {allNameArray && allNameArray.map((dept, index) => (
-                          <option key={index} value={dept.numero}>{dept.numero} - {dept.nom}</option>
-                      ))}
-                  </select>
+                  <CustomSelect
+                    options={allNameArray
+                      .map(dept => ({ value: dept.numero, label: (dept.numero+' - '+dept.nom) }))}
+                    selectedValue={popDepartementSelected}
+                    onSelect={popDeptChange}
+                    placeholder="Sélectionnez un département"
+                  />
                   <hr></hr>
                   <div className='container-buttons'>
                     <button 

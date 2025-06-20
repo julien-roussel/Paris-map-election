@@ -19,14 +19,10 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!loading && !session) {
+        if (loading && !session) {
             navigate("/login");
         }
     }, [loading, session, navigate]); 
-
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
 
     const etapeHandleSubmit = async (event) => { 
         event.preventDefault(); 

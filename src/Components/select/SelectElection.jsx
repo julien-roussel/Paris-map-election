@@ -5,6 +5,9 @@ import { useParams } from 'react-router'
 import { useElection } from "../../context/ElectionsContext"
 import { useAuth } from "../../context/AuthContext"
 
+// CSS
+import stylesSelect from './select.module.scss';
+
 const SelectElection = () => {
     // Params
     const { departement } = useParams();
@@ -18,6 +21,15 @@ const SelectElection = () => {
             electionSelected } = useElection();
     const { auth, session } = useAuth();
 
+    const [isOpen, setIsOpen] = useState(false);
+    
+    const handleClick = () => {
+        if(!isOpen) { 
+            setIsOpen(true) 
+        } else {
+            setIsOpen(false) 
+        }
+    }
     const loadElectionMap = async (electioName, departement) => {
       if (!electioName || !departement) return;
 
@@ -27,20 +39,25 @@ const SelectElection = () => {
     }
 
   return (
-    <div id="" className="container-select">
-        <select id="electionMenu" className={electionSelected == '' ? 'noSelected' : ''}
-                onChange={(e) => loadElectionMap(e.target.value, departement)}>
-            <option value="">{electionNameSelected[0] ? electionNameSelected[0]?.name : "Sélectionnez une élection"}</option>
+    <div className={stylesSelect["custom-container-select"]} onClick={handleClick}>
+      <div id="electionMenu" className={stylesSelect["custom-select"]}>
+          <div className={stylesSelect["custom-select-trigger"]}>
+            {electionNameSelected[0] ? electionNameSelected[0]?.name : "Sélectionnez une élection"}
+          </div>
+          <ul className={isOpen ? (stylesSelect["custom-options"] + ' select-animation activate') : stylesSelect["custom-options"] + ' select-animation'}>
             {allNameElections.map((election, index) => {
-            if(election.type == 'muni' &&  departement != 75) return;
-            return (
-                <option key={index} value={election.idName}>{election.name}</option>
+              if(election.type == 'muni' &&  departement != 75) return;
+              return (
+                  <li className={stylesSelect["custom-option"]} key={index} 
+                      value={election.idName} onClick={() => loadElectionMap(election.idName, departement)}>
+                        {election.name}
+                  </li>
             )})}
-        </select>
-    </div>
+          </ul>
+      </div>
+  </div>
   )
 }
 
 export default SelectElection
 
-//                onChange={(e) => loadElectionMap(e.target.value, departement)}>
