@@ -21,7 +21,7 @@ const CustomSelect = ({ options, selectedValue, onSelect, placeholder }) => {
               {selectedOption?.label || placeholder}
             </div>
             <ul className={isOpen ? (stylesSelect["custom-options"] + ' select-animation activate') : stylesSelect["custom-options"] + ' select-animation'}>
-                {options && options.map((option, index) => (
+                {Array.isArray(options) && options.map((option, index) => (
                     <li key={index} 
                         className={stylesSelect["custom-option"]} 
                         onClick={() => handleSelect(option.value)}>

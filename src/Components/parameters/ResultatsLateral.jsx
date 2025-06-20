@@ -28,7 +28,7 @@ const ResultatsLateral = () => {
 
   return (
     <section>
-      {allNameElections.map((election, index) => {
+      {Array.isArray(allNameElections) && allNameElections.map((election, index) => {
         const isOpen = openVolets[election.idName];
         if(election.type == 'muni' &&  departement != 75) return;
         

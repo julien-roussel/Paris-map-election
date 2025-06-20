@@ -14,6 +14,7 @@ import { useResponsive } from "../../context/ResponsiveContext"
 
 // Component
 import MapAutoCenter from './MapAutoCenter' 
+import MapResizeListener from './MapResizeListener';
 import ContainerPopUp from '../select/ContainerPopUp' 
 import ContainerStats from '../stats/ContainerStats';
 
@@ -209,7 +210,7 @@ const Map = () => {
                 scrollWheelZoom={true} 
                 style={ widthPage > 860 ? {height: "90vh", width: "100%"} : {height: "60vh", width: "100%"}}>
                 <MapAutoCenter center={computedCenter} />
-
+                <MapResizeListener trigger={widthPage} />
                 <LayersControl position="topright">
                     <Overlay checked name="Street map">
                         <TileLayer

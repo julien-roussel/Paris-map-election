@@ -4,6 +4,7 @@ import React from 'react'
 import stylesCard from './card.module.scss';
 
 const Input = ({id, name, type, change, value, placeholder, isRequired, rows, cols}) => {
+  
   return (
     <div id={stylesCard["input-" + id]} className={stylesCard.formInput}>
         <label htmlFor={id && id} className='p-2'>{name && name}: </label>

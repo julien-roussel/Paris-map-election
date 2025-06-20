@@ -60,7 +60,7 @@ const SelectElection = () => {
               {departement ? `${departement} - ${departementInfo?.nom}` : "Sélectionnez un département"}
             </div>
             <ul className={isOpen ? (stylesSelect["custom-options"] + ' select-animation activate') : stylesSelect["custom-options"] + ' select-animation'}>
-                {allNameArray && allNameArray.map((dept, index) => (
+                {Array.isArray(allNameArray) && allNameArray.map((dept, index) => (
                     <li className={stylesSelect["custom-option"]} key={index} 
                         value={dept.numero}
                         onClick={() => navigateToMap(dept.numero)}>

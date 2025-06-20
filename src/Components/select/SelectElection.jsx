@@ -45,7 +45,7 @@ const SelectElection = () => {
             {electionNameSelected[0] ? electionNameSelected[0]?.name : "Sélectionnez une élection"}
           </div>
           <ul className={isOpen ? (stylesSelect["custom-options"] + ' select-animation activate') : stylesSelect["custom-options"] + ' select-animation'}>
-            {allNameElections.map((election, index) => {
+            {Array.isArray(allNameElections) && allNameElections.map((election, index) => {
               if(election.type == 'muni' &&  departement != 75) return;
               return (
                   <li className={stylesSelect["custom-option"]} key={index} 

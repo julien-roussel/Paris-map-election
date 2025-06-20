@@ -17,7 +17,7 @@ export const MapProvider = ({ children }) => {
         try {
             const response = await axios.get(`${LOCALHOST}/api/map/getbydepartement?departement=${departementSelected}`);
             const data = response.data;
-            console.log('bureauVote : ', data);
+            //console.log('bureauVote : ', data);
             setTimeout(() => {
                 setBureauVote(data);
               }, 50);

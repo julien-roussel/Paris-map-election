@@ -63,7 +63,7 @@ const ContainerResultat = (props) => {
                 </div> 
             </div>
             <h5 className={stylesParam["h5-resultat"]}>Parmi les votes exprimés :</h5>
-            {resultCandidat && resultCandidat.map((candidat, index) => {
+            {Array.isArray(resultCandidat) && resultCandidat.map((candidat, index) => {
                 var nuance;
                 var parti;
                 var parti_code;

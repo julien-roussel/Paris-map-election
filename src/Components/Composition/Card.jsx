@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 // CSS
 import stylesCard from './card.module.scss';
@@ -14,13 +14,14 @@ const Card = ({ title, subtitle,
                 buttonForm, button, 
                 input, textArea, select, 
                 submit}) => {
+
   return (
     <div className='card'>
         <hr></hr>
         <h1>{title && title}</h1>
         <h3>{subtitle && subtitle}</h3>
         <form className={stylesCard.form} onSubmit={submit}>
-            {input && input.map((input, index) => (
+            {Array.isArray(input) && input.map((input, index) => (
                 <Input 
                     key={index}
                     name={input.name}
@@ -28,13 +29,11 @@ const Card = ({ title, subtitle,
                     placeholder={input.placeholder && input.placeholder}
                     value={input.value && input.value}
                     type={input.type && input.type}
-                    min={input.min && input.min}
-                    max={input.max && input.max}
                     change={input.change}
                     isRequired={input.isRequired}
                 />
             ))}
-            {select && select.map((select, index) => {
+            {Array.isArray(select) && select.map((select, index) => {
                 const data = select?.data;
                 
                 return (
@@ -54,7 +53,7 @@ const Card = ({ title, subtitle,
                     </div>
                 )})
             }
-            {textArea && textArea.map((textArea, index) => (
+            {Array.isArray(textArea) && textArea.map((textArea, index) => (
                 <TextArea 
                     key={index}
                     name={textArea.name}
@@ -72,12 +71,14 @@ const Card = ({ title, subtitle,
                 {buttonForm && (
                     <button className={msg ? "button" : "button dark-button"}>{buttonForm && buttonForm}</button>
                 )}
-                {button && button.map((button, index) => (
+                {Array.isArray(button) && button.map((button, index) => (
                     <button key={index} className="button dark-button" onClick={button.click}>{button.name}</button>
                 ))}
             </div>
         </form>
-        <Link to={link && link}>{linkName && linkName}</Link>
+        {link && linkName && (
+            <Link to={link}>{linkName}</Link>
+        )}
     </div>
   )
 }

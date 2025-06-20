@@ -63,7 +63,7 @@ const Contact = () => {
             navigate("/login");
         }
     }, [loading, auth, navigate]);
-
+    
   return (
     <section className="container-static container-center">
         {session ? (
