@@ -133,7 +133,7 @@ const Map = () => {
             }
         };
     }, [electionSelected, modeMap, bureauSelected]);
-
+    
     const dynamicOnEachFeature = useCallback((feature, layer) => {
         const features = feature.properties;
         var commune = features.codeCommune;

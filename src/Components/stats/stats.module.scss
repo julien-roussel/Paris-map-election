@@ -5,7 +5,7 @@
     position: relative;
     width: 100%;
     min-height: 50vh;
-    top: -7vh;
+    top: -8.8vh;
     z-index: 400;
     background-color: white;
     border-top: 2px solid $color-sombre;
@@ -14,7 +14,7 @@
     transition: top 0.2s ease-in-out;
     
     &.volet-open {
-        top: -44vh;
+        top: -50vh;
     }
     
     #marge-stats {
