@@ -20,7 +20,7 @@ connectMongoDB(ENV.MONGO_URI, ENV.DB_NAME)
 
 // MIDDLEWARES
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'https://ton-projet.vercel.app'],
     credentials: true
 }));
 app.use('/uploads', express.static(path.join(dirname, 'uploads')));

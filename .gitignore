@@ -1,5 +1,5 @@
-# Logs
-logs
+# --- LOGS ---
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,30 +7,46 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# --- DEPENDENCIES ---
+node_modules/
+proxy-server/node_modules/
+client/node_modules/
+
+# --- BUILD OUTPUT ---
+dist/
+client/dist/
+dist-ssr/
 *.local
-package-lock.json
+
+# --- ENV ---
 .env
-csv
-_AUTRES
+.env.local
 
-# Server
-parse
-json
-files
-parseElectionPresi.js
-parseElectionEuro.js
-server-api.js
+# --- PACKAGE LOCKS ---
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
 
-# Editor directories and files
-.vscode/*
+# --- TEMP / CACHE / DATA ---
+*.csv
+*.tsbuildinfo
+
+# --- PARSE & SERVER FILES (CUSTOM) ---
+proxy-server/parse/
+proxy-server/files/
+proxy-server/server-api.js
+proxy-server/json/
+
+# --- IDE / SYSTEM FILES ---
+.vscode/
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# --- AUTRES ---
+_AUTRES/
