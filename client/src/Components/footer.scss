@@ -1,5 +1,5 @@
 // Utilities
-@import "../scss/color.scss";
+@use './colors.scss' as *;
 
 footer {
     position: relative;

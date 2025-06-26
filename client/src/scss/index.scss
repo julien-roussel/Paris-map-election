@@ -1,6 +1,6 @@
 /* **************** GENERAL ***************** */
 // Utilities
-@import "./color.scss";
+@use "./color.scss" as *;
 
 html {
 	font-size: 14px;

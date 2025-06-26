@@ -2,7 +2,7 @@
 /* ************************** CUSTOM SELECT ************************** */
 
 // Utilities
-@import "../../scss/color.scss";
+@use "../../scss/color.scss" as *;
 
 .custom-container-select {
     position: relative;

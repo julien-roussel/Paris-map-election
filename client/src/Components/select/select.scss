@@ -1,5 +1,5 @@
 // Utilities
-@import "../../scss/color.scss";
+@use "../../scss/color.scss" as *;
 
 #container-select {
 	position: absolute;
