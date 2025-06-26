@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router'
 
 // Component
-import Layout from './components/Layout';
-import LayoutMap from './components/LayoutMap';
+import Layout from './Components/Layout';
+import LayoutMap from './Components/LayoutMap';
 
 // Page JSX
 import Home from './pages/Home.jsx';
