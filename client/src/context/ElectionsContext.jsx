@@ -16,7 +16,7 @@ export const ElectionsProvider = ({ children }) => {
   const [nuancePolitique, setNuancePolitique] = useState([])
   
   const API_URL = import.meta.env.VITE_API_URL;
-  
+   
   // Pour charger les résultats d'une élection d'un département
   // Si l'utilisateur n'est pas connecté
   const loadElectionMapNoConnected = async (departementSelected) => {
