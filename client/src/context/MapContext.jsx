@@ -4,7 +4,7 @@ import axios from 'axios';
 export const MapContext = createContext();
 
 const API_URL = import.meta.env.VITE_API_URL;
-
+ 
 export const MapProvider = ({ children }) => {
     const [bureauVote, setBureauVote]  = useState(null);
     const [bureauSelected, setBureauSelected] = useState(undefined);
