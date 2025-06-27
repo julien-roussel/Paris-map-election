@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthContext"
 // Component
 import Card from '../Components/Composition/Card';
 
-const LOCALHOST = import.meta.env.VITE_DOMAIN_APP_BACK;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Contact = () => {
     // Context
@@ -34,7 +34,7 @@ const Contact = () => {
             
             setIsLoading(true)
             try {
-                const res = await axios.post(`${LOCALHOST}/api/contact/message/${auth._id}`,
+                const res = await axios.post(`${API_URL}/api/contact/message/${auth._id}`,
                             formData,
                             { withCredentials: true }
                 );

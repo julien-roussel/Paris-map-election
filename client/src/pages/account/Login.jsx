@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router';
 import axios from 'axios';
-const LOCALHOST = import.meta.env.VITE_LOCALHOST;
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Contexte
 import { useAuth } from "../../context/AuthContext"
@@ -51,7 +51,7 @@ const Login = (dataForm) => {
             return;
         }
         try {
-            const response = await axios.patch(`${LOCALHOST}/api/users/update/${auth._id}`,
+            const response = await axios.patch(`${API_URL}/api/users/update/${auth._id}`,
                 updatedFields,
                 { withCredentials: true }
             )
