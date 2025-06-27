@@ -34,7 +34,6 @@ export const MapProvider = ({ children }) => {
     // Pour charger tous les noms de département
     const loadAllNameMap = async () => {
         try {
-            console.log(import.meta.env.VITE_API_URL)
             const response = await axios.get(`${API_URL}/api/map/alldepartement`);   
             setAllNameMap(response.data)
         } catch (error) {

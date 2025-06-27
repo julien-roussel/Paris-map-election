@@ -28,6 +28,7 @@ const Map = () => {
             loadElectionMapMember, 
             loadElectionsMapConnected, 
             loadElectionMapNoConnected,
+            allNameElections,
             nuancePolitique,
             setBureauDataSelect } = useElection();
     const { modeMap, loadMapBureau, bureauVote, selectBureau, bureauSelected, allNameMap } = useMap();

@@ -22,7 +22,7 @@ const MapParis = () => {
     
     const { bureauDataSelect } = useElection();
     const { selectBureau } = useMap();
-    
+
    var dep; var circo; var bureau; var nomDep; var nomCommune;
    if (bureauDataSelect && bureauDataSelect.meta) {
         dep = bureauDataSelect.meta.departement;
