@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 
 const AuthContext = createContext();
-const LOCALHOST = import.meta.env.VITE_LOCALHOST;
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const AuthProvider = ({ children }) => {
     // State pour suivre l'authentification
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
       const checkAuth = async () => {
         setIsLoading(true)
         try {
-          const { data, status } = await axios.get(`${LOCALHOST}/api/users/verify`, {
+          const { data, status } = await axios.get(`${API_URL}/api/users/verify`, {
             withCredentials: true
           });
           setUserId(data.userId);
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
       const getUserById = async (userId) => {
         try {
-          const { data, status } = await axios.get(`${LOCALHOST}/api/users/getById/${userId}`, {
+          const { data, status } = await axios.get(`${API_URL}/api/users/getById/${userId}`, {
             withCredentials: true
           });
           setAuth(data);
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (dataForm) => {
         setIsLoading(true)
         try {
-            const { data, status } = await axios.post(`${LOCALHOST}/api/users/login`, dataForm, {
+            const { data, status } = await axios.post(`${API_URL}/api/users/login`, dataForm, {
               withCredentials: true
             });
 
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
       try {
-        await axios.post(`${LOCALHOST}/api/users/logout`, {}, {
+        await axios.post(`${API_URL}/api/users/logout`, {}, {
           withCredentials: true,
         });
     
@@ -99,7 +99,7 @@ export const AuthProvider = ({ children }) => {
   const signUp = async (dataForm) => {
     setIsLoading(true)
     try {
-      const { data, status } = await axios.post(`${LOCALHOST}/api/users/signup`, dataForm, {
+      const { data, status } = await axios.post(`${API_URL}/api/users/signup`, dataForm, {
         withCredentials: true
       });
 

@@ -9,7 +9,7 @@ import { useAuth } from "../../context/AuthContext"
 // Component
 import Card from '../../Components/Composition/Card';
 
-const LOCALHOST = import.meta.env.VITE_LOCALHOST;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Verify = () => {
     // Context
@@ -25,7 +25,7 @@ const Verify = () => {
         const verifySignUp = async () => {
             setStatus('loading')
             try {
-                const { data, status } = await axios.get(`${LOCALHOST}/api/users/signup/verify/${token}`, {
+                const { data, status } = await axios.get(`${API_URL}/api/users/signup/verify/${token}`, {
                     withCredentials: true
                 });
                 

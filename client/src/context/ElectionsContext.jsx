@@ -15,7 +15,7 @@ export const ElectionsProvider = ({ children }) => {
   const [electionSelected, setElectionSelected] = useState([])
   const [nuancePolitique, setNuancePolitique] = useState([])
   
-  const LOCALHOST = import.meta.env.VITE_LOCALHOST;
+  const API_URL = import.meta.env.VITE_API_URL;
   
   // Pour charger les résultats d'une élection d'un département
   // Si l'utilisateur n'est pas connecté
@@ -23,7 +23,7 @@ export const ElectionsProvider = ({ children }) => {
     if(departementSelected === undefined) return
 
     try {
-      const response = await axios.get(`${LOCALHOST}/api/elections/offline`, {
+      const response = await axios.get(`${API_URL}/api/elections/offline`, {
         params: {
           departement: departementSelected
         }
@@ -44,7 +44,7 @@ export const ElectionsProvider = ({ children }) => {
       if(userId === undefined) return
 
       try {
-        const response = await axios.get(`${LOCALHOST}/api/elections/online/${userId}`, {
+        const response = await axios.get(`${API_URL}/api/elections/online/${userId}`, {
           params: {
             departement: departementSelected
           },
@@ -69,7 +69,7 @@ export const ElectionsProvider = ({ children }) => {
     if(election_name === 'muni2020' && departementSelected != 75) return
 
     try {
-        const response = await axios.get(`${LOCALHOST}/api/elections/member/${election_name}/${userId}`, {
+        const response = await axios.get(`${API_URL}/api/elections/member/${election_name}/${userId}`, {
           params: {
             departement: departementSelected
           },
@@ -91,7 +91,7 @@ export const ElectionsProvider = ({ children }) => {
     if(election_name === 'muni2020' && departementSelected != 75) return
     
     try {
-        const response = await axios.get(`${LOCALHOST}/api/elections/bureau/${election_name}/${bureauVote}`, {
+        const response = await axios.get(`${API_URL}/api/elections/bureau/${election_name}/${bureauVote}`, {
             params: {
               departement: departementSelected
             }
@@ -131,7 +131,7 @@ export const ElectionsProvider = ({ children }) => {
   // Charger les nuances des élections disponibles
   const loadNuancePolitique = async () => {
     try {
-      const response = await axios.get(`${LOCALHOST}/api/elections/candidats`)
+      const response = await axios.get(`${API_URL}/api/elections/candidats`)
       setNuancePolitique(response.data)
     } catch (error) {
       console.error('❌ Erreur lors de récupération des données :', error.message);
@@ -143,7 +143,7 @@ export const ElectionsProvider = ({ children }) => {
   const loadAllNameElectionsNoConnected = async () => {
     try {
       if (session) return;
-      const response = await axios.get(`${LOCALHOST}/api/elections/allname/offline`)
+      const response = await axios.get(`${API_URL}/api/elections/allname/offline`)
       var elections = response.data;
       setAllNameElections(elections)
     } catch (error) {
@@ -156,7 +156,7 @@ export const ElectionsProvider = ({ children }) => {
   const loadAllNameElectionsConnected = async (userId) => {
     try {
       if (!session) return;
-      const response = await axios.get(`${LOCALHOST}/api/elections/allname/online/${userId}`, {
+      const response = await axios.get(`${API_URL}/api/elections/allname/online/${userId}`, {
           withCredentials: true
         })   
       var elections = response.data;
@@ -171,7 +171,7 @@ export const ElectionsProvider = ({ children }) => {
   const loadAllNameElectionsMember = async (userId) => {
     try {
       if (!session || !auth?.isSuscriber) return;
-      const response = await axios.get(`${LOCALHOST}/api/elections/allname/member/${userId}`, {
+      const response = await axios.get(`${API_URL}/api/elections/allname/member/${userId}`, {
           withCredentials: true
         })   
       var elections = response.data;
