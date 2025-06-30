@@ -1,0 +1,33 @@
+// Utilities
+@use "../../scss/color.scss" as *;
+
+svg {
+    g {
+        fill: none;
+        stroke: none;
+    }
+}
+
+svg:hover {
+    .picto-stroke {
+        stroke: $color-principale;
+    }
+
+    .picto-fill {
+        fill: $color-principale;
+    }
+}
+
+.picto-stroke {
+    fill: none;
+    stroke: $color-sombre;
+    stroke-width: 36px;
+    stroke-linejoin:round;
+    stroke-miterlimit:1.5;
+    
+}
+
+.picto-fill {
+    fill: $color-sombre;
+    stroke-width: 0;
+}

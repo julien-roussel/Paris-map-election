@@ -10,6 +10,9 @@ import styleStats from './stats.module.scss';
 
 // Component
 import ContainerGraphLineBlocs from './ContainerGraphLineBlocs';
+import ContainerGraphBarBlocs from './ContainerGraphBarBlocs';
+import PictoGraphLine from '../picto/PictoGraphLine';
+import PictoGraphBloc from '../picto/PictoGraphBloc';
 
 const ContainerStats = () => {
   // Context
@@ -21,6 +24,7 @@ const ContainerStats = () => {
 
   // State 
   const [isOpen, setIsOpen] = useState(false);
+  const [graphVisible, setGraphVisible] = useState(1);
 
   const toggleVolet = () => {
     if(session && bureauSelected) {
@@ -31,6 +35,8 @@ const ContainerStats = () => {
       }
     } 
   };
+
+
 
   return (
     <section id={styleStats["container-stats"]} className={isOpen ? styleStats["volet-open"] : ''}>
@@ -47,7 +53,23 @@ const ContainerStats = () => {
         </div>
         {(session && bureauSelected && isOpen) && (
           <div id={styleStats["container-graph"]}>
-              <ContainerGraphLineBlocs/>
+            <div id={styleStats["container-nav-graph"]}>
+              <h3 id={styleStats["titre-nav-graph"]}>Graphique :</h3>
+              <div className={styleStats["picto-graph"]} 
+                   onClick={() => setGraphVisible(1)}>
+                <PictoGraphLine />
+              </div>
+              <div className={styleStats["picto-graph"]}
+                   onClick={() => setGraphVisible(2)}>
+                <PictoGraphBloc />
+              </div>
+            </div>
+            <div className={styleStats["container-tab"]}>
+              {graphVisible === 1 && <ContainerGraphLineBlocs/>}
+            </div>
+            <div className={styleStats["container-tab"]}>
+              {graphVisible === 2 && <ContainerGraphBarBlocs/>}
+            </div>
           </div>
         )}
       </div>

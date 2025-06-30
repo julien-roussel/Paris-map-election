@@ -40,7 +40,7 @@
             }
             
             .titre-animation:hover {
-            padding-left: 15px;
+                padding-left: 15px;
                 border-left: 3px solid $color-principale;
             }
         }
@@ -52,12 +52,41 @@
                 width: fit-content !important;
                 max-height: 400px;
                 max-width: 1000px;
-                padding: 40px 0;
+                padding: 0 0 40px 0;
             }
         }
     }
 }
 
+#container-nav-graph {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    height: 6vh;
+
+    #titre-nav-graph {
+        font-family: 'HumaneExtLt', sans-serif;
+        margin: 4px 0 0;
+        font-size: 3.5rem !important;
+    }
+
+    .picto-graph {
+    max-width: 50px;
+    width: 100%;
+    transform: scale(0.9);
+    border-color: $color-principale;
+    transition: 
+        transform 0.3s ease-in-out,
+        border-bottom 0.2s ease-in-out;
+    padding-bottom: 1px;
+
+    &:hover {
+        transform: scale(1);
+        border-bottom: 3px solid $color-principale;
+    }
+}
+}
 
 /* ************************** MEDIA QUERIES ************************** */
 /* ******************************************************************* */
