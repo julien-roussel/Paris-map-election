@@ -39,8 +39,8 @@ const MapParis = () => {
         <meta name="author" content="Julien Roussel" />
         <meta name="viewport" content="width=device-width,initial-scale=1"></meta>
 
-        <div id={stylesMap["container-map"]}>
-            <div id={stylesMap["map-container"]} className="map-image"> 
+        <div id={stylesMap["container-gui"]}>
+            <div id={stylesMap["container-gui-map"]} className="map-image"> 
                 <SelectMode/>
                 <Map departement={departement} />
             </div>

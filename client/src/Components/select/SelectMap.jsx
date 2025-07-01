@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useMap } from "../../context/MapContext"
 import { useElection } from "../../context/ElectionsContext"
 import { useAuth } from "../../context/AuthContext"
+import { useResponsive } from "../../context/ResponsiveContext"
 
 // CSS
 import stylesSelect from './select.module.scss';
@@ -21,6 +22,7 @@ const SelectElection = () => {
             loadElectionMapNoConnected, 
             electionNameSelected } = useElection();
     const { auth, session } = useAuth();  
+    const { messageDepartement } = useResponsive();
 
     // State
     const [allNameArray, setAllNameArray] = useState('');
@@ -57,7 +59,7 @@ const SelectElection = () => {
     <div className={stylesSelect["custom-container-select"]} onClick={handleClick} >
         <div id="mapMenu" className={stylesSelect["custom-select"]}>
             <div className={stylesSelect["custom-select-trigger"]}>
-              {departement ? `${departement} - ${departementInfo?.nom}` : "Sélectionnez un département"}
+              {departement ? `${departement} - ${departementInfo?.nom}` : messageDepartement}
             </div>
             <ul className={isOpen ? (stylesSelect["custom-options"] + ' select-animation activate') : stylesSelect["custom-options"] + ' select-animation'}>
                 {Array.isArray(allNameArray) && allNameArray.map((dept, index) => (

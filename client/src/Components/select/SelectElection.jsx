@@ -4,6 +4,7 @@ import { useParams } from 'react-router'
 // Context
 import { useElection } from "../../context/ElectionsContext"
 import { useAuth } from "../../context/AuthContext"
+import { useResponsive } from "../../context/ResponsiveContext"
 
 // CSS
 import stylesSelect from './select.module.scss';
@@ -20,8 +21,10 @@ const SelectElection = () => {
             loadElectionMapNoConnected,
             electionSelected } = useElection();
     const { auth, session } = useAuth();
+    const { messageElection } = useResponsive();
 
     const [isOpen, setIsOpen] = useState(false);
+    
     
     const handleClick = () => {
         if(!isOpen) { 
@@ -42,7 +45,7 @@ const SelectElection = () => {
     <div className={stylesSelect["custom-container-select"]} onClick={handleClick}>
       <div id="electionMenu" className={stylesSelect["custom-select"]}>
           <div className={stylesSelect["custom-select-trigger"]}>
-            {electionNameSelected[0] ? electionNameSelected[0]?.name : "Sélectionnez une élection"}
+            {electionNameSelected[0] ? electionNameSelected[0]?.name : messageElection}
           </div>
           <ul className={isOpen ? (stylesSelect["custom-options"] + ' select-animation activate') : stylesSelect["custom-options"] + ' select-animation'}>
             {Array.isArray(allNameElections) && allNameElections.map((election, index) => {

@@ -40,11 +40,8 @@ const Map = () => {
     // State 
     const [departementInfo, setDepartementInfo] = useState();
 
-     useEffect(() => {
-        return () => {
-            // Dès que la fenêtre est redimensionner, relancer la function
-            window.addEventListener("resize", handleResize);
-        };
+    useEffect(() => {
+        handleResize(); 
     }, []);
 
     // Charger les bureaux sur la map
@@ -193,7 +190,7 @@ const Map = () => {
                     center={[48.8566, 2.3522]}
                     minZoom={7} zoom={10} maxZoom={15} 
                     scrollWheelZoom={true} 
-                    style={ widthPage > 860 ? {height: "90vh", width: "100%"} : {height: "60vh", width: "100%"}}>
+                    style={ widthPage > 860 ? {height: "90vh", width: "100%"} : {height: "100vh", width: "100%"}}>
 
                     <TileLayer
                         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -204,7 +201,7 @@ const Map = () => {
     }
     
     return (
-        <div>
+        <div id="container-map-graph">
             <MapContainer 
                 center={departementInfo?.pos || [48.8566, 2.3522]}
                 minZoom={7} zoom={10} maxZoom={15} 

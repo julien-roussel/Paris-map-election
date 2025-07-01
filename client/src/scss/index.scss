@@ -2,9 +2,7 @@
 // Utilities
 @use "./color.scss" as *;
 
-html {
-	font-size: 14px;
-}
+html {	font-size: 14px;	}
 
 body, main {
     margin: 0;
@@ -199,6 +197,13 @@ button {
 
 /* ************* LEAFLET MAP ************** */
 
+#container-map-graph {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	height: 90vh;
+}
+
 .leaflet-container {
 	background-color: white !important;
 	
@@ -261,6 +266,18 @@ button {
 		margin: 60px 40px;
 	}
 }
+
+/* ///////////////////////////////////////// 860px //////////////// */
+
+@media screen and (max-width: 860px) {
+	html {	font-size: 12px;	}
+
+	#container-map-graph {
+		height: 60vh;
+	}
+}
+
+
 
 /* ///////////////////////////////////////// 450px //////////////// */
 

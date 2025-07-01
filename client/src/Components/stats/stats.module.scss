@@ -4,18 +4,13 @@
 #container-stats {
     position: relative;
     width: 100%;
-    min-height: 50vh;
-    top: -8.8vh;
+    height: 9vh;
     z-index: 400;
     background-color: white;
     border-top: 2px solid $color-sombre;
     border-right: 2px solid $color-sombre;
     border-top-right-radius: 80px;
-    transition: top 0.2s ease-in-out;
-    
-    &.volet-open {
-        top: -50vh;
-    }
+    transition: height 0.2s ease-in-out;
     
     #marge-stats {
         margin: 0 0 5px;
@@ -95,14 +90,6 @@
 /* ///////////////////////////////////////// 860px //////////////// */
 
 @media screen and (max-width: 860px) {
-	#container-stats {
-        top: -9vh;
-
-        &.volet-open {
-            top: -50vh;
-        }
-	}
-    
     #container-stats #marge-stats #container-graph .graph-stats {
         padding: 0;
         max-height: 1000px;

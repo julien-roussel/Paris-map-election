@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { useElection } from "../../context/ElectionsContext"
 import { useAuth } from "../../context/AuthContext"
 import { useMap } from "../../context/MapContext"
+import { useResponsive } from "../../context/ResponsiveContext"
 
 // CSS
 import styleStats from './stats.module.scss';
@@ -21,6 +22,7 @@ const ContainerStats = () => {
           setBureauDataSelect } = useElection();
   const { auth, session } = useAuth();
   const { bureauSelected } = useMap();  
+  const { containerGuiMap, widthPage, ratioGraph, handleResize } = useResponsive();  
 
   // State 
   const [isOpen, setIsOpen] = useState(false);
@@ -36,10 +38,13 @@ const ContainerStats = () => {
     } 
   };
 
-
+  useEffect(() => {
+    handleResize(); 
+  }, []);
 
   return (
-    <section id={styleStats["container-stats"]} className={isOpen ? styleStats["volet-open"] : ''}>
+    <section  id={styleStats["container-stats"]} 
+              style={isOpen ? { height: `${containerGuiMap * ratioGraph}px` } : {}}>
       <div id={styleStats["marge-stats"]}>
         <div id={styleStats["header-stats"]} onClick={() => toggleVolet()}>
           <h2 id={styleStats["titre-stats"]} 
