@@ -22,14 +22,15 @@ const Login = (dataForm) => {
     const [birthdate, setBirthdate] = useState('');
 
     const formatDate = (date) => {
-        const isoDate = date
-        return isoDate.split('T')[0];
+        if (!date || typeof date !== 'string') return "";
+        const d = new Date(date);
+        return date.split('T')[0];
     };
 
     useEffect(() => {
-        if (auth) {
-            setBirthdate(formatDate(auth?.dateOfBirth))
-        }
+        if (!auth) return;
+        const birthdateFormatted = formatDate(auth?.dateOfBirth);
+        setBirthdate(birthdateFormatted);
 
         setFormData({
             username: auth?.username || "",
@@ -82,6 +83,12 @@ const Login = (dataForm) => {
         event.preventDefault()
         login(user)
     }
+
+    var departements;
+    if(city) departements = Array.from(new Set(city.map(c => c.code?.slice(0, 2))))
+                                .sort()
+                                .map(d => ({ value: d, label: d }));
+
 
     return (
         <section className="container-static container-center">
@@ -146,12 +153,38 @@ const Login = (dataForm) => {
                     ]}
                     select={[
                         {
-                            name: "Ville",
-                            id: "city",
+                            name: "Métier",
+                            id: "metier",
+                            change : profilHandleChange,
                             isRequired: false,
-                            placeholder: formData.city,
-                            change: profilHandleChange,
-                            data: city
+                            placeholder: formData.metier,
+                            selectedValue: formData.metier,
+                            data: metiers?.map(m => ({ value: m.code_metier, label: m.libelle }))
+                        },
+                        {
+                            name: "Département",
+                            id: "departement",
+                            change : profilHandleChange,
+                            isRequired: false,
+                            placeholder: formData.city?.slice(0, 2),
+                            data: departements,
+                            selectedValue: formData.departement,
+                            nextSelect:[
+                                {
+                                    name: "Ville",
+                                    id: "city",
+                                    change : profilHandleChange,
+                                    isRequired: false,
+                                    placeholder: city.find(city => city.code == formData.city)?.nom || "Sélectionnez votre ville*",
+                                    selectedValue: formData.city,
+                                    data:   city?.filter(v => v.code.startsWith(formData.departement)) 
+                                                .sort((a, b) => a.nom.localeCompare(b.nom))
+                                                .map(v => ({
+                                                    value: v.code,
+                                                    label: `${v.nom} (${v.codesPostaux[0]})`
+                                                }))
+                                }
+                            ]
                         }
                     ]}
                 />

@@ -12,6 +12,7 @@ const CustomSelect = ({ id, classN, options, selectedValue, onSelect, placeholde
         onSelect(value);
         setIsOpen(false);
     };
+
   return (
     <div className={classN ? 
                     (classN + ' ' + stylesSelect["custom-container-select"]) 
@@ -20,7 +21,9 @@ const CustomSelect = ({ id, classN, options, selectedValue, onSelect, placeholde
           onClick={() => setIsOpen(!isOpen)} >
         <div id={id && 'select-'+id} className={stylesSelect["custom-select"]}>
             <div className={stylesSelect["custom-select-trigger"]}>
-              {selectedOption?.label.slice(0, 30) || placeholder}
+              {typeof selectedOption?.label === 'string'
+                      ? selectedOption.label.slice(0, 30)
+                      : placeholder}
             </div>
             <ul className={isOpen ? (stylesSelect["custom-options"] + ' select-animation activate') : stylesSelect["custom-options"] + ' select-animation'}>
                 {Array.isArray(options) && options.map((option, index) => (

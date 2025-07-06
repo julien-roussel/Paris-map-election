@@ -35,7 +35,7 @@ const SignUp = () => {
     }, [loading, session, navigate]); 
 
     var departements;
-    if(city) departements = Array.from(new Set(city.map(c => c.code.slice(0, 2))))
+    if(city) departements = Array.from(new Set(city.map(c => c.code?.slice(0, 2))))
                                 .sort()
                                 .map(d => ({ value: d, label: d }));
 
