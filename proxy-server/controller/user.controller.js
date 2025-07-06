@@ -1,6 +1,9 @@
 const ENV = require('../config/env');
 const bcrypt    = require('bcrypt')
 const jwt      = require('jsonwebtoken')
+const fs = require('fs')
+const path = require('path');
+const dirname = path.dirname(__filename);
 const createError = require('../middleware/error')
 const sendEmail = require('../services/nodemailer')
 
@@ -33,15 +36,6 @@ const signUp = async (req, res, next) => {
             const messages = Object.values(error.errors).map(err => err.message);
             return res.status(400).json({ error: messages.join(', ') });
         }
-        next(createError(500, error.message))
-    }
-}
-
-const getAllUser = async(req, res, next) => {
-    try {
-        const result = await Users.find();
-        if(result) res.status(200).json(result);
-    } catch(error) {
         next(createError(500, error.message))
     }
 }
@@ -138,10 +132,10 @@ const login = async (req, res, next) => {
 }
 
 const logout = (req, res) => {
-    res.clearCookie("acces_token", {
+    res.clearCookie("access_token", {
         httpOnly: true,
         sameSite: 'strict',
-        secure: false,
+        secure: true,
     }).status(200).json({ message: "Déconnexion réussie" });
 }
 
@@ -197,9 +191,27 @@ const desactivateUser = async (req, res, next) => {
     }
 }
 
+// Route pour charger les nuances politiques des candidats
+const getAllProfession = async (req, res, next) => {
+    const filepath = path.resolve(dirname, '../parse/json/all_metiers.json');
+      
+    if (!fs.existsSync(filepath)) {
+    return res.status(404).json({ 
+            error: `Fichier all_metiers.json introuvable.` 
+        });
+    }
+
+    try {
+        const raw = fs.readFileSync(filepath, 'utf-8');
+        let data = Object.entries(JSON.parse(raw));
+        res.json(Object.fromEntries(data));
+    } catch (error) {
+        next(createError(500, error.message))
+    }
+}
+
 module.exports = {
     signUp,
-    getAllUser,
     getById,
     verifyUser,
     verifySignUp,
@@ -207,4 +219,5 @@ module.exports = {
     logout,
     updateUser,
     desactivateUser,
+    getAllProfession
 }

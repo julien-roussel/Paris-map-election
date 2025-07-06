@@ -16,8 +16,9 @@ export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState(null);
     const [userId, setUserId] = useState(null);
 
-    // State pour stocker les villes
+    // State pour stocker les villes et les métiers
     const [city, setCity] = useState()
+    const [metiers, setMetiers] = useState([])
 
     // Navigate
     const navigate = useNavigate()
@@ -119,15 +120,30 @@ export const AuthProvider = ({ children }) => {
 
   const loadCity = async () => {
     try {
-      const { data, status } = await axios.get('https://geo.api.gouv.fr/communes?fields=nom,code,codesPostaux&format=json&limit=5000')
-      if(status === 200) setCity(data)
+      const { data, status } = await axios.get('https://geo.api.gouv.fr/communes?fields=nom,code,codesPostaux&format=json')
+      if(status === 200) setCity(data)        
     } catch(error) {
       console.log(error.message);
     }
   };
 
+   // Charger les métiers
+  const loadMetiers = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/users/profession`)
+      const data = response.data;
+      const arbo = data.arbo_principale;
+      var professions = arbo.map(metier => ({ libelle: metier.libelle, code_metier: metier.code_metier }) )
+      //var professions =  professions.concat("Retraité", "Étudiant", "Autre");
+      setMetiers(professions)
+    } catch (error) {
+      console.error('❌ Erreur lors de récupération des données :', error.message);
+    }
+  };
+
   useEffect(() => {
     loadCity();
+    loadMetiers();
   }, []);
   
   return (
@@ -136,6 +152,8 @@ export const AuthProvider = ({ children }) => {
         logout, 
         signUp,
         city,
+        loadMetiers,
+        metiers,
         session, 
         auth, 
         errMsg, 

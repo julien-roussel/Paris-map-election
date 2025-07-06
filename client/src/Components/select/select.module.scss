@@ -66,6 +66,18 @@
     }
 }
 
+form {
+    .custom-container-select {
+        padding: 3px 0 !important;
+        .custom-select {
+            height: 2vh;
+            .custom-options {
+                top:115%;
+            }
+        }
+    }
+}
+
 header {
     .custom-container-select {
         max-width: 250px;

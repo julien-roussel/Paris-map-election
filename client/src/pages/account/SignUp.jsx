@@ -9,7 +9,7 @@ import Card from '../../Components/Composition/Card';
 
 const SignUp = () => {
     // Context
-    const { signUp, auth, session, errMsg, loading, city } = useAuth();
+    const { signUp, auth, session, errMsg, loading, city, metiers, loadMetiers } = useAuth();
 
     // State
     const [etape, setEtape] = useState(false);
@@ -18,11 +18,26 @@ const SignUp = () => {
     // Navigate
     const navigate = useNavigate();
 
+    
+
+    useEffect(() => {
+        loadMetiers();
+    }, [])
+    
+    useEffect(() => {
+        console.log(formData);
+    }, [formData])
+
     useEffect(() => {
         if (loading && !session) {
             navigate("/login");
         }
     }, [loading, session, navigate]); 
+
+    var departements;
+    if(city) departements = Array.from(new Set(city.map(c => c.code.slice(0, 2))))
+                                .sort()
+                                .map(d => ({ value: d, label: d }));
 
     const etapeHandleSubmit = async (event) => { 
         event.preventDefault(); 
@@ -54,19 +69,19 @@ const SignUp = () => {
                 submit={etapeHandleSubmit}
                 input={[
                     {
-                        name: "Username",
+                        name: "Username*",
                         id: "username",
                         change: signUpHandleChange,
                         isRequired: true
                     },
                     {
-                        name: "Email",
+                        name: "Email*",
                         id: "email",
                         change: signUpHandleChange,
                         isRequired: true
                     },
                     {
-                        name: "Mot de passe",
+                        name: "Mot de passe*",
                         id: "password",
                         type: "password",
                         change : signUpHandleChange,
@@ -85,19 +100,19 @@ const SignUp = () => {
             submit={signUpHandleSubmit}
             input={[
                 {
-                    name: "Prénom",
+                    name: "Prénom*",
                     id: "firstname",
                     change: signUpHandleChange,
                     isRequired: true
                 },
                 {
-                    name: "Nom",
+                    name: "Nom*",
                     id: "lastname",
                     change : signUpHandleChange,
                     isRequired: true
                 },
                 {
-                    name: "Date de naissance",
+                    name: "Date de naissance*",
                     id: "dateOfBirth",
                     type: "date",
                     min: "1900-01-01",
@@ -108,12 +123,38 @@ const SignUp = () => {
             ]}
             select={[
                 {
-                    name: "Ville",
-                    id: "city",
+                    name: "Métier",
+                    id: "metier",
                     change : signUpHandleChange,
                     isRequired: true,
-                    placeholder: "Sélectionnez votre ville",
-                    data: city
+                    placeholder: "Votre métier",
+                    selectedValue: formData.metier,
+                    data: metiers.map(m => ({ value: m.code_metier, label: m.libelle }))
+                },
+                {
+                    name: "Département",
+                    id: "departement",
+                    change : signUpHandleChange,
+                    isRequired: true,
+                    placeholder: "Département*",
+                    data: departements,
+                    selectedValue: formData.departement,
+                    nextSelect:[
+                        {
+                            name: "Ville",
+                            id: "city",
+                            change : signUpHandleChange,
+                            isRequired: true,
+                            placeholder: "Sélectionnez votre ville*",
+                            selectedValue: formData.city,
+                            data:   city.filter(v => v.code.startsWith(formData.departement)) 
+                                        .sort((a, b) => a.nom.localeCompare(b.nom))
+                                        .map(v => ({
+                                            value: v.code,
+                                            label: `${v.nom} (${v.codesPostaux[0]})`
+                                        }))
+                        }
+                    ]
                 }
             ]}
             />

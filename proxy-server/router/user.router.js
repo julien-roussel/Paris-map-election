@@ -8,19 +8,20 @@ const UserController = require('../controller/user.controller')
 const UserControllerAdmin = require('../controller/userAdmin.controller')
 
 // User controller
-router.get('/all', UserController.getAllUser)
 router.post('/signup', UserController.signUp)
 router.post('/login', UserController.login)
 router.post('/logout', UserController.logout)
 router.get('/verify/', UserController.verifyUser)
+router.get('/profession', UserController.getAllProfession)
 router.get('/signup/verify/:token', UserController.verifySignUp)
 router.get('/getbyid/:id', verifyToken, UserController.getById)
 router.patch('/update/:id', verifyToken, UserController.updateUser)
 router.put('/desactivate/:id', verifyToken, UserController.desactivateUser)
 
 // Admin controller
+router.get('/all/:id', verifyToken, UserControllerAdmin.getAllUser)
 router.delete('/delete/:id', verifyToken, UserControllerAdmin.deleteUser)
 router.put('/activate/:id', verifyToken, UserControllerAdmin.activateUser)
 
 
-module.exports = router;
+module.exports = router;    

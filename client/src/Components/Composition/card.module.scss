@@ -51,11 +51,25 @@
 
         .select-form {
             padding: 5px 3%;
-            background-color: #efefef;
-            border: 0px solid;
+            background-color: $color-tertiaire;
+            border: 0px solid $color-sombre;
+            width: 96%;
+        }
+        
+        .no-select-form {
+            padding: 5px 3%;
+            background-color: $color-tertiaire;
+            border: 0px solid $color-secondaire;
+            box-shadow: inset 0px 0px 0px 2px $color-secondaire;
+            color: $color-secondaire;
             width: 96%;
         }
     }
+
+    #input-dateOfBirth {    width: 35%;    }
+    #select-departement {    width: 35%;    }
+    #select-city {    width: 65%;    }
+    #select-metier {    width: 65%;    }
 }
 
 #textArea-message, #input-titre, #select-objet {

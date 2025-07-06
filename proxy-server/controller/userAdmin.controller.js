@@ -5,6 +5,21 @@ const verifyAdmin = require('../middleware/authAdmin')
 // Model
 const Users     = require('../models/user.model');
 
+const getAllUser = async(req, res, next) => {
+    try {
+        verifyAdmin(req, res, next);
+        
+        // Trouver si l'utilisateur existe 
+        const user = await Users.findById(req.params.id);
+        if(!user) return next(createError(404, 'User not found'))
+
+        const result = await Users.find();
+        if(result) res.status(200).json(result);
+    } catch(error) {
+        next(createError(500, error.message))
+    }
+}
+
 const activateUser = async (req, res, next) => {
     try {
         verifyAdmin(req, res, next);
@@ -43,6 +58,7 @@ const deleteUser = async (req, res, next) => {
 }
 
 module.exports = {
+    getAllUser,
     activateUser,
     deleteUser,
 }

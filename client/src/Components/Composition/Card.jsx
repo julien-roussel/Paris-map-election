@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 // CSS
 import stylesCard from './card.module.scss';
+import stylesSelect from '../select/select.module.scss'
 
 // Component
 import Input from './Input';
 import TextArea from './TextArea';
+import CustomSelect from '../select/CustomSelect';
 
 const Card = ({ title, subtitle, 
                 linkName, link, 
@@ -35,22 +37,39 @@ const Card = ({ title, subtitle,
             ))}
             {Array.isArray(select) && select.map((select, index) => {
                 const data = select?.data;
+                const [etape, setEtape] = useState(false); 
+                const ArrayNextSelect = select.nextSelect
                 
                 return (
-                    <div key={index} id={stylesCard["select-" + select.id]} className={stylesCard.formInput}>
-                        <label htmlFor={select.id} >Adresse</label>
-                        <select 
-                            className={stylesCard["select-form"]}
+                    <>
+                    <div key={index} id={select.id && stylesCard["select-" + select.id]} 
+                        className={stylesCard.formInput && stylesCard.formInput}>
+                        <label htmlFor={select.id} >{select.name}</label>
+                        <CustomSelect
                             id={select.id}
-                            onChange={select.change}
-                            required={select.isRequired ? true : false}
-                        >
-                            <option value="">{select.placeholder && select.placeholder}</option>
-                            {Array.isArray(data) && data.map((data, index) => ( 
-                                <option key={index} value={data.nom && data.nom}>{data.nom && data.nom}</option>
-                            ))}
-                        </select>
+                            classN={stylesCard["select-form"]}
+                            options={data}
+                            onSelect={(value) => select.change({ target: { id: select.id, value } })}
+                            selectedValue={select.selectedValue && select.selectedValue}
+                            placeholder={select.placeholder && select.placeholder}
+                        />
                     </div>
+                    {Array.isArray(ArrayNextSelect) && ArrayNextSelect.map((nextSelect, index) => (
+                            <div key={index} id={stylesCard["select-" + nextSelect.id]} 
+                                className={stylesCard.formInput + ' ' + stylesSelect["selectForm"]}>
+                                <label htmlFor={nextSelect.id} >{nextSelect.name}</label>
+                                <CustomSelect
+                                    id={nextSelect.id}
+                                    classN={select.selectedValue ? stylesCard["select-form"] : stylesCard["no-select-form"]}
+                                    options={nextSelect.data}
+                                    onSelect={(value) => nextSelect.change({ target: { id: nextSelect.id, value } })}
+                                    selectedValue={nextSelect.selectedValue && nextSelect.selectedValue}
+                                    placeholder={nextSelect.placeholder && nextSelect.placeholder}
+                                />
+                            </div>
+                        )
+                    )}
+                    </>
                 )})
             }
             {Array.isArray(textArea) && textArea.map((textArea, index) => (
