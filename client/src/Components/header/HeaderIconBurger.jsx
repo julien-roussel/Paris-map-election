@@ -24,13 +24,12 @@ const HeaderIconBurger = (props) => {
             <path d="M2 12H27.5M2 2H27.5M2 22H27.5" />
         </svg>
         <div id="container-burger-menu" className={burgerMenu ? 'activate' : ''}>
-            <Link to='/'><div>Home</div></Link>
-            <hr></hr>
-            <Link to='/analyse-map'><div>Carte</div></Link>
-            <hr></hr>
-            <Link to='/about'><div>À propos</div></Link>
-            <hr></hr>
-            <Link to='/login'><div>{session ? 'Compte' : 'Login'}</div></Link>
+            <div className='container-menu'>
+                <Link to='/'><div>Home</div></Link>
+                <Link to='/analyse-map'><div>Carte</div></Link>
+                <Link to='/about'><div>À propos</div></Link>
+                <Link to='/login'><div>{session ? 'Compte' : 'Login'}</div></Link>
+            </div>
         </div>  
     </div>
   )

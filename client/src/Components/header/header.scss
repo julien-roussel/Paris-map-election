@@ -53,26 +53,35 @@ header {
 
     #container-burger-menu {
         display: none;
-        position: absolute;
-        top: 0;
+        position:absolute;
+        top: 5vh;
         left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 501;
-
-        flex-direction: column;
+        z-index: 502;
+        //gap: 20px;
+        justify-content:center;
         align-items: center;
-        justify-content: center;
-        gap: 40px;
-        padding: 30px 0;
+        width: 100%;
+        height: 5vh;
+        margin-top: 0;
+        font-weight: 502;
         background-color: white;
+        border-top: 2px solid $color-sombre;
+        border-bottom: 2px solid $color-sombre;
+        
+        .container-menu {
+            display: flex;
+            justify-content:space-between;
+            align-items: center;
+            gap: 30px;
+            cursor: pointer;
+        }
         
         &.activate {
             display: flex;
         }
         
         a {
-            font-size: 2rem; 
+            font-size: 1rem; 
             line-height: 1; 
             text-decoration: none;
             color: $color-sombre;
