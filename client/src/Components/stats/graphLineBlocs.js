@@ -54,6 +54,12 @@ function generateLineGraph(results, allNameElections, nuancePolitique, widthPage
         datasets: []
     };
 
+    // 0. Récupérer la série "Inscrits"
+    const InscritsData = electionsName.map(electionKey => {
+        const abst = results[electionKey]?.meta.Inscrits;
+        return abst ?? 0;
+    });
+
     // 1. Extraire toutes les tendances uniques à partir de nuancePolitique
     const tendancesMap = {};
     Object.values(nuancePolitique).forEach(nuance => {
@@ -94,13 +100,20 @@ function generateLineGraph(results, allNameElections, nuancePolitique, widthPage
 
 
     // 4. Transformer en datasets Chart.js
-    Object.values(tendancesMap).forEach(tendance => {
-        data.datasets.push({
-            label: tendance.label,
-            data: tendance.data,
-            borderColor: tendance.color || '#000000',
-            fill: false
+    Object.entries(tendancesMap).forEach(([key, parti]) => {
+        const visible = parti.data.some((voix, index) => {
+            const inscrits = InscritsData[index];
+            return inscrits > 0 && (voix / inscrits) >= 0.015;
         });
+
+        if (visible || key === "Abstention") {
+            data.datasets.push({
+                label: parti.label,
+                data: parti.data,
+                borderColor: parti.color || '#000000',
+                fill: false
+            });
+        }
     });
 
     // 5. Récupérer le max voix

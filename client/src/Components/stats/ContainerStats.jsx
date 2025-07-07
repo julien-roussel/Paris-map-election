@@ -12,8 +12,14 @@ import styleStats from './stats.module.scss';
 // Component
 import ContainerGraphLineBlocs from './ContainerGraphLineBlocs';
 import ContainerGraphBarBlocs from './ContainerGraphBarBlocs';
+import ContainerGraphBarBlocLeft from './ContainerGraphBarBlocLeft';
+import ContainerGraphBarBlocCenter from './ContainerGraphBarBlocCenter';
+import ContainerGraphBarBlocRight from './ContainerGraphBarBlocRight';
 import PictoGraphLine from '../picto/PictoGraphLine';
 import PictoGraphBloc from '../picto/PictoGraphBloc';
+import PictoGraphBlocLeft from '../picto/PictoGraphBlocLeft';
+import PictoGraphBlocCenter from '../picto/PictoGraphBlocCenter';
+import PictoGraphBlocRight from '../picto/PictoGraphBlocRight';
 
 const ContainerStats = () => {
   // Context
@@ -60,13 +66,30 @@ const ContainerStats = () => {
           <div id={styleStats["container-graph"]}>
             <div id={styleStats["container-nav-graph"]}>
               <h3 id={styleStats["titre-nav-graph"]}>Graphique :</h3>
-              <div className={styleStats["picto-graph"]} 
+              <div id={graphVisible === 1 && styleStats["picto-graph-active"]} 
+                   className={styleStats["picto-graph"]} 
                    onClick={() => setGraphVisible(1)}>
                 <PictoGraphLine />
               </div>
-              <div className={styleStats["picto-graph"]}
+              <div id={graphVisible === 2 && styleStats["picto-graph-active"]} 
+                   className={styleStats["picto-graph"]}
                    onClick={() => setGraphVisible(2)}>
                 <PictoGraphBloc />
+              </div>
+              <div id={graphVisible === 3 && styleStats["picto-graph-active"]} 
+                   className={styleStats["picto-graph"]}
+                   onClick={() => setGraphVisible(3)}>
+                <PictoGraphBlocLeft />
+              </div>
+              <div id={graphVisible === 4 && styleStats["picto-graph-active"]} 
+                   className={styleStats["picto-graph"]}
+                   onClick={() => setGraphVisible(4)}>
+                <PictoGraphBlocCenter />
+              </div>
+              <div id={graphVisible === 5 && styleStats["picto-graph-active"]} 
+                   className={styleStats["picto-graph"]}
+                   onClick={() => setGraphVisible(5)}>
+                <PictoGraphBlocRight />
               </div>
             </div>
             <div className={styleStats["container-tab"]}>
@@ -74,6 +97,15 @@ const ContainerStats = () => {
             </div>
             <div className={styleStats["container-tab"]}>
               {graphVisible === 2 && <ContainerGraphBarBlocs/>}
+            </div>
+            <div className={styleStats["container-tab"]}>
+              {graphVisible === 3 && <ContainerGraphBarBlocLeft/>}
+            </div>
+            <div className={styleStats["container-tab"]}>
+              {graphVisible === 4 && <ContainerGraphBarBlocCenter/>}
+            </div>
+            <div className={styleStats["container-tab"]}>
+              {graphVisible === 5 && <ContainerGraphBarBlocRight/>}
             </div>
           </div>
         )}

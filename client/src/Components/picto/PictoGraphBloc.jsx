@@ -3,7 +3,7 @@ import React from 'react'
 // CSS
 import stylePicto from './picto.module.scss';
 
-const PictoGraphLine = () => {
+const PictoGraphBloc = () => {
   return (
     <svg width="100%" height="100%" viewBox="0 0 636 632" version="1.1">
         <g transform="matrix(0.260995,0,0,0.561579,0,0)">
@@ -33,4 +33,4 @@ const PictoGraphLine = () => {
   )
 }
 
-export default PictoGraphLine
+export default PictoGraphBloc

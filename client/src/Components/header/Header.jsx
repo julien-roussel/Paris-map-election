@@ -32,7 +32,7 @@ const Header = () => {
         <Link to='/'><div>Home</div></Link>
         <Link to='/analyse-map'><div>Carte</div></Link>
         <Link to='/about'><div>À propos</div></Link>
-        <Link to='/login'><div>{session ? 'Compte' : 'Login'}</div></Link>
+        <Link to='/login'><div>{session ? 'Compte' : 'Connexion'}</div></Link>
       </nav>
       <HeaderIconBurger 
         onclick={handleClick}

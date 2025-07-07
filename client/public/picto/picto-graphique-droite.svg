@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 636 632" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-1490.41,-731.251)">
+        <g id="Plan-de-travail1" serif:id="Plan de travail1" transform="matrix(0.260995,0,0,0.561579,1490.41,731.251)">
+            <rect x="0" y="0" width="2436" height="1125" style="fill:none;"/>
+            <clipPath id="_clip1">
+                <rect x="0" y="0" width="2436" height="1125"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(3.83149,0,0,1.78069,19.8168,0)">
+                    <path d="M575.36,593.107L38.921,593.107L38.921,66.563" style="fill:none;stroke:black;stroke-width:36px;"/>
+                </g>
+                <g transform="matrix(3.02998,0,0,3.25127,-667.236,-1539.6)">
+                    <rect x="354.937" y="610.07" width="157.899" height="155.61"/>
+                </g>
+                <g transform="matrix(3.02998,0,0,1.94713,-62.91,-541.056)">
+                    <rect x="354.937" y="610.07" width="157.899" height="155.61"/>
+                </g>
+                <g transform="matrix(3.02998,0,0,2.64648,548.237,-1076.53)">
+                    <rect x="354.937" y="610.07" width="157.899" height="155.61"/>
+                </g>
+                <g transform="matrix(3.83149,0,0,1.78069,-2759.72,-1250.04)">
+                    <g transform="matrix(1,-0,-0,1,720.273,701.994)">
+                        <path d="M474.38,235.798L528.38,181.798L474.38,127.798" style="fill:none;stroke:black;stroke-width:36px;stroke-linejoin:miter;stroke-miterlimit:10;"/>
+                        <path d="M528.38,181.798L128.996,181.798" style="fill:none;stroke:black;stroke-width:36px;"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

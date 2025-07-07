@@ -66,21 +66,26 @@
         font-size: 3.5rem !important;
     }
 
+    
     .picto-graph {
-    max-width: 50px;
-    width: 100%;
-    transform: scale(0.9);
-    border-color: $color-principale;
-    transition: 
+        max-width: 50px;
+        width: 100%;
+        transform: scale(0.9);
+        border-color: $color-principale;
+        transition: 
         transform 0.3s ease-in-out,
         border-bottom 0.2s ease-in-out;
-    padding-bottom: 1px;
-
-    &:hover {
-        transform: scale(1);
+        padding-bottom: 1px;
+        
+        &:hover {
+            transform: scale(1);
+            border-bottom: 3px solid $color-principale;
+        }
+    }
+    
+    #picto-graph-active {
         border-bottom: 3px solid $color-principale;
     }
-}
 }
 
 /* ************************** MEDIA QUERIES ************************** */
