@@ -16,7 +16,7 @@ const contactRouter = require('./router/contact.router')
 
 
 // CONNEXION MONGO
-connectMongoDB(ENV.MONGO_URI, ENV.DB_NAME)
+connectMongoDB(ENV.MONGO_HOST, ENV.MONGO_DB_NAME, ENV.MONGO_USERNAME, ENV.MONGO_PASSWORD)
 
 // MIDDLEWARES
 app.use(cors({

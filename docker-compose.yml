@@ -1,0 +1,49 @@
+services:
+  client:
+    build: ./docker/node
+    volumes:
+      - ./client:/client
+    working_dir: /client
+    ports: 
+      - ${HTTP_CLIENT_PORT}:${HTTP_CLIENT_PORT}
+    env_file:
+      - .env
+    environment:
+      VITE_API_URL: ${DOMAIN_APP_BACK}
+    networks:
+      - exterior
+    command: npm run dev -- --host --port ${HTTP_CLIENT_PORT}
+
+  proxy-server:
+    build: ./docker/node
+    volumes:
+      - ./proxy-server:/proxy-server
+    working_dir: /proxy-server
+    ports: 
+      - ${HTTP_SERVER_PORT}:${HTTP_SERVER_PORT}
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    networks:
+      - db
+      - exterior
+    command: npm start
+
+  mongodb:
+    image: mongo:bionic
+    volumes:
+      - ./mongodb/mongod.conf:/etc/mongod.conf
+      - ./mongodb/data/db/:/data/db/
+      - ./mongodb/data/log/:/var/log/mongodb/
+      - ./mongodb/initdb.d/:/docker-entrypoint-initdb.d/
+    env_file:
+      - .env
+    networks:
+      - db
+
+networks:
+  db:
+    internal: true
+  exterior:
+    internal: false

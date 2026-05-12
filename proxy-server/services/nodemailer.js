@@ -7,8 +7,8 @@ const transporter = nodemailer.createTransport({
     port: 587, 
     secure: false, // Pour le protocole SSL qui est obsolète
     auth: {
-        user: ENV.EMAIL_USER,
-        pass: ENV.EMAIL_PASS,
+        user: ENV.EMAIL_SENDER_USER,
+        pass: ENV.EMAIL_SENDER_PASS,
     }
 });
 
@@ -18,7 +18,7 @@ const sendEmail = async (user, verifyToken) => {
 
     try {
         await transporter.sendMail({
-            from: ENV.EMAIL_USER,
+            from: ENV.EMAIL_SENDER_USER,
             to: user.email,
             subject: "Inscription SuffraMap - Vérifier votre mail",
             html: ` <h1>Hello ${user.username},</h1><br/>

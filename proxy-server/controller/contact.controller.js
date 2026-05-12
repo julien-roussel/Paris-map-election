@@ -32,14 +32,14 @@ const postContact = async (req, res, next) => {
             port: 587, 
             secure: false, // Pour le protocole SSL qui est obsolète
             auth: {
-                user: ENV.EMAIL_USER,
-                pass: ENV.EMAIL_PASS,
+                user: ENV.EMAIL_SENDER_USER,
+                pass: ENV.EMAIL_SENDER_PASS,
             }
         });
 
         await transporter.sendMail({
             from: `"${user.firstname} ${user.lastname}" <${user.email}>`,
-            to: process.env.EMAIL_USER,
+            to: process.env.EMAIL_CONTACT,
             subject: `"Form contact : ${user.username} / ${objet}"`,
             html: ` <h1>Form contact</h1><br/>
                     <h2>Message de ${user.firstname} ${user.lastname}</h2><br/>

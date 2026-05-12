@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
     if(!token) return next(createError(401, 'Access denied !'))
     
     // Vérifier la validité du token
-    jwt.verify(token, ENV.TOKEN, (error, user) => {
+    jwt.verify(token, ENV.JWT_TOKEN, (error, user) => {
         // Si une erreur se produit
         if (error) return next(createError(403, 'Token non valide !', error.message))
         // Si token valide :

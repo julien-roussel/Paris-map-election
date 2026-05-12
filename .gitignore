@@ -23,7 +23,6 @@ dist-ssr/
 .env.local
 
 # --- PACKAGE LOCKS ---
-package-lock.json
 pnpm-lock.yaml
 yarn.lock
 
@@ -50,3 +49,5 @@ proxy-server/json/
 
 # --- AUTRES ---
 _AUTRES/
+
+mongodb/data

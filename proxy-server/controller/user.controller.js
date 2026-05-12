@@ -8,7 +8,7 @@ const createError = require('../middleware/error')
 const sendEmail = require('../services/nodemailer')
 
 // Model
-const Users     = require('../models/user.model');
+const Users = require('../models/user.model');
 
 const signUp = async (req, res, next) => {
     try {
@@ -21,7 +21,7 @@ const signUp = async (req, res, next) => {
             password: passwordHashed
         });
 
-        const token = jwt.sign({ id: user._id}, ENV.TOKEN, { expiresIn: "5m"})
+        const token = jwt.sign({ id: user._id}, ENV.JWT_TOKEN, { expiresIn: "5m"})
 
         // Envoie d'un mail de confirmation
         console.log("Tentative d'envoi de mail à :", user.email)
@@ -45,7 +45,7 @@ const verifyUser = async (req, res, next) => {
     if (!token) return res.status(401).json({ error: "Non authentifié" });
 
     try {
-        const decoded = jwt.verify(token, ENV.TOKEN);
+        const decoded = jwt.verify(token, ENV.JWT_TOKEN);
         res.status(200).json({ message: "Utilisateur connecté", userId: decoded.id });
     } catch (error) {
         next(createError(500, error.message))
@@ -57,7 +57,7 @@ const verifySignUp = async (req, res, next) => {
     if (!token) return res.status(401).json({ error: "Token absent" });
 
     try {
-        const decoded = jwt.verify(token, ENV.TOKEN);
+        const decoded = jwt.verify(token, ENV.JWT_TOKEN);
         const user = await Users.findByIdAndUpdate(decoded.id, { isVerified: true }, { new: true });
 
         if (!user) {
@@ -108,7 +108,7 @@ const login = async (req, res, next) => {
         // Générer un token 
         const token = jwt.sign(
             {   id: user._id    },
-            ENV.TOKEN,
+            ENV.JWT_TOKEN,
             {   expiresIn: "24h"    }
         )
 
